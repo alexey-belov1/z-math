@@ -1,0 +1,48 @@
+
+<p class="content-title">Регистрация</p>
+<hr>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <table >
+
+    <tr class="">
+      <th>Логин:</th>
+      <td>
+        <input type="text" formControlName="login">
+      </td>
+    </tr>
+
+    <tr>
+      <th>Пароль:</th>
+      <td>
+        <input type="password" formControlName="password">
+      </td>
+    </tr>
+
+    <tr>
+      <th>Пароль еще раз:</th>
+      <td>
+        <input type="password" formControlName="confirmPassword">
+      </td>
+    </tr>
+
+    <tr>
+      <th>E-mail:</th>
+      <td>
+        <input type="email" formControlName="email">
+      </td>
+    </tr>
+
+    <tr>
+      <th></th>
+      <td>
+        <button
+          type="submit"
+          [disabled]="form.invalid || submitted"
+        >Отправить</button>
+      </td>
+    </tr>
+
+
+  </table>
+</form>

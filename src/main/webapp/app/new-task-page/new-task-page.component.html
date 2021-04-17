@@ -1,0 +1,101 @@
+<p class="content-title">Оформление заказа!</p>
+<hr>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <table>
+    <tr>
+      <th>Раздел*:</th>
+      <td>
+        <select (mouseover)="setVisibility('item1')" (mouseout)="setHidden('item1')" formControlName="subject">
+          <option *ngFor="let subject of subjects">{{subject.name}}</option>
+        </select>
+        <span id="item1" class="comment">
+          Выберите раздел математики (или программирования), по которому необходимо решить задачи. Если Вы не нашли интересующий раздел выберите пункт "Остальное"
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Дата решения*:</th>
+      <td>
+        <input type="date" (mouseover)="setVisibility('item2')" (mouseout)="setHidden('item2')" formControlName="date">
+        <span id="item2" class="comment">
+          Укажите дату когда хотите получить решение задач. Если при выборе даты в Вашем браузере не отображается календарь, то дату необходимо указать в формате гггг-мм-дд
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Время решения*: <br> (московское время)</th>
+      <td>
+        <select (mouseover)="setVisibility('item3')" (mouseout)="setHidden('item3')" formControlName="time">
+          <option *ngFor="let time of times">{{time | number: '2.0'}}:00</option>
+        </select>
+        <span id="item3" class="comment">
+          Укажите время когда хотите получить решение задач (указывается московское время)
+        </span>
+      </td>
+
+    </tr>
+
+    <tr>
+      <th>Стоимость*:</th>
+      <td>
+        <input type="text" (mouseover)="setVisibility('item4')" (mouseout)="setHidden('item4')" formControlName="cost">
+        <span id="item4" class="comment">
+          Укажите примерную стоимость, на которую Вы рассчитываете.
+        </span>
+      </td>
+    </tr>
+
+
+    <tr>
+      <th>Условия задач*:</th>
+      <td>
+        <input type="file" (mouseover)="setVisibility('item5')" (mouseout)="setHidden('item5')" formControlName="file">
+        <!--accept=".doc,.docx,.txt,.pdf,.jpg,.gif,.png,.rar,.zip,.7z", required = "required"-->
+        <span id="item5" class="comment">
+          В прикрепленном файле должны содержаться условия задач. Файл не должен превышать 25 МБ и должен иметь одно из расширений - DOC, DOCX, TXT, PDF, JPG, GIF, PNG, RAR, ZIP, 7Z
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="vertical-align">Дополнительная <br> информация:</th>
+      <td>
+        <textarea (mouseover)="setVisibility('item6')" (mouseout)="setHidden('item6')" formControlName="comment"></textarea>
+        <span id="item6" class="comment">
+          Укажите дополнительную информацию по Вашему заказу (какой вариант необходимо решить, номера задач, требования к оформлению и т.д.). Поле необязательное для заполнения
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <th class="vertical-align">Контактная <br>информация:</th>
+
+      <td>
+        <textarea (mouseover)="setVisibility('item7')" (mouseout)="setHidden('item7')" formControlName="contact"></textarea>
+        <span id="item7" class="comment"> Укажите возможную контактную информацию для связи с Вами (skype, icq, vk и т.д.). Дананя информация может быть использована при необходимости уточнения условий по Вашему заказу. Контакты будут доступны только администрации сайта. Поле необязательное для заполнения</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <span class="font14">
+          <i>* - поля обязательные для заполнения</i>
+        </span>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td>
+        <button>Отправить</button>
+      </td>
+    </tr>
+
+  </table>
+
+</form>

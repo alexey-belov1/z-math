@@ -1,0 +1,41 @@
+/*Форма регистрации*/
+table {
+  border: none;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 13px 10px 13px 10px;
+}
+
+th {
+  text-align: right;
+  vertical-align: top;
+  font-style: italic;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+input {
+  padding-left: 3px;
+  min-width: 175px;
+  min-height: 20px;
+  border: solid 1px #656565;
+  background-color: rgba(234, 234, 234, 0.74);
+  font-size: 13px;
+}
+
+td span {
+  font-size:11px;
+  font-style:italic;
+  color:#747474;
+}
+
+button {
+  border: solid 1px #868686;
+  min-width: 90px;
+  min-height: 22px;
+  border-radius: 3px;
+  background-image: linear-gradient(to top, #585858, #888888);
+  color: white;
+}

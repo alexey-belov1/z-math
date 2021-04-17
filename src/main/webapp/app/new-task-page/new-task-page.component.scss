@@ -1,0 +1,61 @@
+th {
+  font-weight: normal;
+  font-style: italic;
+  font-size: 15px;
+  text-align: right;
+}
+
+td {
+  font-size: 13px;
+  padding: 13px;
+}
+
+input[type="text"], input[type="date"], select, textarea {
+  background-color: rgba(234, 234, 234, 0.74);
+}
+
+input[type="text"], input[type="date"], select {
+  min-width: 175px;
+  min-height: 20px;
+  border: solid 1px #656565;
+  padding-left: 3px;
+}
+
+textarea {
+  min-width: 350px;
+  height: 80px;
+}
+
+button {
+  border: solid 1px #868686;
+  min-width: 90px;
+  min-height: 22px;
+  border-radius: 3px;
+  background-image: linear-gradient(to top, #585858, #888888);
+  color: white;
+}
+
+.comment {
+  position:absolute;
+  width:300px;
+  font-size: 12px;
+  background: rgb(95, 95, 95);
+  color:white;
+  border: solid 1px #000000;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  visibility: hidden;
+}
+
+.visibility {
+  visibility: visible;
+}
+
+.font14 {
+  font-size: 14px;
+}
+
+.vertical-align {
+  padding-top: 13px;
+  vertical-align: top;
+}

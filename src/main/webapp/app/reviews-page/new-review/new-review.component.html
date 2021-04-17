@@ -1,0 +1,23 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <table>
+
+    <tr>
+      <td class="title">Оставить отзыв:</td>
+    </tr>
+
+    <tr>
+      <td>
+        <textarea type="text" formControlName="text"></textarea>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <button
+          type="submit"
+        >Отправить</button>
+      </td>
+    </tr>
+
+  </table>
+</form>

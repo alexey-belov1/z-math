@@ -1,0 +1,45 @@
+  <p class="content-title">Список задач</p>
+  <hr>
+
+  <p>В этом разделе находится список всех задач, решаемых в системе. Перед оформлением нового заказа, пожалуйста, ознакомтесь с <a [routerLink]="['/rules']">правилами оформления заказов</a>.</p>
+
+  <table>
+    <tr>
+      <th> № заказа</th>
+      <th> Заказчик</th>
+      <th> Статус</th>
+      <th> Цена, руб</th>
+      <th> Срок</th>
+      <th> Раздел</th>
+    </tr>
+    <ng-container *ngFor="let task of tasks, index as i">
+
+      <ng-container *ngIf="toggle[i] == true; then full else info">
+      </ng-container>
+
+      <ng-template #full>
+        <tr [@long-enter] (click)="changeToggle(i)">
+          <td>{{task.id}}</td>
+          <td>{{task.user.login}}</td>
+          <td>{{task.status.name}}</td>
+          <td>{{task.cost}}</td>
+          <td>{{task.deadline | date: 'hh:mm dd.MM'}}</td>
+          <td>{{task.subject.name}}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template #info>
+        <tr [@long-enter] (click)="changeToggle(i)">
+          <td colspan="6">
+            <app-info [task]="task"></app-info>
+          </td>
+        </tr>
+      </ng-template>
+
+<!--      <tr class="hidden-content" id="{{getItem(i)}}">
+        <td colspan="6">
+          <app-info [task]="task"></app-info>
+        </td>
+      </tr>-->
+    </ng-container>
+  </table>

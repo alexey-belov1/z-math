@@ -1,0 +1,126 @@
+/* Список задач */
+table {
+  min-width:970px;
+  text-align: center;
+  border-collapse: collapse;
+  font-size: 14px;
+  width: 100%;
+  border: 2px solid white;
+}
+
+tr {
+  cursor: pointer;
+}
+
+th {
+  background-color:#c7c7c7;
+  font-weight:700;
+  height: 30px;
+}
+
+tr:nth-child(2n) {
+  background-color: rgba(200,198,195,0.35);
+  height: 30px;
+}
+
+td {
+  padding: 2px 7px 2px 7px;
+}
+
+td, th {
+  border: 1px solid rgba(181,179,176,0.65); /* Параметры рамки */
+}
+
+
+td img{
+  vertical-align:baseline;
+}
+
+.tasks_comment {
+  position: absolute;
+  width:300px;
+  font-size: 12px;
+  background: rgb(95, 95, 95);
+  color:white;
+  border: solid 1px #000000;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  display: none;
+}
+
+.tasks_status_comment {
+  position: fixed;
+  width:300px;
+  font-size: 12px;
+  background: rgb(95, 95, 95);
+  color:white;
+  border: solid 1px #000000;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  visibility:hidden;
+}
+
+.tasks_adm_status {
+  float: left;
+  background: #f0faff;
+  color:#000000;
+  border: 1px solid #0f0a0a;
+  font-size: 10px;
+  padding: 1px;
+  width: 70px;
+  border-radius: 3px;
+}
+
+.tasks_adm_button {
+  float: right;
+  border-radius: 3px;
+  font-size: 10px;
+  border: 1px solid #000000;
+  background: #ffe242;
+}
+
+.tasks_adm_filesolve {
+  float: left;
+  position: relative;/* Для того, чтобы спозиционировать input относительно контейнера. */
+  overflow: hidden;/* Скрываем неумещающуюся часть input-а. */
+  background: #e3e3e3;
+  color:#000000;
+  border: 1px solid #0f0a0a;
+  font-size: 10px;
+  text-align: center;
+  padding: 1px;
+  width: 100px;
+  line-height: 1.2em;
+  border-radius: 3px;
+}
+
+.tasks_adm_filesolve input[type=file] {
+
+  position: absolute; /* Позиционируем правый верхний край input поверх нашего контейнера.Правый верхний потому как именно там у нас кнопка. */
+  top: 0; right: 0;
+  font-size: 30px; /* Делаем input побольше, чтобы он точно перекрыл контейнер. */
+  opacity: 0; /* Делаем input невидимым. По-другому нельзя, иначе браузер не будет на него реагировать. */
+  filter: alpha(opacity=0);
+  /*  Украшательства: */
+  cursor: pointer;
+}
+
+.tasks_adm_cost {
+  float: left;
+  background: #f0faff;
+  color:#000000;
+  border: 1px solid #0f0a0a;
+  font-size: 11px;
+  padding: 1px;
+  width: 40px;
+  border-radius: 1px;
+}
+
+.hidden-content {
+  display: none
+}
+
+.visibility {
+  display: table-row;
+  height: 30px;
+}

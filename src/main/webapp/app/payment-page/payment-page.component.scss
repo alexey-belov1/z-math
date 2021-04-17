@@ -1,0 +1,60 @@
+/*Форма оплаты*/
+.payment_table {
+  border: none;
+  border-collapse: collapse;
+}
+
+.payment_tr {
+}
+
+.payment_td {
+  padding: 13px 10px 13px 10px;
+}
+
+.payment_td_name {
+  text-align: right;
+  vertical-align: top;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.payment_input_width {
+  padding-left: 3px;
+  width: 190px;
+  min-height: 20px;
+  border: solid 1px #656565;
+  background-color: rgba(234, 234, 234, 0.74);
+  font-size: 13px;
+}
+
+.payment_input_width_com_con {
+  min-width: 350px;
+  height: 80px;
+  vertical-align: top;
+}
+
+.payment_send {
+  border: solid 1px #868686;
+  min-width: 90px;
+  min-height: 22px;
+  border-radius: 3px;
+  background-image: linear-gradient(to top, #585858, #888888);
+  color: white;
+}
+
+.payment_comment{
+  position:absolute;
+  width:300px;
+  font-size: 12px;
+  background: rgb(95, 95, 95);
+  color:white;
+  border: solid 1px #000000;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  visibility: hidden;
+}
+
+.payment_required {
+  font-size: 14px;
+  font-style: italic;
+}
