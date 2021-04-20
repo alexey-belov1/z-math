@@ -23,11 +23,16 @@
 
     <dependencies>
 
-<!--        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.13</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>42.2.13</version>
+                </dependency>-->
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
@@ -75,6 +80,32 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.8.8</version>
+                <executions>
+                    <execution>
+                        <id>mapping</id>
+                        <configuration>
+                            <changeLogFile>${basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
+                            <url>${db.url}</url>
+                            <driver>${db.driver}</driver>
+                            <username>${db.username}</username>
+                            <password>${db.password}</password>
+                        </configuration>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <profiles>
         <profile>
             <id>dev</id>
@@ -92,7 +123,13 @@
                     <optional>true</optional>
                 </dependency>
             </dependencies>
+
+            <properties>
+                <db.url>jdbc:mysql://localhost:3306/zmath?serverTimezone=UTC</db.url>
+                <db.username>root</db.username>
+                <db.password>12345</db.password>
+                <db.driver>com.mysql.jdbc.Driver</db.driver>
+            </properties>
         </profile>
     </profiles>
-
 </project>

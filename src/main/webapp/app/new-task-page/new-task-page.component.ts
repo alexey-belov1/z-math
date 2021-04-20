@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SubjectService} from '../shared/services/subject.service';
-import {Subject, Task, User} from '../shared/interfaces';
+import {Subject, Task } from '../shared/interfaces';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TaskService} from '../shared/services/task.service';
 import {Router} from '@angular/router';
@@ -106,7 +106,7 @@ export class NewTaskPageComponent implements OnInit {
     };
 
     console.log(task);
-
+    console.log('this temp', temp);
     this.taskService.save(temp).subscribe(() => {
       this.router.navigate(['/tasks']);
     }, () => {
