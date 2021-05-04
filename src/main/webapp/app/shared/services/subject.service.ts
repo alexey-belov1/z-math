@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Subject} from '../interfaces';
+import {ISubject} from '../interfaces';
 
 @Injectable({providedIn: 'root'})
 export class SubjectService {
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Subject[]> {
-    return this.http.get<Subject[]>('http://localhost:8080/subject/');
+  getAll(): Observable<ISubject[]> {
+    return this.http.get<ISubject[]>('http://localhost:8080/subject/');
   }
 }

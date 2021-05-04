@@ -106,7 +106,11 @@ values ('ROLE_User'),
        ('ROLE_Employee'),
        ('ROLE_Admin');
 
--- changeset abelov:12--insert_into_subject
+-- changeset abelov:12--insert_into_users
+insert into users(id, login, email, password, role_id, created, balance)
+values (1, 'admin', 'admin@admin.ru', '$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 3, '2021-04-20 00:00:00', 0);
+
+-- changeset abelov:13--insert_into_subject
 insert into subject(name)
 values ('Математический анализ'),
        ('Линейная алгебра'),
@@ -121,7 +125,7 @@ values ('Математический анализ'),
        ('Программирование на С#'),
        ('Остальное');
 
--- changeset abelov:13--insert_into_status
+-- changeset abelov:14--insert_into_status
 insert into status(name)
 values ('Новый'),
        ('Просмотрен'),
@@ -129,6 +133,6 @@ values ('Новый'),
        ('Решается'),
        ('Готово');
 
--- changeset abelov:14--insert_into_method
+-- changeset abelov:15--insert_into_method
 insert into method(name)
 values ('Карта Visa');

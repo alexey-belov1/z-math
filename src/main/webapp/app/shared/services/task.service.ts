@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Task} from '../interfaces';
+import {ITask} from '../interfaces';
 
 @Injectable({providedIn: 'root'})
 export class TaskService {
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<Task[]> {
-    return this.http.get<Task[]>('http://localhost:8080/task/');
+  getAll(): Observable<ITask[]> {
+    return this.http.get<ITask[]>('http://localhost:8080/task/');
   }
 
   save(task: any): Observable<any> {

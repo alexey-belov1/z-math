@@ -1,74 +1,76 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {User} from '../../interfaces';
+import {ActivatedRoute, Router} from '@angular/router';
+import {IUser} from '../../interfaces';
+import {AlertService} from "../../services/alert.service";
 
 @Component({
-  selector: 'app-login-panel',
-  templateUrl: './login-panel.component.html',
-  styleUrls: ['./login-panel.component.scss']
+    selector: 'app-login-panel',
+    templateUrl: './login-panel.component.html',
+    styleUrls: ['./login-panel.component.scss']
 })
 export class LoginPanelComponent implements OnInit {
 
-  form: FormGroup;
-  submitted = false;
-  message: string;
+    form: FormGroup;
+    submitted = false;
+    message: string;
 
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    /*this.route.queryParams.subscribe((params: Params) => {
-      if (params['loginAgain']) {
-        this.message = 'Пожалуйста, введите данные';
-      } else if (params['authFailed']) {
-        this.message = 'Сессия истекла. Введите данные заного';
-      }
-    });
-*/
-    this.form = new FormGroup({
-      login: new FormControl(null, [
-        Validators.required
-      ]),
-      password: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ])
-    });
-  }
-
-  logout(): void {
-    /*event.preventDefault();*/
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
-
-  isAuthenticated(): boolean {
-    return this.authService.isAuthenticated();
-  }
-
-  submit(): void {
-    if (this.form.invalid) {
-      return;
+    constructor(
+        public authService: AuthService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private alertService: AlertService
+    ) {
     }
 
-    this.submitted = true;
+    ngOnInit(): void {
+        this.form = new FormGroup({
+            login: new FormControl(null, [Validators.required]),
+            password: new FormControl(null, [Validators.required])
+        });
+    }
 
-    const user: User = {
-      login: this.form.value.login,
-      password: this.form.value.password
-    };
+    logout(): void {
+        this.authService.logout();
+        this.router.navigate(['/']);
+    }
 
-    this.authService.login(user).subscribe(() => {
-      this.form.reset();
-      this.router.navigate(['/']);
-      this.submitted = false;
-    }, () => {
-      this.submitted = false;
-    });
-  }
+    isAuthenticated(): boolean {
+        return this.authService.isAuthenticated();
+    }
+
+    submit(): void {
+
+        if (this.form.invalid) {
+            this.form.markAllAsTouched();
+            return;
+        }
+
+        if (this.form.invalid) {
+            if (this.form.get('login').invalid && this.form.get('login').errors.required) {
+                this.alertService.error('Необходимо заполнить поле "Логин"');
+                return;
+            }
+            if (this.form.get('password').invalid && this.form.get('password').errors.required) {
+                this.alertService.error('Необходимо заполнить поле "Пароль"');
+                return;
+            }
+        }
+
+        this.submitted = true;
+
+        const user: IUser = {
+            login: this.form.value.login,
+            password: this.form.value.password
+        };
+
+        this.authService.login(user).subscribe(() => {
+            this.form.reset();
+            this.router.navigate(['/']);
+            this.submitted = false;
+        }, () => {
+            this.submitted = false;
+        });
+    }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {User} from '../shared/interfaces';
+import {IUser} from '../shared/interfaces';
 import {RegService} from '../shared/services/reg.service';
 import {Router} from '@angular/router';
 import {matchValues} from '../shared/must-match.validator';
@@ -48,7 +48,7 @@ export class RegistrationPageComponent implements OnInit {
 
     this.submitted = true;
 
-    const user: User = {
+    const user: IUser = {
       login: this.form.value.login,
       password: this.form.value.password,
       email: this.form.value.email

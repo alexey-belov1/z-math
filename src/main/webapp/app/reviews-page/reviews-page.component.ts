@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ReviewService} from '../shared/services/review.service';
-import {Review, Task} from '../shared/interfaces';
+import {IReview} from '../shared/interfaces';
 import {AuthService} from '../shared/services/auth.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-reviews-page',
@@ -12,7 +10,7 @@ import {Router} from '@angular/router';
 })
 export class ReviewsPageComponent implements OnInit {
 
-  reviews: Review[] = [];
+  reviews: IReview[] = [];
 
   constructor(
     private authService: AuthService,

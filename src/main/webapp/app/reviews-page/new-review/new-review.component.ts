@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Review} from '../../shared/interfaces';
+import {IReview} from '../../shared/interfaces';
 import {ReviewService} from '../../shared/services/review.service';
 import {Router} from '@angular/router';
 
@@ -49,7 +49,7 @@ export class NewReviewComponent implements OnInit {
 
     this.submitted = true;
 
-    const review: Review = {
+    const review: IReview = {
       user: {
         id: 1
       },

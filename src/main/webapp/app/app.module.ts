@@ -25,6 +25,7 @@ import { InfoComponent } from './tasks-page/info/info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ItemMenuComponent } from './shared/components/menu/item-menu/item-menu.component';
 import { NewReviewComponent } from './reviews-page/new-review/new-review.component';
+import { AlertErrorComponent } from './shared/components/alert-error/alert-error.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -52,7 +53,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     NoAuthorizationPageComponent,
     InfoComponent,
     ItemMenuComponent,
-    NewReviewComponent
+    NewReviewComponent,
+    AlertErrorComponent
   ],
   imports: [
     BrowserModule,

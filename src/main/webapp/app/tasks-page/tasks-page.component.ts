@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TaskService} from '../shared/services/task.service';
-import {Task} from '../shared/interfaces';
+import {ITask} from '../shared/interfaces';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -18,7 +18,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 })
 export class TasksPageComponent implements OnInit {
 
-  tasks: Task[] = [];
+  tasks: ITask[] = [];
   toggle: boolean[] = [];
 
   constructor(private taskService: TaskService) {

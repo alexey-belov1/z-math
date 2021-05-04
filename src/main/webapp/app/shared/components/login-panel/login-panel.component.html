@@ -1,43 +1,40 @@
-  <div *ngIf="!isAuthenticated(); else welcome">
+<div *ngIf="!isAuthenticated(); else welcome">
     <form>
-      <table>
+        <table>
+            <tr>
+                <td>
+                    Вы вошли на сайт как <b><i>Гость.</i></b>
+                    &nbsp;Войти:
+                </td>
+
+                <td>
+                    <form [formGroup]="form" (ngSubmit)="submit()">
+                        <input id="login" type="text" placeholder="Логин:" formControlName="login">
+                        <input id="password" type="password" placeholder="Пароль:" formControlName="password">
+                        <button type="submit" [disabled]="submitted"></button>        <!--form.invalid || -->
+                    </form>
+                </td>
+
+                <td class="padding">
+                    <a [routerLink]="['/registration']"><i>Регистрация</i></a>
+                    <span class="border"></span>
+                    <a [routerLink]="['/password-recovery']"><i>Забыли пароль?</i></a>
+                </td>
+
+            </tr>
+        </table>
+    </form>
+</div>
+
+<ng-template #welcome>
+    <table>
         <tr>
-          <td>
-            Вы вошли на сайт как <b><i>Гость.</i></b>
-            &nbsp;Войти:
-          </td>
-
-          <td>
-            <form [formGroup]="form" (ngSubmit)="submit()">
-              <input id="login" type="text" placeholder="Логин:" formControlName="login">
-              <input id="password" type="password" placeholder="Пароль:" formControlName="password">
-              <button
-                type="submit"
-                [disabled]="form.invalid || submitted"
-              ></button>
-            </form>
-          </td>
-
-          <td class="padding">
-            <a [routerLink]="['/registration']" ><i>Регистрация</i></a>
-            <span class="border"></span>
-            <a [routerLink]="['/password-recovery']"><i>Забыли пароль?</i></a>
-          </td>
+            <td>
+                <a href="">{{authService.Login}}</a>
+                <span class="border"></span>
+                <a [routerLink]="['/']" (click)="logout()">Выйти</a>
+            </td>
 
         </tr>
-      </table>
-    </form>
-  </div>
-
-  <ng-template #welcome>
-    <table>
-      <tr>
-        <td>
-          <a href="">{{authService.Login}}</a>
-          <span class="border"></span>
-          <a [routerLink]="['/']" (click)="logout()">Выйти</a>
-        </td>
-
-      </tr>
     </table>
-  </ng-template>
+</ng-template>

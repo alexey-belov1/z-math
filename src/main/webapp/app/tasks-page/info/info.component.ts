@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Task} from '../../shared/interfaces';
+import {ITask} from '../../shared/interfaces';
 
 @Component({
   selector: 'app-info',
@@ -9,7 +9,7 @@ import {Task} from '../../shared/interfaces';
 
 export class InfoComponent implements OnInit {
 
-  @Input() task: Task;
+  @Input() task: ITask;
 
   constructor() { }
 
