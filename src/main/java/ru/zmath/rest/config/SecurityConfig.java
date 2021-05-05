@@ -1,5 +1,6 @@
 package ru.zmath.rest.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -12,6 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import ru.zmath.rest.filter.JWTAuthenticationFilter;
 import ru.zmath.rest.filter.JWTAuthorizationFilter;
 import ru.zmath.rest.security.UserDetailsServiceImpl;
@@ -24,24 +26,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private HandlerExceptionResolver resolver;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public SecurityConfig(
+        UserDetailsServiceImpl userDetailsService,
+        BCryptPasswordEncoder bCryptPasswordEncoder,
+        @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver
+    ) {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.resolver = resolver;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
+        http
+            .cors()
+                .and()
+            .csrf()
+                .disable()
+            .exceptionHandling()
+                .authenticationEntryPoint(((request, response, e) -> resolver.resolveException(request, response, null, e)))
+                .and()
+            .authorizeRequests()   //Это строкой мы говорим предоставить разрешения для следующих url
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/task/").permitAll()
                 .antMatchers(HttpMethod.GET, "/review/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), this.userDetailsService))
-                /* this disables session creation on Spring Security */
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+            .addFilter(new JWTAuthorizationFilter(authenticationManager(), this.userDetailsService))
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            /*.httpBasic()    // Чтобы задать аутентификацию типа Http Basic, строка в коде должна быть такая*/
     }
 
     @Override

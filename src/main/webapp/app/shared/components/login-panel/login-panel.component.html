@@ -11,7 +11,7 @@
                     <form [formGroup]="form" (ngSubmit)="submit()">
                         <input id="login" type="text" placeholder="Логин:" formControlName="login">
                         <input id="password" type="password" placeholder="Пароль:" formControlName="password">
-                        <button type="submit" [disabled]="submitted"></button>        <!--form.invalid || -->
+                        <button type="submit" [disabled]="submitted" (clickOutside)="markAllAsUntouched()"></button>        <!--form.invalid || -->
                     </form>
                 </td>
 

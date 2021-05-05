@@ -20,6 +20,7 @@ export class AlertErrorComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.alertSubscription = this.alertService.onAlert()
             .subscribe(alert => {
+                console.warn("Alert", alert);
                 if (this.alerts.map(a => a.message).indexOf(alert.message) === -1) {
                     this.alerts.push(alert);
                     setTimeout(() => this.removeAlert(alert), 3000);

@@ -73,4 +73,8 @@ export class LoginPanelComponent implements OnInit {
             this.submitted = false;
         });
     }
+
+    markAllAsUntouched(): void {
+        this.form.markAsUntouched();
+    }
 }

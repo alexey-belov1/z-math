@@ -19,25 +19,12 @@
         <tr>
             <th>Дата решения*:</th>
             <td>
-                <input type="date" (mouseover)="setVisibility('item2')" (mouseout)="setHidden('item2')"
+                <input type="datetime-local" (mouseover)="setVisibility('item2')" (mouseout)="setHidden('item2')"
                        formControlName="date">
                 <span id="item2" class="comment">
-          Укажите дату когда хотите получить решение задач. Если при выборе даты в Вашем браузере не отображается календарь, то дату необходимо указать в формате гггг-мм-дд
+          Укажите дату и время когда хотите получить решение задач. Если при выборе даты в Вашем браузере не отображается календарь, то дату необходимо указать в формате гггг-мм-дд
         </span>
             </td>
-        </tr>
-
-        <tr>
-            <th>Время решения*: <br> (московское время)</th>
-            <td>
-                <select (mouseover)="setVisibility('item3')" (mouseout)="setHidden('item3')" formControlName="time">
-                    <option *ngFor="let time of times">{{time | number: '2.0'}}:00</option>
-                </select>
-                <span id="item3" class="comment">
-          Укажите время когда хотите получить решение задач (указывается московское время)
-        </span>
-            </td>
-
         </tr>
 
         <tr>
