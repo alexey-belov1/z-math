@@ -21,18 +21,37 @@ export interface ISubject {
 
 export interface ITask {
     id?: number;
-    user: IUser,
+    user?: IUser,
     subject?: ISubject,
-    file: string;
-    comment: string;
-    deadline: Date;
+    file?: string;
+    comment?: string;
+    deadline?: Date;
     status?: IStatus,
-    cost: number;
+    cost?: number;
     created?: Date;
     contact?: string;
     cause?: string;
-    hidden: boolean;
+    hidden?: boolean;
 }
+
+export class Task implements ITask {
+    constructor(
+        public id?: number,
+        public user?: IUser,
+        public subject?: ISubject,
+        public file?: string,
+        public comment?: string,
+        public deadline?: Date,
+        public status?: IStatus,
+        public cost?: number,
+        public created?: Date,
+        public contact?: string,
+        public cause?: string,
+        public hidden?: boolean
+    ) {
+    }
+}
+
 
 export interface IReview {
     user: IUser;

@@ -3,12 +3,13 @@ package ru.zmath.rest.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.zmath.rest.model.Status;
-import ru.zmath.rest.model.Subject;
+import ru.zmath.rest.controller.alert.HeaderUtil;
 import ru.zmath.rest.model.Task;
-import ru.zmath.rest.model.User;
 import ru.zmath.rest.service.TaskService;
+import ru.zmath.rest.service.UserService;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
+    private final UserService userService;
 
-    public TaskController(final TaskService taskService) {
+    public TaskController(final TaskService taskService, UserService userService) {
         this.taskService = taskService;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -28,16 +31,11 @@ public class TaskController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Task> create(@RequestBody Task task) {
-        Status status = new Status();
-        status.setId(1);
-
-        task.setStatus(status);
-        task.setCreated(GregorianCalendar.getInstance());
-
-        return new ResponseEntity<Task>(
-                this.taskService.save(task),
-                HttpStatus.CREATED
+    public ResponseEntity<Task> create(@RequestBody Task task) throws URISyntaxException {
+        return new ResponseEntity<>(
+            this.taskService.save(task),
+            HeaderUtil.createAlert("Ваш заказ успешно оформлен"),
+            HttpStatus.CREATED
         );
     }
 }

@@ -29,27 +29,12 @@ export class NewTaskPageComponent implements OnInit {
         this.getAll();
 
         this.form = new FormGroup({
-            subject: new FormControl(null, [
-                Validators.required
-            ]),
-            date: new FormControl(null, [
-                Validators.required
-            ]),
-            time: new FormControl(null, [
-                Validators.required
-            ]),
-            cost: new FormControl(null, [
-                Validators.required
-            ]),
-            file: new FormControl(null, [
-                Validators.required
-            ]),
-            comment: new FormControl(null, [
-                Validators.required
-            ]),
-            contact: new FormControl(null, [
-                Validators.required
-            ])
+            subject: new FormControl(null, [Validators.required]),
+            deadline: new FormControl(null, [Validators.required]),
+            cost: new FormControl(null, [Validators.required]),
+            file: new FormControl(null, [Validators.required]),
+            comment: new FormControl(null),
+            contact: new FormControl(null)
         });
     }
 
@@ -60,56 +45,27 @@ export class NewTaskPageComponent implements OnInit {
             });
     }
 
-    setVisibility(el: string): void {
-        document.getElementById(el).classList.add('visibility');
-    }
-
-    setHidden(el: string): void {
-        document.getElementById(el).classList.remove('visibility');
-    }
-
     submit(): void {
+
         if (this.form.invalid) {
+            this.form.markAllAsTouched();
             return;
         }
 
+        const task: ITask = {
+            subject: this.form.value.subject,
+            file: this.form.value.file,
+            comment: this.form.value.comment,
+            deadline: this.form.value.deadline,
+            cost: this.form.value.cost,
+            contact: this.form.value.contact,
+            hidden: false
+        };
+        console.warn("Task", task);
+
         this.submitted = true;
 
-        const task: ITask = {
-            user: {
-                id: 15
-            },
-            subject: {
-                id: this.form.value.subject
-            },
-            file: this.form.value.file,
-            comment: this.form.value.comment,
-            deadline: this.form.value.date, /* + this.form.value.time*/
-            cost: this.form.value.cost,
-            contact: this.form.value.contact,
-            cause: this.form.value.case,
-            hidden: false
-        };
-
-        const temp = {
-            user: {
-                id: 1
-            },
-            subject: {
-                id: 1
-            },
-            file: this.form.value.file,
-            comment: this.form.value.comment,
-            deadline: this.form.value.date, /* + this.form.value.time*/
-            cost: this.form.value.cost,
-            contact: this.form.value.contact,
-            cause: this.form.value.case,
-            hidden: false
-        };
-
-        console.log(task);
-        console.log('this temp', temp);
-        this.taskService.save(temp).subscribe(() => {
+        this.taskService.save(task).subscribe(() => {
             this.router.navigate(['/tasks']);
         }, () => {
             this.submitted = false;

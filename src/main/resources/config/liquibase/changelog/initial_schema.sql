@@ -40,7 +40,7 @@ create table task(
     user_id int not null,
     subject_id int not null,
     file varchar(200) not null,
-    comment varchar(500) not null,
+    comment varchar(500),
     deadline timestamp not null,
     status_id int not null,
     cost real not null,

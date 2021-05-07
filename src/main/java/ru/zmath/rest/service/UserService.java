@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.model.User;
 import ru.zmath.rest.repository.UserRepository;
+import ru.zmath.rest.security.SecurityUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,5 +49,10 @@ public class UserService {
 
     public boolean delete(User user) {
         return this.userRepository.deleteUserById(user.getId()) != 0;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<User> getCurrentUser() {
+        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findDistinctByLogin);
     }
 }

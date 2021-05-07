@@ -18,6 +18,8 @@ import ru.zmath.rest.filter.JWTAuthenticationFilter;
 import ru.zmath.rest.filter.JWTAuthorizationFilter;
 import ru.zmath.rest.security.UserDetailsServiceImpl;
 
+import java.util.Arrays;
+
 import static ru.zmath.rest.filter.JWTAuthenticationFilter.SIGN_UP_URL;
 
 @EnableWebSecurity
@@ -31,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(
         UserDetailsServiceImpl userDetailsService,
         BCryptPasswordEncoder bCryptPasswordEncoder,
-        @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver
-    ) {
+        @Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver)
+    {
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.resolver = resolver;
@@ -67,8 +69,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration corsConfiguration = new CorsConfiguration()
+            .applyPermitDefaultValues();    //Задает по умолчанию конфигурцию, иначе будет сильно ограничена
+        corsConfiguration.setExposedHeaders(Arrays.asList("x-app-alert"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
     }
 }

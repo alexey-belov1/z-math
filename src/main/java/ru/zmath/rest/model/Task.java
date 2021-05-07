@@ -1,17 +1,13 @@
 package ru.zmath.rest.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
 @Table(name = "task")
-@Getter
-@Setter
+@Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Task {
 

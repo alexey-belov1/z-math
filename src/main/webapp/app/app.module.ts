@@ -29,6 +29,7 @@ import {AlertErrorComponent} from './shared/components/alert-error/alert-error.c
 import {ClickOutsideModule} from "ng-click-outside";
 import {ErrorHandlerInterceptor} from "./shared/errorhandler.interceptor";
 import {NotificationInterceptor} from "./shared/notification.interceptor";
+import {TooltipDirective} from "./new-task-page/tooltip.directive";
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ import {NotificationInterceptor} from "./shared/notification.interceptor";
         InfoComponent,
         ItemMenuComponent,
         NewReviewComponent,
-        AlertErrorComponent
+        AlertErrorComponent,
+        TooltipDirective
     ],
     imports: [
         BrowserModule,

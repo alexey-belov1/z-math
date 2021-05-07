@@ -21,6 +21,13 @@ input[type="text"], input[type="date"], select {
   padding-left: 3px;
 }
 
+input, textarea, select {
+    &.ng-invalid.ng-touched {
+        border-radius: 2px;
+        border: 1px solid #f81818;
+    }
+}
+
 textarea {
   min-width: 350px;
   height: 80px;
@@ -58,4 +65,10 @@ button {
 .vertical-align {
   padding-top: 13px;
   vertical-align: top;
+}
+
+.validation {
+    font-size: 12px;
+    color: #ff0303;
+    font-style: italic;
 }
