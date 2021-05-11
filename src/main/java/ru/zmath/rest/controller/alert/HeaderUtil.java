@@ -2,17 +2,18 @@ package ru.zmath.rest.controller.alert;
 
 import org.springframework.http.HttpHeaders;
 
-import java.io.UnsupportedEncodingException;
 
 public final class HeaderUtil {
 
-    public static HttpHeaders createAlert(String message) {
+    public static HttpHeaders createSuccessAlert(String entity) {
+        HttpHeaders headers = createAlert("success");
+        headers.set("x-app-entity", entity);
+        return headers;
+    }
+
+    private static HttpHeaders createAlert(String status) {
         HttpHeaders headers = new HttpHeaders();
-        try {
-            headers.set("x-app-alert", new String(message.getBytes(),"ISO-8859-5"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        headers.set("x-app-alert", status);
         return headers;
     }
 }

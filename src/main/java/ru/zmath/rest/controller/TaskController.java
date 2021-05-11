@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("/task")
 public class TaskController {
 
+    private final String entity = "task";
+
     private final TaskService taskService;
     private final UserService userService;
 
@@ -34,7 +36,7 @@ public class TaskController {
     public ResponseEntity<Task> create(@RequestBody Task task) throws URISyntaxException {
         return new ResponseEntity<>(
             this.taskService.save(task),
-            HeaderUtil.createAlert("Ваш заказ успешно оформлен"),
+            HeaderUtil.createSuccessAlert(entity),
             HttpStatus.CREATED
         );
     }
