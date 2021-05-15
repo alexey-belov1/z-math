@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
+import '@angular/common/locales/global/ru';
 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -30,6 +31,9 @@ import {ClickOutsideModule} from "ng-click-outside";
 import {ErrorHandlerInterceptor} from "./shared/errorhandler.interceptor";
 import {NotificationInterceptor} from "./shared/notification.interceptor";
 import {TooltipDirective} from "./new-task-page/tooltip.directive";
+import { TaskDetailComponent } from './tasks-page/task-detail/task-detail.component';
+import {RefDirective} from "./shared/ref.directive";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -53,7 +57,9 @@ import {TooltipDirective} from "./new-task-page/tooltip.directive";
         ItemMenuComponent,
         NewReviewComponent,
         AlertErrorComponent,
-        TooltipDirective
+        TooltipDirective,
+        TaskDetailComponent,
+        RefDirective
     ],
     imports: [
         BrowserModule,
@@ -62,7 +68,8 @@ import {TooltipDirective} from "./new-task-page/tooltip.directive";
         AppRoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        ClickOutsideModule
+        ClickOutsideModule,
+        NgbModule
     ],
     providers: [
         {
@@ -79,6 +86,10 @@ import {TooltipDirective} from "./new-task-page/tooltip.directive";
             provide: HTTP_INTERCEPTORS,
             useClass: NotificationInterceptor,
             multi: true
+        },
+        {
+            provide: LOCALE_ID,
+            useValue: 'ru'
         }
     ],
     bootstrap: [AppComponent]

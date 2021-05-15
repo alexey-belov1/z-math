@@ -1,4 +1,4 @@
-package ru.zmath.rest.controller.alert;
+package ru.zmath.rest.controller.util;
 
 import org.springframework.http.HttpHeaders;
 

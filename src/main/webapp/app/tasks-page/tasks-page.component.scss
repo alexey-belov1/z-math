@@ -124,3 +124,34 @@ td img{
   display: table-row;
   height: 30px;
 }
+
+// Стили для пагинации
+ngb-pagination ::ng-deep {
+    .pagination {
+        display: flex;
+        padding-left: 0;
+        margin: 10px auto;
+        list-style: none;
+        width: 0;       // не знаю как по-другому, иначе заполняется ul на весь div
+        text-indent: 15px;       // если это не проставить, то распространяются от класса .content
+    }
+
+    .page-link {
+        color: #151515;
+    }
+
+    .page-item.active .page-link {
+        font-weight: bold;
+        pointer-events: none;
+        text-decoration: none
+    }
+
+    .page-item.disabled .page-link {
+        text-decoration: none;
+    }
+
+    .sr-only {
+        position: absolute;
+        clip: rect(0,0,0,0);
+    }
+}

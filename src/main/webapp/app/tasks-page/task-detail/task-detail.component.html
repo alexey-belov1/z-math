@@ -1,0 +1,60 @@
+<div class="backdrop"></div>
+
+<div class="modal">
+    <div class="my-header">
+        <div class="my-title">
+            <span>Заказ № {{task.id}} ({{task.user.login}})</span>
+        </div>
+        <div class="my-close">
+            <button type="button" (click)="close.emit()">&times;</button>
+        </div>
+    </div>
+    <hr>
+    <div class="my-body">
+        <table>
+            <tr>
+                <th>Статус заказа:</th>
+                <td>{{task.status.name}}</td>
+            </tr>
+
+            <tr>
+                <th>Стоимость заказа:</th>
+                <td>{{task.cost}}</td>
+            </tr>
+
+
+            <tr>
+                <th>Раздел:</th>
+                <td>{{task.subject.name}}</td>
+            </tr>
+
+            <tr>
+                <th>Условия задачи:</th>
+                <td>{{task.file}}</td>
+            </tr>
+
+            <tr>
+                <th>Дата оформления заказа:</th>
+                <td>{{task.created | date: 'medium'}}</td>
+            </tr>
+
+            <tr>
+                <th>Срок решения:</th>
+                <td>{{task.deadline | date: 'medium'}}</td>
+            </tr>
+
+            <tr>
+                <th>Комментарий:</th>
+                <td>{{task.comment}}</td>
+            </tr>
+
+            <tr>
+                <th>Контактная информация:</th>
+                <td>{{task.contact}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--
+    <button class="btn" (click)="close.emit()">Close</button>-->

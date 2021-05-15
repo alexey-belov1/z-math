@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainLayoutComponent} from './shared/components/main-layout/main-layout.component';
 import {HomePageComponent} from './home-page/home-page.component';
@@ -13,6 +13,39 @@ import {PasswordRecoveryPageComponent} from './password-recovery-page/password-r
 import {NoAuthorizationPageComponent} from './no-authorization-page/no-authorization-page.component';
 import {AuthGuard} from './shared/auth.guard';
 
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {Observable} from "rxjs";
+import {TaskService} from "./shared/services/task.service";
+import {HttpResponse} from "@angular/common/http";
+import {ITask} from "./shared/interfaces";
+import {map} from "rxjs/operators";
+
+@Injectable({ providedIn: 'root' })
+export class ResolvePagingParams implements Resolve<any> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+        const sort = route.queryParams['sort'];
+        return {
+            page: route.queryParams['page'] ? route.queryParams['page'] : '1',
+            predicate: sort ? sort.split(',')[0] : 'id',
+            ascending: true,
+        };
+    }
+}
+
+@Injectable({ providedIn: 'root' })
+export class DataResolver {
+    constructor(private taskService: TaskService) {}
+
+    resolve(): Observable<any[]> {
+        return this.taskService.query().pipe(
+            map((res: HttpResponse<ITask[]>) => {
+                return res.body ? res.body : [];
+            })
+        );
+    }
+}
+
+
 const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
@@ -24,7 +57,14 @@ const routes: Routes = [
       {path: 'registration', component: RegistrationPageComponent},
       {path: 'reviews', component: ReviewsPageComponent},
       {path: 'rules', component: RulesPageComponent},
-      {path: 'tasks', component: TasksPageComponent},
+      {
+          path: 'tasks',
+          component: TasksPageComponent,
+          resolve: {
+              pagingParams: ResolvePagingParams,
+              data: DataResolver
+          },
+      },
       {path: 'password-recovery', component: PasswordRecoveryPageComponent},
       {path: 'no-authorization', component: NoAuthorizationPageComponent}
     ]

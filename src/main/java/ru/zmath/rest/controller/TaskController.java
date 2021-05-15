@@ -1,16 +1,19 @@
 package ru.zmath.rest.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.zmath.rest.controller.alert.HeaderUtil;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.zmath.rest.controller.util.HeaderUtil;
+import ru.zmath.rest.controller.util.PaginationUtil;
 import ru.zmath.rest.model.Task;
 import ru.zmath.rest.service.TaskService;
 import ru.zmath.rest.service.UserService;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 @RestController
@@ -27,10 +30,10 @@ public class TaskController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public List<Task> findAll() {
         return this.taskService.findAll();
-    }
+    }*/
 
     @PostMapping("/")
     public ResponseEntity<Task> create(@RequestBody Task task) throws URISyntaxException {
@@ -39,5 +42,12 @@ public class TaskController {
             HeaderUtil.createSuccessAlert(entity),
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Task>> findAll(Pageable pageable) {
+        Page<Task> page = taskService.findByCriteria(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

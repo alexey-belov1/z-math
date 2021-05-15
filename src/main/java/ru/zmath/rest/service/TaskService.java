@@ -1,6 +1,10 @@
 package ru.zmath.rest.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.model.Status;
 import ru.zmath.rest.model.Task;
 import ru.zmath.rest.repository.TaskRepository;
@@ -20,6 +24,11 @@ public class TaskService {
 
     public List<Task> findAll() {
         return this.taskRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Task> findByCriteria(Pageable page) {
+        return taskRepository.findAll(page);
     }
 
     public Task save(Task task) {

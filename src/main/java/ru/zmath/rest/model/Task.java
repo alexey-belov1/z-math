@@ -9,11 +9,14 @@ import java.util.Calendar;
 @Table(name = "task")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
+    @NonNull
     private int id;
 
     @ManyToOne
