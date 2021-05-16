@@ -3,7 +3,9 @@ package ru.zmath.rest.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "task")
@@ -43,4 +45,7 @@ public class Task {
     private String cause;
 
     private boolean hidden;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AttachedFile> attachedFile = new ArrayList<>();
 }

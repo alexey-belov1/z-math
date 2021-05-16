@@ -23,7 +23,22 @@ export class TaskService {
             .get<ITask[]>(this.resourceUrl, {params: req, observe: 'response'});
     }
 
-    save(task: any): Observable<any> {
+/*    save(task: any): Observable<any> {
         return this.http.post('http://localhost:8080/task/', task);
+    }*/
+
+    save(task: any, file: File): Observable<EntityResponseType> {
+        const formData: FormData = new FormData();
+        formData.append(
+            'ticket',
+            new Blob([JSON.stringify(task)], {
+                type: 'application/json'
+            })
+        );
+        formData.append('file', file);
+
+        return this.http
+            .post<ITask>(this.resourceUrl, formData, { observe: 'response' });
     }
+
 }

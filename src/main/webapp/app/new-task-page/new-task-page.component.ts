@@ -14,6 +14,8 @@ export class NewTaskPageComponent implements OnInit {
 
     task: ITask = null;
 
+    file: File;
+
     times = Array.from(Array(24).keys());
     subjects: ISubject[] = [];
     form: FormGroup;
@@ -65,10 +67,14 @@ export class NewTaskPageComponent implements OnInit {
 
         this.submitted = true;
 
-        this.taskService.save(task).subscribe(() => {
+        this.taskService.save(task, this.file).subscribe(() => {
             this.router.navigate(['/tasks']);
         }, () => {
             this.submitted = false;
         });
+    }
+
+    setFile(event: Event) {
+        this.file = (<HTMLInputElement>event.target).files.item(0);
     }
 }

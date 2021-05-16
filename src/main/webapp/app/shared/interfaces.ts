@@ -8,6 +8,16 @@ export interface IUser {
     role?: IRole;
 }
 
+export interface IAttachedFile {
+    id?: number;
+    name?: string;
+    size?: string;
+    extension?: string;
+    path?: string;
+    taskId?: number;
+    file?: File;
+}
+
 export interface AuthResponse {
     Authorization: string;
     Expires: string;
@@ -32,6 +42,7 @@ export interface ITask {
     contact?: string;
     cause?: string;
     hidden?: boolean;
+    attachedFile?: IAttachedFile[];
 }
 
 export class Task implements ITask {
@@ -47,7 +58,8 @@ export class Task implements ITask {
         public created?: Date,
         public contact?: string,
         public cause?: string,
-        public hidden?: boolean
+        public hidden?: boolean,
+        public attachedFile?: IAttachedFile[]
     ) {
     }
 }

@@ -56,7 +56,7 @@
         <tr>
             <th>Условия задач*:</th>
             <td>
-                <input type="file" appTooltip="tooltipFile" formControlName="file">
+                <input type="file" appTooltip="tooltipFile" formControlName="file" (change)="setFile($event)">
                 <span id="tooltipFile" class="comment">
                     В прикрепленном файле должны содержаться условия задач. Файл не должен превышать 25 МБ и должен иметь одно из расширений - DOC, DOCX, TXT, PDF, JPG, GIF, PNG, RAR, ZIP, 7Z
                 </span>
