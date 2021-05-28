@@ -27,7 +27,7 @@ export class TaskService {
         return this.http.post('http://localhost:8080/task/', task);
     }*/
 
-    save(task: any, file: File): Observable<EntityResponseType> {
+    save(task: any, files: File[]): Observable<EntityResponseType> {
         const formData: FormData = new FormData();
         formData.append(
             'ticket',
@@ -35,7 +35,9 @@ export class TaskService {
                 type: 'application/json'
             })
         );
-        formData.append('file', file);
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
 
         return this.http
             .post<ITask>(this.resourceUrl, formData, { observe: 'response' });

@@ -44,7 +44,6 @@ create table task
     id         int primary key not null auto_increment,
     user_id    int             not null,
     subject_id int             not null,
-    file       varchar(200)    not null,
     comment    varchar(500),
     deadline   timestamp       not null,
     status_id  int             not null,

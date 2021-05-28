@@ -54,14 +54,27 @@
 
 
         <tr>
-            <th>Условия задач*:</th>
-            <td>
-                <input type="file" appTooltip="tooltipFile" formControlName="file" (change)="setFile($event)">
+            <th class="vertical-align">Условия задач*:</th>
+            <td formGroupName="files">
+                <table *ngIf="files.length > 0">
+                    <tr *ngFor="let file  of files; let i = index;">
+                        <td class="attached-file-td">
+                            <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
+                        </td>
+                        <td class="attached-file-td">
+                            <button type="button" (click)="cleanFile(file)">x</button>
+                        </td>
+                    </tr>
+                </table>
+
+                <label for="files" class="attached-file-btn" appTooltip="tooltipFile">+ Добавить файл</label><!--    formControlName="file"-->
+                <input type="file" id="files" style="display:none" appTooltip="tooltipFile" (change)="setFile($event)" />
+
                 <span id="tooltipFile" class="comment">
                     В прикрепленном файле должны содержаться условия задач. Файл не должен превышать 25 МБ и должен иметь одно из расширений - DOC, DOCX, TXT, PDF, JPG, GIF, PNG, RAR, ZIP, 7Z
                 </span>
-                <div *ngIf="form.get('file').invalid && form.get('file').touched">
-                    <span *ngIf="form.get('file').errors.required" class="validation">
+                <div *ngIf="form.get('files').invalid && form.get('files').touched">
+                    <span *ngIf="form.get('files').errors.required" class="validation">
                         Поле обязательное для заполнения
                     </span>
                 </div>
@@ -99,7 +112,7 @@
         <tr>
             <td></td>
             <td>
-                <button>Отправить</button>
+                <button type="submit">Отправить</button>
             </td>
         </tr>
 

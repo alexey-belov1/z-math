@@ -33,7 +33,7 @@ export interface ITask {
     id?: number;
     user?: IUser,
     subject?: ISubject,
-    file?: string;
+    files?: string;
     comment?: string;
     deadline?: Date;
     status?: IStatus,
@@ -50,7 +50,7 @@ export class Task implements ITask {
         public id?: number,
         public user?: IUser,
         public subject?: ISubject,
-        public file?: string,
+        public files?: string,
         public comment?: string,
         public deadline?: Date,
         public status?: IStatus,

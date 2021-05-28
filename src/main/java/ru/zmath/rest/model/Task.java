@@ -29,7 +29,6 @@ public class Task {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    private String file;
     private String comment;
     private Calendar deadline;
 

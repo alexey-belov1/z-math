@@ -34,14 +34,14 @@ public class TaskService {
     }
 
     @Transactional
-    public Task save(Task task, MultipartFile file) {
+    public Task save(Task task, List<MultipartFile> files) {
         task.setStatus(new Status(1));
         task.setCreated(GregorianCalendar.getInstance());
         task.setUser(userService.getCurrentUser().orElseThrow(
             () -> new RuntimeException("User not found in context")
         ));
         task = this.taskRepository.save(task);
-        attachedFileService.processFile(List.of(file), null, task.getId());
+        attachedFileService.processFile(files, null, task.getId());
         return this.taskRepository.save(task);
     }
 }

@@ -29,14 +29,16 @@
             </tr>
 
             <tr>
-                <th>Условия задачи:</th>
+                <th class="vertical-align">Условия задач:</th>
                 <td>
-                    <a (click)="download(task.attachedFile[0].id, task.attachedFile[0].name)" href="javascript:void(0);">
-                        <span>{{task.attachedFile[0].name}}</span>
-                    </a>
-                    <span>
-                         ({{task.attachedFile[0].size}}кб)
-                    </span>
+                    <div *ngFor="let attachedFile of task.attachedFile" class="my-mb-7">
+                        <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
+                            <span>{{attachedFile.name}}</span>
+                        </a>
+                        <span>
+                            ({{attachedFile.size}}кб)
+                        </span>
+                    </div>
                 </td>
 <!--                <td class="text-left">
                     <button type="button"

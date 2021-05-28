@@ -48,10 +48,10 @@ public class TaskController {
 
     @PostMapping(value = "/", consumes = {"multipart/form-data"})
     public ResponseEntity<Task> create(@RequestPart("ticket") Task task,
-                                       @RequestPart(value = "file", required = false) MultipartFile file
+                                       @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) throws URISyntaxException {
         return new ResponseEntity<>(
-            this.taskService.save(task, file),
+            this.taskService.save(task, files),
             HeaderUtil.createSuccessAlert(entity),
             HttpStatus.CREATED
         );
