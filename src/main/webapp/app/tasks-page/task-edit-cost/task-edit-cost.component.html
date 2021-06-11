@@ -1,0 +1,29 @@
+<div class="backdrop"></div>
+
+<div class="modal">
+
+    <div class="my-title">
+        <span>Оценка стоимости заказа</span>
+    </div>
+    <div class="my-close">
+        <button type="button" (click)="close()">&times;</button>
+    </div>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Стоимость:</th>
+            <td>
+                <input type="text" [(ngModel)]="task.cost">
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" (click)="update()">Отправить</button>
+            </td>
+        </tr>
+    </table>
+</div>

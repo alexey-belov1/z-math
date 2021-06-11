@@ -47,31 +47,31 @@ public class AttachedFileService {
     }
 */
 
-    /**
+/*    *//**
      * Метод для обработки файла. Сохранения на диск и удаления
-     */
-    public void processFile(List<MultipartFile> files, List<Integer> deleteFileList, Integer taskId) {
+     *//*
+    public void processFile(List<MultipartFile> files, List<Integer> deleteFileList, Task task) {
         if (files != null && files.size() > 0) {
-            this.saveFiles(files, taskId);
+            this.saveFiles(files, task);
         }
         if (deleteFileList!= null && deleteFileList.size() > 0) {
             this.deleteFiles(deleteFileList);
         }
     }
 
-    /**
+    *//**
      * Сохранение файлов на диск
-     */
-    private void saveFiles(List<MultipartFile> files, Integer ticketId) {
+     *//*
+    private void saveFiles(List<MultipartFile> files, Task task) {
         List<AttachedFile> attachedFiles = new LinkedList<>();
         for (MultipartFile file : files) {
-            AttachedFile attachedFile = this.createAttachedFile(file, ticketId);
+            AttachedFile attachedFile = this.createAttachedFile(file, task);
             if (attachedFile!= null) {
                 attachedFiles.add(attachedFile);
             }
         }
-        this.attachedFileRepository.saveAll(attachedFiles);
-    }
+        task.setAttachedFile(attachedFiles);
+    }*/
 
     /**
      * удаление файла по id  и из реопзитория
@@ -107,11 +107,11 @@ public class AttachedFileService {
         return null;
     }
 
-    private AttachedFile createAttachedFile(MultipartFile file, Integer ticketId) {
+/*    private AttachedFile createAttachedFile(MultipartFile file, Task task) {
         String name = RandomStringUtils.randomAlphanumeric(20) + file.getOriginalFilename();
         Path dir = null;
         try {
-            dir = createDirectories(get(requireNonNull(filePath), getCurrentDate(), ticketId.toString()));
+            dir = createDirectories(get(requireNonNull(filePath), getCurrentDate(), String.valueOf(task.getId())));
         } catch (IOException e) {
             //log.error(e.getMessage(), e);
         }
@@ -122,8 +122,8 @@ public class AttachedFileService {
                 attachedFile.setName(file.getOriginalFilename());
                 attachedFile.setSize(String.valueOf(file.getSize()));
                 attachedFile.setExtension(file.getContentType());
-                attachedFile.setTask(new Task(ticketId));
                 attachedFile.setPath(dir.toString() + File.separator + name);
+                attachedFile.setTask(task);
                 return  attachedFile;
             } catch (IOException e) {
                 //log.error(e.getMessage(), e);
@@ -136,7 +136,7 @@ public class AttachedFileService {
     private String getCurrentDate() {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return dateFormat.format(new Date());
-    }
+    }*/
 
 
 }

@@ -1,11 +1,13 @@
-import {Component, ComponentFactoryResolver, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
 import {TaskService} from '../shared/services/task.service';
 import {ITask} from '../shared/interfaces';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {TaskDetailComponent} from "./task-detail/task-detail.component";
-import {RefDirective} from "../shared/ref.directive";
 import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EventBusService} from "../shared/services/event-bus.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-tasks-page',
@@ -20,9 +22,7 @@ import {ActivatedRoute, Router} from "@angular/router";
         ])
     ]
 })
-export class TasksPageComponent implements OnInit {
-
-    @ViewChild(RefDirective, {static: false}) refDir: RefDirective
+export class TasksPageComponent implements OnInit, OnDestroy {
 
     tasks: ITask[] = [];
     toggle: boolean[] = [];
@@ -42,11 +42,16 @@ export class TasksPageComponent implements OnInit {
     // В кком порядке сортировать
     ascending: boolean;
 
+    // Подписка на прием сообщений от сервера по веб сокету
+    onTaskEditSub: Subscription;
+
     constructor(
         private taskService: TaskService,
         private resolver: ComponentFactoryResolver,
         private router: Router,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected modalService: NgbModal,
+        private eventBusService: EventBusService
     ) {
     }
 
@@ -57,6 +62,8 @@ export class TasksPageComponent implements OnInit {
             this.predicate = data.pagingParams.predicate;
             this.loadPage();
         });
+
+        this.onTaskEditSub = this.eventBusService.on("taskEdit", () => this.loadPage());
 
         this.loadPage();
     }
@@ -81,15 +88,8 @@ export class TasksPageComponent implements OnInit {
     }
 
     showModal(task: ITask) {
-        const modalFactory = this.resolver.resolveComponentFactory(TaskDetailComponent)
-        this.refDir.containerRef.clear()
-
-        const component = this.refDir.containerRef.createComponent(modalFactory)
-
-        component.instance.task = task;
-        component.instance.close.subscribe(() => {
-            this.refDir.containerRef.clear()
-        })
+        const modalRef = this.modalService.open(TaskDetailComponent, { size: 'lg', backdrop: 'static' });
+        modalRef.componentInstance.task = task;
     }
 
     loadPage(page?: number): void {
@@ -130,4 +130,8 @@ export class TasksPageComponent implements OnInit {
     /*  contains(el: string): boolean {
         return document.getElementById(el).classList.contains('toggle');
       }*/
+
+    ngOnDestroy(): void {
+        this.onTaskEditSub.unsubscribe();
+    }
 }

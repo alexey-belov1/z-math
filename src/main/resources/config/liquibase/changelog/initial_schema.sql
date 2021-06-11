@@ -153,9 +153,9 @@ values ('Математический анализ'),
 insert into status(name)
 values ('Новый'),
        ('Просмотрен'),
-       ('Ожидание оплаты'),
-       ('Решается'),
-       ('Готово');
+       ('Оплачен'),
+       ('Выполнен'),
+       ('Отказано');
 
 -- changeset abelov:16--insert_into_method
 insert into method(name)

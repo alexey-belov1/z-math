@@ -47,7 +47,7 @@ public class TaskController {
 
 
     @PostMapping(value = "/", consumes = {"multipart/form-data"})
-    public ResponseEntity<Task> create(@RequestPart("ticket") Task task,
+    public ResponseEntity<Task> create(@RequestPart("task") Task task,
                                        @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) throws URISyntaxException {
         return new ResponseEntity<>(
@@ -57,7 +57,25 @@ public class TaskController {
         );
     }
 
+    @PutMapping(value = "/", consumes = {"multipart/form-data"})
+    public ResponseEntity<Task> update(@RequestPart("task") Task task,
+                                       @RequestPart(value = "files", required = false) List<MultipartFile> files
+    ) throws URISyntaxException {
+        return new ResponseEntity<>(
+            this.taskService.update(task, files),
+            HeaderUtil.createSuccessAlert(entity),
+            HttpStatus.CREATED
+        );
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable int id) throws URISyntaxException {
+        return new ResponseEntity<>(
+            this.taskService.delete(id),
+            HeaderUtil.createSuccessAlert(entity),
+            HttpStatus.CREATED
+        );
+    }
 
 
     @GetMapping("/")

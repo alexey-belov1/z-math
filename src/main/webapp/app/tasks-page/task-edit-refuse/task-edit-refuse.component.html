@@ -1,0 +1,29 @@
+<div class="backdrop"></div>
+
+<div class="modal">
+
+    <div class="my-title">
+        <span>Отказать в решении задач</span>
+    </div>
+    <div class="my-close">
+        <button type="button" (click)="close()">&times;</button>
+    </div>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>Причина отказа:</th>
+            <td>
+                <textarea [(ngModel)]="task.cause"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit" (click)="update()">Отправить</button>
+            </td>
+        </tr>
+    </table>
+</div>

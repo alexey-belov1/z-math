@@ -19,6 +19,7 @@ import ru.zmath.rest.filter.JWTAuthorizationFilter;
 import ru.zmath.rest.security.UserDetailsServiceImpl;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static ru.zmath.rest.filter.JWTAuthenticationFilter.SIGN_UP_URL;
 
@@ -72,7 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfiguration = new CorsConfiguration()
             .applyPermitDefaultValues();    //Задает по умолчанию конфигурцию, иначе будет сильно ограничена
         corsConfiguration.setExposedHeaders(Arrays.asList("x-app-alert", "x-app-entity", "x-total-count"));
-
+        corsConfiguration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
         return source;

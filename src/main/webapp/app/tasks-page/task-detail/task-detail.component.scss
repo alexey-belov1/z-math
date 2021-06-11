@@ -1,20 +1,10 @@
-.backdrop {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .3);
-}
-
 .modal {
     width: 1200px;
     padding: 1rem;
     background: #fff;
-    margin-top: 3rem;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 50%);
 }
 
 table {
@@ -26,16 +16,21 @@ th {
     padding: 5px;
 }
 
-
-
 .my-header {
     display: block;
     width: 100%;
 }
 
 .my-title {
+    margin-left: 50px;
+    margin-right: 50px;
     font-size: 18px;
     font-weight: bold;
+    display: inline-block;
+}
+
+.my-title-btn {
+    margin-left: 10px;
     display: inline-block;
 }
 
@@ -51,4 +46,13 @@ th {
 
 .my-mb-7 {
     margin-bottom: 7px;
+}
+
+.my-btn {
+    border: solid 1px #868686;
+    min-width: 90px;
+    min-height: 22px;
+    border-radius: 3px;
+    background-image: linear-gradient(to top, #585858, #888888);
+    color: white;
 }

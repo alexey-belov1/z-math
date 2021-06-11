@@ -22,7 +22,6 @@ import {PasswordRecoveryPageComponent} from './password-recovery-page/password-r
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './shared/auth.interceptor';
 import {NoAuthorizationPageComponent} from './no-authorization-page/no-authorization-page.component';
-import {InfoComponent} from './tasks-page/info/info.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ItemMenuComponent} from './shared/components/menu/item-menu/item-menu.component';
 import {NewReviewComponent} from './reviews-page/new-review/new-review.component';
@@ -32,8 +31,10 @@ import {ErrorHandlerInterceptor} from "./shared/errorhandler.interceptor";
 import {NotificationInterceptor} from "./shared/notification.interceptor";
 import {TooltipDirective} from "./new-task-page/tooltip.directive";
 import { TaskDetailComponent } from './tasks-page/task-detail/task-detail.component';
-import {RefDirective} from "./shared/ref.directive";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TaskEditCostComponent } from './tasks-page/task-edit-cost/task-edit-cost.component';
+import { TaskEditRefuseComponent } from './tasks-page/task-edit-refuse/task-edit-refuse.component';
+import { TaskEditSolveComponent } from './tasks-page/task-edit-solve/task-edit-solve.component';
 
 @NgModule({
     declarations: [
@@ -53,13 +54,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         LoginPanelComponent,
         PasswordRecoveryPageComponent,
         NoAuthorizationPageComponent,
-        InfoComponent,
         ItemMenuComponent,
         NewReviewComponent,
         AlertErrorComponent,
         TooltipDirective,
         TaskDetailComponent,
-        RefDirective
+        TaskEditCostComponent,
+        TaskEditRefuseComponent,
+        TaskEditSolveComponent
     ],
     imports: [
         BrowserModule,

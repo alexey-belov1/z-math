@@ -5,8 +5,20 @@
         <div class="my-title">
             <span>Заказ № {{task.id}} ({{task.user.login}})</span>
         </div>
+        <div class="my-title-btn">
+            <button class="my-btn" type="button" (click)="showTaskEditCostModal()">Оценить заказ</button>
+        </div>
+        <div class="my-title-btn">
+            <button class="my-btn" type="button" (click)="showTaskEditRefuseModal()">Отказать в решении</button>
+        </div>
+        <div class="my-title-btn">
+            <button class="my-btn" type="button" (click)="showTaskEditSolveModal()">Загрузить решение</button>
+        </div>
+        <div class="my-title-btn">
+            <button class="my-btn" type="button" (click)="deleteTask()">Удалить заказ</button>
+        </div>
         <div class="my-close">
-            <button type="button" (click)="close.emit()">&times;</button>
+            <button type="button" (click)="close()">&times;</button>
         </div>
     </div>
     <hr>

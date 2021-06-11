@@ -93,3 +93,7 @@ export enum AlertType {
     Info,
     Warning
 }
+
+export class EventData {
+    constructor(public name: any, public value: any) { }
+}
