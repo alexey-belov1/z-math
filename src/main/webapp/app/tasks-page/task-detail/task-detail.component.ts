@@ -1,30 +1,41 @@
-import { Component, OnInit, Input, ComponentFactoryResolver} from '@angular/core';
-import {ITask} from "../../shared/interfaces";
+import {Component, OnInit, Input, ComponentFactoryResolver, OnDestroy} from '@angular/core';
+import {EventData, ITask} from "../../shared/interfaces";
 import {AttachedFileService} from "../../shared/services/attached-file.service";
 import {TaskEditCostComponent} from "../task-edit-cost/task-edit-cost.component";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {TaskEditRefuseComponent} from "../task-edit-refuse/task-edit-refuse.component";
 import {TaskEditSolveComponent} from "../task-edit-solve/task-edit-solve.component";
 import {TaskService} from "../../shared/services/task.service";
+import {Subscription} from "rxjs";
+import {EventBusService} from "../../shared/services/event-bus.service";
 
 @Component({
     selector: 'app-task-detail',
     templateUrl: './task-detail.component.html',
     styleUrls: ['./task-detail.component.scss']
 })
-export class TaskDetailComponent implements OnInit {
+export class TaskDetailComponent implements OnInit, OnDestroy {
 
     @Input() task: ITask;
+
+    // Подписка на прием сообщений от сервера по веб сокету
+    onTaskEditSub: Subscription;
 
     constructor(
         private attachedFileService: AttachedFileService,
         private resolver: ComponentFactoryResolver,
         protected modalService: NgbModal,
         public activeModal: NgbActiveModal,
-        private taskService: TaskService
+        private taskService: TaskService,
+        private eventBusService: EventBusService
     ) {}
 
     ngOnInit(): void {
+        this.onTaskEditSub = this.eventBusService.on("taskEdit", () => {
+            this.taskService.find(this.task.id).subscribe((res) => {
+                this.task = res.body;
+            })
+        });
     }
 
     close(): void {
@@ -65,6 +76,11 @@ export class TaskDetailComponent implements OnInit {
     deleteTask(): void {
         this.taskService.delete(this.task.id).subscribe(() => {
             this.close();
+            this.eventBusService.emit(new EventData("taskEdit", null));
         });
+    }
+
+    ngOnDestroy(): void {
+        this.onTaskEditSub.unsubscribe();
     }
 }

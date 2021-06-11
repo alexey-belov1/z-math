@@ -10,20 +10,21 @@
     </div>
 
     <hr>
+    <form [formGroup]="form" (ngSubmit)="update()">
+        <table>
+            <tr>
+                <th>Стоимость:</th>
+                <td>
+                    <input type="text" formControlName="cost">
+                </td>
+            </tr>
 
-    <table>
-        <tr>
-            <th>Стоимость:</th>
-            <td>
-                <input type="text" [(ngModel)]="task.cost">
-            </td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td>
-                <button type="submit" (click)="update()">Отправить</button>
-            </td>
-        </tr>
-    </table>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Отправить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

@@ -19,7 +19,7 @@
         </ng-container>
 
         <ng-template #full>
-            <tr [@long-enter] (click)="showModal(task)"> <!--(click)="changeToggle(i)"-->
+            <tr (click)="showModal(task)"> <!--(click)="changeToggle(i)"--> <!--[@long-enter] -->
                 <td>{{task.id}}</td>
                 <td>{{task.user.login}}</td>
                 <td>{{task.status.name}}</td>

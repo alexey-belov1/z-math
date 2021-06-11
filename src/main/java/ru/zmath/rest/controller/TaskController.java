@@ -16,6 +16,7 @@ import ru.zmath.rest.service.UserService;
 
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/task")
@@ -80,8 +81,17 @@ public class TaskController {
 
     @GetMapping("/")
     public ResponseEntity<List<Task>> findAll(Pageable pageable) {
-        Page<Task> page = taskService.findByCriteria(pageable);
+        Page<Task> page = this.taskService.findByCriteria(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Task> findById(@PathVariable int id) {
+        Optional<Task> res = this.taskService.findById(id);
+        return new ResponseEntity<>(
+            res.orElseGet(Task::new),
+            res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
+        );
     }
 }

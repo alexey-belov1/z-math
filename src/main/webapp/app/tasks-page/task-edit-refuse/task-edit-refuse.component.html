@@ -11,19 +11,21 @@
 
     <hr>
 
-    <table>
-        <tr>
-            <th>Причина отказа:</th>
-            <td>
-                <textarea [(ngModel)]="task.cause"></textarea>
-            </td>
-        </tr>
+    <form [formGroup]="form" (ngSubmit)="update()">
+        <table>
+            <tr>
+                <th>Причина отказа:</th>
+                <td>
+                    <textarea formControlName="cause"></textarea>
+                </td>
+            </tr>
 
-        <tr>
-            <td></td>
-            <td>
-                <button type="submit" (click)="update()">Отправить</button>
-            </td>
-        </tr>
-    </table>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Отправить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

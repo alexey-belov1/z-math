@@ -10,32 +10,33 @@
     </div>
 
     <hr>
+    <form [formGroup]="form" (ngSubmit)="update()">
+        <table>
+            <tr>
+                <th class="vertical-align">Решение:</th>
+                <td formGroupName="files">
+                    <table *ngIf="files.length > 0">
+                        <tr *ngFor="let file  of files; let i = index;">
+                            <td class="attached-file-td">
+                                <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
+                            </td>
+                            <td class="attached-file-td">
+                                <button type="button" (click)="cleanFile(file)">x</button>
+                            </td>
+                        </tr>
+                    </table>
 
-    <table>
-        <tr>
-            <th class="vertical-align">Решение:</th>
-            <td>
-                <table *ngIf="files.length > 0">
-                    <tr *ngFor="let file  of files; let i = index;">
-                        <td class="attached-file-td">
-                            <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
-                        </td>
-                        <td class="attached-file-td">
-                            <button type="button" (click)="cleanFile(file)">x</button>
-                        </td>
-                    </tr>
-                </table>
+                    <label for="files" class="attached-file-btn">+ Добавить файл</label>
+                    <input type="file" id="files" style="display:none" (change)="setFile($event)"/>
+                </td>
+            </tr>
 
-                <label for="files" class="attached-file-btn" appTooltip="tooltipFile">+ Добавить файл</label>
-                <input type="file" id="files" style="display:none" appTooltip="tooltipFile" (change)="setFile($event)" />
-            </td>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td>
-                <button type="submit">Отправить</button>
-            </td>
-        </tr>
-    </table>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit">Отправить</button>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>

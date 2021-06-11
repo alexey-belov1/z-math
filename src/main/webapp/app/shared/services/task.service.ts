@@ -18,6 +18,11 @@ export class TaskService {
         return this.http.get<ITask[]>('http://localhost:8080/task/');
     }
 
+    find(id: number): Observable<EntityResponseType> {
+        return this.http
+            .get<ITask>(`${this.resourceUrl}${id}`, { observe: 'response' });
+    }
+
     query(req?: HttpParams): Observable<EntityArrayResponseType> {
         return this.http
             .get<ITask[]>(this.resourceUrl, {params: req, observe: 'response'});

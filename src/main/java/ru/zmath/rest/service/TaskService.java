@@ -47,6 +47,11 @@ public class TaskService {
         return taskRepository.findAll(page);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Task> findById(int id) {
+        return this.taskRepository.findById(id);
+    }
+
     @Transactional
     public Task save(Task task, List<MultipartFile> files) {
         task.setStatus(new Status(1));
