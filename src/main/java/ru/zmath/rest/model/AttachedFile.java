@@ -31,7 +31,7 @@ public class AttachedFile implements Serializable {
     private String path;
 
     @Column(name = "type")
-    private int type;
+    private String type;
 
     @JsonIgnore
     @ToString.Exclude

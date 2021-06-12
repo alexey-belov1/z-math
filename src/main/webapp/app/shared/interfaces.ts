@@ -16,12 +16,14 @@ export interface IAttachedFile {
     path?: string;
     taskId?: number;
     file?: File;
+    type?: String;
 }
 
 export interface AuthResponse {
     Authorization: string;
     Expires: string;
     Login: string;
+    Role: string;
 }
 
 export interface ISubject {

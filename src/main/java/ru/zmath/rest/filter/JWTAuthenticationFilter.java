@@ -56,7 +56,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-        String login = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
+        org.springframework.security.core.userdetails.User user = ((org.springframework.security.core.userdetails.User) auth.getPrincipal());
+        String login = user.getUsername();
+        String role = user.getAuthorities()
+            .iterator()
+            .next()
+            .getAuthority();
         String token = JWT.create()
                 .withSubject(login)
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -64,7 +69,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Map<String, String> body = Map.of(
                 HEADER_STRING, TOKEN_PREFIX + token,
                 "Expires", String.valueOf(EXPIRATION_TIME),
-                "Login", login
+                "Login", login,
+                "Role", role
         );
         res.getOutputStream().write(new Gson().toJson(body).getBytes());
     }

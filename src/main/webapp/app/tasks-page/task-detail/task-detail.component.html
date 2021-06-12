@@ -5,16 +5,16 @@
         <div class="my-title">
             <span>Заказ № {{task.id}} ({{task.user.login}})</span>
         </div>
-        <div class="my-title-btn">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
             <button class="my-btn" type="button" (click)="showTaskEditCostModal()">Оценить заказ</button>
         </div>
-        <div class="my-title-btn">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
             <button class="my-btn" type="button" (click)="showTaskEditRefuseModal()">Отказать в решении</button>
         </div>
-        <div class="my-title-btn">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
             <button class="my-btn" type="button" (click)="showTaskEditSolveModal()">Загрузить решение</button>
         </div>
-        <div class="my-title-btn">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
             <button class="my-btn" type="button" (click)="deleteTask()">Удалить заказ</button>
         </div>
         <div class="my-close">
@@ -44,22 +44,16 @@
                 <th class="vertical-align">Условия задач:</th>
                 <td>
                     <div *ngFor="let attachedFile of task.attachedFile" class="my-mb-7">
-                        <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
-                            <span>{{attachedFile.name}}</span>
-                        </a>
-                        <span>
-                            ({{attachedFile.size}}кб)
-                        </span>
+                        <ng-container *ngIf="attachedFile.type === 'task'">
+                            <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
+                                <span>{{attachedFile.name}}</span>
+                            </a>
+                            <span>
+                                ({{attachedFile.size}}кб)
+                            </span>
+                        </ng-container>
                     </div>
                 </td>
-<!--                <td class="text-left">
-                    <button type="button"
-                            (click)="deleteAttachFile(attachment.id)"
-                            class="btn btn-secondary btn-xs pull-right">
-                        <fa-icon [icon]="'times'"></fa-icon>
-                    </button>
-                </td>-->
-
             </tr>
 
             <tr>
@@ -80,6 +74,22 @@
             <tr>
                 <th>Контактная информация:</th>
                 <td>{{task.contact}}</td>
+            </tr>
+
+            <tr>
+                <th class="vertical-align">Решение:</th>
+                <td>
+                    <div *ngFor="let attachedFile of task.attachedFile" class="my-mb-7">
+                        <ng-container *ngIf="attachedFile.type === 'solve'">
+                            <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
+                                <span>{{attachedFile.name}}</span>
+                            </a>
+                            <span>
+                                ({{attachedFile.size}}кб)
+                            </span>
+                        </ng-container>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>

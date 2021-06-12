@@ -62,7 +62,7 @@ public class TaskService {
         this.taskRepository.save(task);
         task.setAttachedFile(
             files.stream()
-                .map(file -> createAttachedFile(file, task))
+                .map(file -> createAttachedFile(file, task, "task"))
                 .collect(Collectors.toList())
         );
         return task;
@@ -76,7 +76,7 @@ public class TaskService {
 
         files.forEach(file ->
             task.getAttachedFile().add(
-                createAttachedFile(file, task)
+                createAttachedFile(file, task, "solve")
             )
         );
 
@@ -95,22 +95,22 @@ public class TaskService {
         return false;
     }
 
-    private AttachedFile createAttachedFile(MultipartFile file, Task task) {
-        String dir = saveFile(file, task.getId());
+    private AttachedFile createAttachedFile(MultipartFile file, Task task, String type) {
+        String dir = saveFile(file, task.getId(), type);
 
         AttachedFile attachedFile = new AttachedFile();
         attachedFile.setName(file.getOriginalFilename());
         attachedFile.setSize(String.valueOf(file.getSize()));
         attachedFile.setExtension(file.getContentType());
         attachedFile.setPath(dir + File.separator + file.getOriginalFilename());
+        attachedFile.setType(type);
         attachedFile.setTask(task);
         return  attachedFile;
     }
 
-    private String saveFile(MultipartFile file, int taskId) {
+    private String saveFile(MultipartFile file, int taskId, String type) {
         try(InputStream is = file.getInputStream()) {
-            String dateFormat = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-            Path dir = createDirectories(get(filePath, dateFormat, String.valueOf(taskId)));
+            Path dir = createDirectories(get(filePath, String.valueOf(taskId), type));
             String name = file.getOriginalFilename();
             Files.copy(is, dir.resolve(Objects.requireNonNull(name)));
             return dir.toString();

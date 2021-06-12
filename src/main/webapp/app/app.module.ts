@@ -35,6 +35,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskEditCostComponent } from './tasks-page/task-edit-cost/task-edit-cost.component';
 import { TaskEditRefuseComponent } from './tasks-page/task-edit-refuse/task-edit-refuse.component';
 import { TaskEditSolveComponent } from './tasks-page/task-edit-solve/task-edit-solve.component';
+import {HasAnyRoleDirective} from "./shared/has-any-role.directive";
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { TaskEditSolveComponent } from './tasks-page/task-edit-solve/task-edit-s
         TaskDetailComponent,
         TaskEditCostComponent,
         TaskEditRefuseComponent,
-        TaskEditSolveComponent
+        TaskEditSolveComponent,
+        HasAnyRoleDirective
     ],
     imports: [
         BrowserModule,

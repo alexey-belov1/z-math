@@ -116,7 +116,7 @@ create table attached_file
     size  varchar(300)    not null,
     extension varchar(300)    not null,
     path      varchar(300)    not null,
-    type      int             not null,
+    type      varchar(300)    not null,
     task_id   int             not null,
     constraint fk_attached_file_task_id foreign key (task_id) references zmath.task (id)
 );
