@@ -38,7 +38,16 @@ create table status
 );
 -- rollback drop table status;
 
--- changeset abelov:6--create_table_task
+-- changeset abelov:6--create_table_method
+create table method
+(
+    id   int primary key not null auto_increment,
+    name varchar(50)     not null,
+    description varchar(300)
+);
+-- rollback drop table method;
+
+-- changeset abelov:7--create_table_task
 create table task
 (
     id         int primary key not null auto_increment,
@@ -48,17 +57,20 @@ create table task
     deadline   timestamp       not null,
     status_id  int             not null,
     cost       real            not null,
+    paid       real default 0.0 not null,
+    method_id  int,
     created    timestamp       not null,
     contact    varchar(500),
     cause      varchar(500),
-    hidden     boolean         not null,
+    archived     boolean         not null,
     constraint fk_task_user_id foreign key (user_id) references zmath.users (id),
     constraint fk_task_subject_id foreign key (subject_id) references zmath.subject (id),
-    constraint fk_task_status_id foreign key (status_id) references zmath.status (id)
+    constraint fk_task_status_id foreign key (status_id) references zmath.status (id),
+    constraint fk_task_method_id foreign key (method_id) references zmath.method (id)
 );
 -- rollback drop table task;
 
--- changeset abelov:7--create_table_solve
+-- changeset abelov:8--create_table_solve
 create table solve
 (
     id      int primary key not null auto_increment,
@@ -70,14 +82,6 @@ create table solve
     constraint fk_solve_user_id foreign key (user_id) references zmath.users (id)
 );
 -- rollback drop table solve;
-
--- changeset abelov:8--create_table_method
-create table method
-(
-    id   int primary key not null auto_increment,
-    name varchar(50)     not null
-);
--- rollback drop table method;
 
 -- changeset abelov:9--create_table_payment
 create table payment
@@ -158,5 +162,8 @@ values ('Новый'),
        ('Отказано');
 
 -- changeset abelov:16--insert_into_method
-insert into method(name)
-values ('Карта Visa');
+insert into method(name, description)
+values ('Банковская карта', 'VISA, Mastercard, Мир и другие'),
+       ('Мобильный платёж', 'МТС, Билайн, Мегафон, Теле2'),
+       ('Кошелёк WebMoney', null),
+       ('Кошелёк QIWI', null);

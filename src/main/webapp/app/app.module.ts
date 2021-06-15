@@ -36,6 +36,7 @@ import { TaskEditCostComponent } from './tasks-page/task-edit-cost/task-edit-cos
 import { TaskEditRefuseComponent } from './tasks-page/task-edit-refuse/task-edit-refuse.component';
 import { TaskEditSolveComponent } from './tasks-page/task-edit-solve/task-edit-solve.component';
 import {HasAnyRoleDirective} from "./shared/has-any-role.directive";
+import { TaskEditPaymentComponent } from './tasks-page/task-edit-payment/task-edit-payment.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import {HasAnyRoleDirective} from "./shared/has-any-role.directive";
         TaskEditCostComponent,
         TaskEditRefuseComponent,
         TaskEditSolveComponent,
-        HasAnyRoleDirective
+        HasAnyRoleDirective,
+        TaskEditPaymentComponent
     ],
     imports: [
         BrowserModule,

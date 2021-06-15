@@ -2,7 +2,6 @@ package ru.zmath.rest.service;
 
 import org.springframework.stereotype.Service;
 import ru.zmath.rest.model.Review;
-import ru.zmath.rest.model.Task;
 import ru.zmath.rest.repository.ReviewRepository;
 
 import java.util.List;

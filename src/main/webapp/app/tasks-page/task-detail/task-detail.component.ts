@@ -8,6 +8,8 @@ import {TaskEditSolveComponent} from "../task-edit-solve/task-edit-solve.compone
 import {TaskService} from "../../shared/services/task.service";
 import {Subscription} from "rxjs";
 import {EventBusService} from "../../shared/services/event-bus.service";
+import {TaskEditPaymentComponent} from "../task-edit-payment/task-edit-payment.component";
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
     selector: 'app-task-detail',
@@ -27,7 +29,8 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
         protected modalService: NgbModal,
         public activeModal: NgbActiveModal,
         private taskService: TaskService,
-        private eventBusService: EventBusService
+        private eventBusService: EventBusService,
+        public authService: AuthService
     ) {}
 
     ngOnInit(): void {
@@ -71,6 +74,10 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
     showTaskEditSolveModal(): void {
         this.showModal(TaskEditSolveComponent);
+    }
+
+    showTaskEditPaymentModal(): void {
+        this.showModal(TaskEditPaymentComponent);
     }
 
     deleteTask(): void {

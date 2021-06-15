@@ -61,7 +61,7 @@ export class NewTaskPageComponent implements OnInit {
             deadline: this.form.value.deadline,
             cost: this.form.value.cost,
             contact: this.form.value.contact,
-            hidden: false
+            archived: false
         };
         console.warn("Task", task);
 

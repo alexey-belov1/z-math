@@ -5,7 +5,6 @@ import {HomePageComponent} from './home-page/home-page.component';
 import {ReviewsPageComponent} from './reviews-page/reviews-page.component';
 import {NewTaskPageComponent} from './new-task-page/new-task-page.component';
 import {ContactsPageComponent} from './contacts-page/contacts-page.component';
-import {PaymentPageComponent} from './payment-page/payment-page.component';
 import {RegistrationPageComponent} from './registration-page/registration-page.component';
 import {RulesPageComponent} from './rules-page/rules-page.component';
 import {TasksPageComponent} from './tasks-page/tasks-page.component';
@@ -53,7 +52,7 @@ const routes: Routes = [
       {path: '', component: HomePageComponent},
       {path: 'contacts', component: ContactsPageComponent},
       {path: 'new-task', component: NewTaskPageComponent, canActivate: [AuthGuard]},
-      {path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard]},
+/*      {path: 'payment', component: PaymentPageComponent, canActivate: [AuthGuard]},*/
       {path: 'registration', component: RegistrationPageComponent},
       {path: 'reviews', component: ReviewsPageComponent},
       {path: 'rules', component: RulesPageComponent},

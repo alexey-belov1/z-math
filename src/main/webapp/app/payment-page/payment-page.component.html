@@ -1,6 +1,48 @@
 <p class="content-title">Оплата заказа!</p>
 <hr>
 
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <table>
+        <tr>
+            <th>Номер заказа*:</th>
+            <td>
+                <select appTooltip="tooltipTaskId" formControlName="task" (change)="setCost()">
+                    <option *ngIf="!form.value.task" [ngValue]="null"></option>
+                    <option *ngFor="let task of tasks" [ngValue]="task">{{task.id}}</option>
+                </select>
+                <span id="tooltipTaskId" class="comment">
+                    Выберите один из Ваших заказов для оплаты
+                </span>
+                <div *ngIf="form.get('task').invalid && form.get('task').touched">
+                    <span *ngIf="form.get('task').errors.required" class="validation">
+                        Поле обязательное для заполнения
+                    </span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <th>Сумма к оплате:</th>
+            <td>
+                <input type="text" appTooltip="tooltipCost" formControlName="cost" readonly>
+                <span id="tooltipCost" class="comment">
+                    Сумма к оплате заказа. Заполняется автоматически после выбора заказа
+                </span>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>
+                <button type="submit">Отправить</button>
+            </td>
+        </tr>
+
+    </table>
+
+</form>
+
+
 <!--
 
 <style>

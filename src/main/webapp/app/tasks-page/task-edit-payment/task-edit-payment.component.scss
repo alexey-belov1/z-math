@@ -1,0 +1,25 @@
+.modal {
+    width: 800px;
+    padding: 1rem;
+    background: #fff;
+    margin-top: 10rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.modal-text {
+    padding-left: 30px;
+    line-height: 2.0;
+}
+
+.modal-payment {
+    padding-left: 30px;
+}
+
+.cursive {
+    color:#b11e18;
+    font-style:italic;
+}
+
+

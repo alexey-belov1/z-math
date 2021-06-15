@@ -1,0 +1,44 @@
+<div class="backdrop"></div>
+
+<div class="modal">
+
+    <div class="my-title">
+        <span>Оплата заказа №{{task.id}}</span>
+    </div>
+    <div class="my-close">
+        <button type="button" (click)="close()">&times;</button>
+    </div>
+
+    <hr>
+    <form [formGroup]="form" (ngSubmit)="update()">
+        <div class="modal-text">
+            <span>Выберите способ оплаты:</span>
+            <div class="modal-payment">
+                <div *ngFor="let method of methods">
+                    <label for="method_{{method.id}}">
+                        <input id="method_{{method.id}}" [value]='method.id' type="radio" formControlName="methodId">
+                        {{method.name}}
+                    </label>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <th>Сумма к оплате:</th>
+                    <td>
+                        <input type="text" formControlName="paid" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit">Отправить</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+</div>
+
+
+

@@ -40,10 +40,12 @@ export interface ITask {
     deadline?: Date;
     status?: IStatus,
     cost?: number;
+    paid?: number;
+    method?: IMethod;
     created?: Date;
     contact?: string;
     cause?: string;
-    hidden?: boolean;
+    archived?: boolean;
     attachedFile?: IAttachedFile[];
 }
 
@@ -57,10 +59,12 @@ export class Task implements ITask {
         public deadline?: Date,
         public status?: IStatus,
         public cost?: number,
+        public paid?: number,
+        public method?: IMethod,
         public created?: Date,
         public contact?: string,
         public cause?: string,
-        public hidden?: boolean,
+        public archived?: boolean,
         public attachedFile?: IAttachedFile[]
     ) {
     }
@@ -81,6 +85,20 @@ export interface IStatus {
 export interface IRole {
     id: number;
     name?: string;
+}
+
+export interface IMethod {
+    id: number;
+    name?: string;
+    description?: string;
+}
+
+export class Method implements IMethod {
+    constructor(
+        public id: number,
+        public name?: string,
+        public description?: string
+    ) { }
 }
 
 export interface IAlert {

@@ -38,12 +38,19 @@ public class Task {
 
     private double cost;
 
+    private double paid;
+
+    @ManyToOne
+    @JoinColumn(name = "method_id")
+    private Method method;
+
     private Calendar created;
 
     private String contact;
+
     private String cause;
 
-    private boolean hidden;
+    private boolean archived;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AttachedFile> attachedFile = new ArrayList<>();
