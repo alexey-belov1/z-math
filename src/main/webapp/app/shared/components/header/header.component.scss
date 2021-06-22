@@ -1,44 +1,33 @@
-/* Шапка */
-
-
-.righthead {
-  width: 30%;
-  float: right;
-  height: 100%;
-  background: url('~src/main/webapp/content/image/learn.png') no-repeat;
-  background-position: right;
-  min-width: 400px;
+.header-right {
+    height: 100%;
+    width: 400px;
+    float: right;
+    background: url('~src/main/webapp/content/image/learn.png') no-repeat right;
 }
 
-.lefthead {
-  height: 100%;
-  width: 70%;
+.header-left {
+    height: 100%;
+    width: 900px;
+    margin-left: 100px;
 }
 
-.lefthead_1 {
-  height: 30%;
+.header-left-empty {
+    height: 30%;
 }
 
-.lefthead_2 {
-  margin-left: 100px;
-  height: 40%;
-  background: url('~src/main/webapp/content/image/header.png') no-repeat;
-  background-size: contain;
+.header-left-logo {
+    height: 40%;
+    background: url('~src/main/webapp/content/image/header.png') no-repeat;
+    background-size: contain;
 }
 
-.lefthead_3 {
-  height: 30%;
-}
-
-.title_head {
-  padding: 0;
-  margin: 0;
-  text-align: left;
-  margin-left: 100px;
-  font-style: italic;
-  color: rgb(87, 87, 87);
-  font-family:serif;
-  font-size: 30px;
-  font-weight: 700;
-  text-shadow: 2px 2px 5px #6a6a6a;
+.header-left-title {
+    height: 30%;
+    margin: 0;
+    font-style: italic;
+    color: rgb(87, 87, 87);
+    font-family: serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 2px 2px 5px #6a6a6a;
 }

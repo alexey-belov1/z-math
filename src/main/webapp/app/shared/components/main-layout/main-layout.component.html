@@ -2,7 +2,7 @@
     <app-menu></app-menu>
 </div>
 
-<div class="container">
+<div class="page-body">
     <div class="header">
         <app-header></app-header>
     </div>
@@ -13,14 +13,9 @@
 
     <app-alert-error></app-alert-error>
 
-    <div [@routeAnimations]="prepareRoute(outlet)" class="content">
-        <router-outlet #outlet="outlet"></router-outlet>
+    <div class="content">
+        <router-outlet></router-outlet>
     </div>
-
-
-    <!--    <div class="content">
-          <router-outlet></router-outlet>
-        </div>-->
 
     <div class="footer">
         <app-footer></app-footer>
