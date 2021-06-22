@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IMethod} from '../interfaces';
+import {IMethod} from "../model/method.model";
 
 @Injectable({providedIn: 'root'})
 export class MethodService {

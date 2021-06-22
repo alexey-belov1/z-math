@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IReview} from '../interfaces';
+import {IReview} from "../model/review.model";
 
 @Injectable({providedIn: 'root'})
 export class ReviewService {

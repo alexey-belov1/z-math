@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ITask} from '../interfaces';
+import {ITask} from "../model/task.model";
 
 type EntityResponseType = HttpResponse<ITask>;
 type EntityArrayResponseType = HttpResponse<ITask[]>;

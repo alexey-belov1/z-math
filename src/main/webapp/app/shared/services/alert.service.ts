@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import {AlertType, IAlert} from "../interfaces";
+import {AlertType} from "../model/enum/alert-type.model";
+import {IAlert} from "../model/alert.model";
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
