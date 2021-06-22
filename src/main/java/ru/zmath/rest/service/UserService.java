@@ -28,8 +28,12 @@ public class UserService {
         return this.userRepository.findById(id);
     }
 
-    public List<User> findByName(String name) {
-        return this.userRepository.findByLogin(name);
+    public Optional<User> findByName(String name) {
+        return this.userRepository.findDistinctByLogin(name);
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return this.userRepository.findDistinctByEmail(email);
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)

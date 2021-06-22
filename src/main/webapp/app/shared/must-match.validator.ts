@@ -1,4 +1,4 @@
-import {AbstractControl, AsyncValidatorFn, FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
+import {AbstractControl, ValidationErrors} from '@angular/forms';
 
 export function matchValues(
   matchTo: string
@@ -8,6 +8,6 @@ export function matchValues(
     !!control.parent.value &&
     control.value === control.parent.controls[matchTo].value
       ? null
-      : { isMatching: false };
+      : { notMatching: true };
   };
 }

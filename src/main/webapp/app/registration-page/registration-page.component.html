@@ -1,48 +1,74 @@
-
 <p class="content-title">Регистрация</p>
 <hr>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <table >
+    <table>
 
-    <tr class="">
-      <th>Логин:</th>
-      <td>
-        <input type="text" formControlName="login">
-      </td>
-    </tr>
+        <tr class="">
+            <th>Логин:</th>
+            <td>
+                <input type="text" formControlName="login">
+                <div *ngIf="form.get('login').invalid && form.get('login').touched">
+                    <span *ngIf="form.get('login').errors.required" class="validation">
+                        Поле обязательное для заполнения
+                    </span>
+                    <span *ngIf="form.get('login').errors.minlength" class="validation">
+                        Логин должен состоять минимум из {{form.get('login').errors.minlength.requiredLength}} символов
+                    </span>
+                </div>
+            </td>
+        </tr>
 
-    <tr>
-      <th>Пароль:</th>
-      <td>
-        <input type="password" formControlName="password">
-      </td>
-    </tr>
+        <tr>
+            <th>Пароль:</th>
+            <td>
+                <input type="password" formControlName="password">
+                <div *ngIf="form.get('password').invalid && form.get('password').touched">
+                    <span *ngIf="form.get('password').errors.required" class="validation">
+                        Поле обязательное для заполнения
+                    </span>
+                    <span *ngIf="form.get('password').errors.minlength" class="validation">
+                        Пароль должен состоять минимум из {{form.get('password').errors.minlength.requiredLength}} символов
+                    </span>
+                </div>
+            </td>
+        </tr>
 
-    <tr>
-      <th>Пароль еще раз:</th>
-      <td>
-        <input type="password" formControlName="confirmPassword">
-      </td>
-    </tr>
+        <tr>
+            <th>Пароль еще раз:</th>
+            <td>
+                <input type="password" formControlName="confirmPassword">
+                <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched">
+                    <span *ngIf="form.get('confirmPassword').errors.required" class="validation">
+                        Поле обязательное для заполнения
+                    </span>
+                    <span *ngIf="form.get('confirmPassword').errors.notMatching" class="validation">
+                        Пароль не совпадает с ранее введенным
+                    </span>
+                </div>
+            </td>
+        </tr>
 
-    <tr>
-      <th>E-mail:</th>
-      <td>
-        <input type="email" formControlName="email">
-      </td>
-    </tr>
+        <tr>
+            <th>E-mail:</th>
+            <td>
+                <input type="email" formControlName="email">
+                <div *ngIf="form.get('email').invalid && form.get('email').touched">
+                    <span *ngIf="form.get('email').errors.required" class="validation">
+                        Поле обязательное для заполнения
+                    </span>
+                    <span *ngIf="form.get('email').errors.email" class="validation">
+                        Неверный формат email
+                    </span>
+                </div>
+            </td>
+        </tr>
 
-    <tr>
-      <th></th>
-      <td>
-        <button
-          type="submit"
-          [disabled]="form.invalid || submitted"
-        >Отправить</button>
-      </td>
-    </tr>
-
-
-  </table>
+        <tr>
+            <th></th>
+            <td>
+                <button type="submit" [disabled]="submitted">Отправить</button>
+            </td>
+        </tr>
+    </table>
 </form>

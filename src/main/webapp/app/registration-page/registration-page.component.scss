@@ -25,12 +25,6 @@ input {
   font-size: 13px;
 }
 
-td span {
-  font-size:11px;
-  font-style:italic;
-  color:#747474;
-}
-
 button {
   border: solid 1px #868686;
   min-width: 90px;
@@ -38,4 +32,17 @@ button {
   border-radius: 3px;
   background-image: linear-gradient(to top, #585858, #888888);
   color: white;
+}
+
+input {
+    &.ng-invalid.ng-touched {
+        border-radius: 2px;
+        border: 1px solid #f81818;
+    }
+}
+
+.validation {
+    font-size: 12px;
+    color: #ff0303;
+    font-style: italic;
 }

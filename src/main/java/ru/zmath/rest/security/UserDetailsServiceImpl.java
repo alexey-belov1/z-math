@@ -9,6 +9,7 @@ import ru.zmath.rest.model.User;
 import ru.zmath.rest.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -21,11 +22,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        List<User> users = userService.findByName(name);
-        if (users.isEmpty()) {
+        Optional<User> optional = userService.findByName(name);
+        if (optional.isEmpty()) {
             throw new UsernameNotFoundException(name);
         }
-        User user = users.get(0);
+        User user = optional.get();
         return new org.springframework.security.core.userdetails.User(
                 user.getLogin(),
                 user.getPassword(),

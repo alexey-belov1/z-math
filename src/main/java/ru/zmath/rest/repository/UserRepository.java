@@ -14,5 +14,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     Optional<User> findDistinctByLogin(String name);
 
+    Optional<User> findDistinctByEmail(String email);
+
     Integer deleteUserById(Integer id);
 }

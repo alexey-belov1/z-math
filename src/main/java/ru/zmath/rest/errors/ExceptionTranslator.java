@@ -13,4 +13,14 @@ public class ExceptionTranslator {       /*extends ResponseEntityExceptionHandle
     protected ResponseEntity<AwesomeException> handleThereIsNoSuchUserException(RuntimeException ex) {
         return new ResponseEntity<>(new AwesomeException("Логин или пароль введены неверно"), HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(LoginAlreadyUsedException.class)
+    protected ResponseEntity<AwesomeException> handleThereIsLoginAlreadyUsedException(RuntimeException ex) {
+        return new ResponseEntity<>(new AwesomeException("Пользователь с данным логином уже существует"), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(EmailAlreadyUsedException.class)
+    protected ResponseEntity<AwesomeException> handleThereIsEmailAlreadyUsedException(RuntimeException ex) {
+        return new ResponseEntity<>(new AwesomeException("Данные email уже используется другим пользователем"), HttpStatus.FORBIDDEN);
+    }
 }
