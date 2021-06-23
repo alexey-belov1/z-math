@@ -30,18 +30,18 @@ import {TaskEditCostComponent} from "../entities/tasks-page/task-edit-cost/task-
 import {TaskEditRefuseComponent} from "../entities/tasks-page/task-edit-refuse/task-edit-refuse.component";
 import {TaskEditSolveComponent} from "../entities/tasks-page/task-edit-solve/task-edit-solve.component";
 import {TaskEditPaymentComponent} from "../entities/tasks-page/task-edit-payment/task-edit-payment.component";
-import {MenuComponent} from "../layouts/menu/menu.component";
+import {NavbarComponent} from "../layouts/navbar/navbar.component";
 import {FooterComponent} from "../layouts/footer/footer.component";
 import {MainLayoutComponent} from "../layouts/main-layout/main-layout.component";
 import {LoginPanelComponent} from "../layouts/login-panel/login-panel.component";
-import {ItemMenuComponent} from "../layouts/menu/item-menu/item-menu.component";
+import {NavbarItemComponent} from "../layouts/navbar/navbar-item/navbar-item.component";
 import {AlertErrorComponent} from "../layouts/alert-error/alert-error.component";
 import {HeaderComponent} from "../layouts/header/header.component";
 
 @NgModule({
     declarations: [
         AppComponent,
-        MenuComponent,
+        NavbarComponent,
         HeaderComponent,
         FooterComponent,
         MainLayoutComponent,
@@ -56,7 +56,7 @@ import {HeaderComponent} from "../layouts/header/header.component";
         LoginPanelComponent,
         PasswordRecoveryPageComponent,
         NoAuthorizationPageComponent,
-        ItemMenuComponent,
+        NavbarItemComponent,
         NewReviewComponent,
         AlertErrorComponent,
         TooltipDirective,

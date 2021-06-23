@@ -1,11 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Item} from '../menu.component';
+import {Item} from '../navbar.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
-  selector: 'app-item-menu',
-  templateUrl: './item-menu.component.html',
-  styleUrls: ['./item-menu.component.scss'],
+  selector: 'app-navbar-item',
+  templateUrl: './navbar-item.component.html',
+  styleUrls: ['./navbar-item.component.scss'],
   animations: [
     trigger('hover', [
       state('false', style({background: 'none'})),
@@ -15,7 +15,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     ])
   ]
 })
-export class ItemMenuComponent implements OnInit {
+export class NavbarItemComponent implements OnInit {
 
   hover = false;
 

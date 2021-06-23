@@ -7,12 +7,12 @@ export interface Item {
 }
 
 @Component({
-  selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
 
-export class MenuComponent implements OnInit {
+export class NavbarComponent implements OnInit {
 
   items: Item[] = [
     {
