@@ -1,13 +1,10 @@
 <a
   [routerLink]="item.router"
-  (mouseenter)="hover=true; log(hover)"
-  (mouseleave)="hover=false; log(hover)"
-
+  (mouseenter)="hover=true;"
+  (mouseleave)="hover=false;"
 >
   <div [@hover]="hover" class="item">
     <img [src]="item.src"><br>
     <span class="item-title" [innerHTML]="item.text"></span>
   </div>
 </a>
-
-<!--(mouseout)="hover=false"-->

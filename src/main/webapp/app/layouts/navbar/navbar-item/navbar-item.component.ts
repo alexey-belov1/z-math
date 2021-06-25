@@ -25,8 +25,4 @@ export class NavbarItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  log(l: boolean): void {
-    console.log(l);
-  }
 }
