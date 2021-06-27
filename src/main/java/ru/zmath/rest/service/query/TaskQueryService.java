@@ -9,6 +9,8 @@ import ru.zmath.rest.Specification.QueryService;
 import ru.zmath.rest.model.*;
 import ru.zmath.rest.repository.TaskRepository;
 import ru.zmath.rest.service.criteria.TaskCriteria;
+import ru.zmath.rest.service.dto.TaskDTO;
+import ru.zmath.rest.service.mapper.TaskMapper;
 
 import javax.persistence.criteria.JoinType;
 
@@ -17,8 +19,11 @@ public class TaskQueryService extends QueryService<Task> {
 
     private final TaskRepository taskRepository;
 
-    public TaskQueryService(final TaskRepository taskRepository) {
+    private final TaskMapper taskMapper;
+
+    public TaskQueryService(final TaskRepository taskRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
+        this.taskMapper = taskMapper;
     }
 
     @Transactional(readOnly = true)
