@@ -1,27 +1,22 @@
-package ru.zmath.rest.model;
+package ru.zmath.rest.service.dto;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Calendar;
 
-@Entity
-@Table(name = "review")
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Review {
+public class ReviewDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private int userId;
+
+    private String userLogin;
 
     private Calendar created;
 

@@ -21,8 +21,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
+
     private String login;
+
     private String email;
+
     private String password;
 
     @ManyToOne
@@ -30,5 +33,6 @@ public class User {
     private Role role;
 
     private Calendar created;
+
     private double balance;
 }

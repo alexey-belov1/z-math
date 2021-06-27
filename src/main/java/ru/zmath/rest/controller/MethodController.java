@@ -1,8 +1,8 @@
 package ru.zmath.rest.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.zmath.rest.model.Method;
 import ru.zmath.rest.service.MethodService;
+import ru.zmath.rest.service.dto.MethodDTO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class MethodController {
     }
 
     @GetMapping("/")
-    public List<Method> findAll() {
+    public List<MethodDTO> findAll() {
         return this.methodService.findAll();
     }
 }

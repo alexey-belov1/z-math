@@ -1,8 +1,8 @@
 package ru.zmath.rest.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.zmath.rest.model.Subject;
 import ru.zmath.rest.service.SubjectService;
+import ru.zmath.rest.service.dto.SubjectDTO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class SubjectController {
     }
 
     @GetMapping("/")
-    public List<Subject> findAll() {
+    public List<SubjectDTO> findAll() {
         return this.subjectService.findAll();
     }
 }

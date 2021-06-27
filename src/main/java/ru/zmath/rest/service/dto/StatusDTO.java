@@ -4,25 +4,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Calendar;
-
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class UserDTO {
+public class StatusDTO {
 
     @EqualsAndHashCode.Include
     private int id;
 
-    private String login;
-
-    private String email;
-
-    private String password;
-
-    private RoleDTO role;
-
-    private Calendar created;
-
-    private double balance;
+    private String name;
 }

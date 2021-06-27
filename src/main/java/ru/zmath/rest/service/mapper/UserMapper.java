@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import ru.zmath.rest.model.User;
 import ru.zmath.rest.service.dto.UserDTO;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {RoleMapper.class})
 public interface UserMapper extends EntityMapper<UserDTO, User> {
 
     default User fromId(Integer id) {

@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.zmath.rest.controller.util.HeaderUtil;
 import ru.zmath.rest.controller.util.PaginationUtil;
-import ru.zmath.rest.model.Task;
+import ru.zmath.rest.service.dto.TaskDTO;
 import ru.zmath.rest.service.query.TaskQueryService;
 import ru.zmath.rest.service.TaskService;
 import ru.zmath.rest.service.UserService;
@@ -36,38 +36,23 @@ public class TaskController {
         this.userService = userService;
     }
 
-    /*@GetMapping("/")
-    public List<Task> findAll() {
-        return this.taskService.findAll();
-    }*/
-
-/*    @PostMapping("/")
-    public ResponseEntity<Task> create(@RequestBody Task task) throws URISyntaxException {
-        return new ResponseEntity<>(
-            this.taskService.save(task),
-            HeaderUtil.createSuccessAlert(entity),
-            HttpStatus.CREATED
-        );
-    }*/
-
-
     @PostMapping(value = "/", consumes = {"multipart/form-data"})
-    public ResponseEntity<Task> create(@RequestPart("task") Task task,
+    public ResponseEntity<TaskDTO> create(@RequestPart("taskDTO") TaskDTO taskDTO,
                                        @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) throws URISyntaxException {
         return new ResponseEntity<>(
-            this.taskService.save(task, files),
+            this.taskService.save(taskDTO, files),
             HeaderUtil.createSuccessAlert(entity),
             HttpStatus.CREATED
         );
     }
 
     @PutMapping(value = "/", consumes = {"multipart/form-data"})
-    public ResponseEntity<Task> update(@RequestPart("task") Task task,
+    public ResponseEntity<TaskDTO> update(@RequestPart("taskDTO") TaskDTO taskDTO,
                                        @RequestPart(value = "files", required = false) List<MultipartFile> files
     ) throws URISyntaxException {
         return new ResponseEntity<>(
-            this.taskService.update(task, files),
+            this.taskService.update(taskDTO, files),
             HeaderUtil.createSuccessAlert(entity),
             HttpStatus.CREATED
         );
@@ -83,17 +68,17 @@ public class TaskController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Task>> findAll(TaskCriteria criteria, Pageable pageable) {
-        Page<Task> page = this.taskQueryService.findByCriteria(criteria, pageable);
+    public ResponseEntity<List<TaskDTO>> findAll(TaskCriteria criteria, Pageable pageable) {
+        Page<TaskDTO> page = this.taskQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> findById(@PathVariable int id) {
-        Optional<Task> res = this.taskService.findById(id);
+    public ResponseEntity<TaskDTO> findById(@PathVariable int id) {
+        Optional<TaskDTO> res = this.taskService.findById(id);
         return new ResponseEntity<>(
-            res.orElseGet(Task::new),
+            res.orElseGet(TaskDTO::new),
             res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }

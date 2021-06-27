@@ -1,7 +1,7 @@
-import {IUser} from "./user.model";
-
 export interface IReview {
-    user: IUser;
+    id?: number;
+    userId?: number;
+    userLogin?: string;
     created?: Date;
-    text: string;
+    text?: string;
 }

@@ -14,7 +14,7 @@ export class ReviewsPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private reviewSevice: ReviewService
+    private reviewService: ReviewService
   ) { }
 
   ngOnInit(): void {
@@ -22,10 +22,9 @@ export class ReviewsPageComponent implements OnInit {
   }
 
   getAll(): void {
-    this.reviewSevice.getAll()
+    this.reviewService.getAll()
       .subscribe(reviews => {
         this.reviews = reviews;
-        console.log(reviews);
       });
   }
 

@@ -3,9 +3,9 @@
 <div class="modal">
     <div class="my-header">
         <div class="my-title">
-            <span>Заказ № {{task.id}} ({{task.user.login}})</span>
+            <span>Заказ № {{task.id}} ({{task.userLogin}})</span>
         </div>
-        <div class="my-title-btn" *ngIf="task.user.login === authService.Login">
+        <div class="my-title-btn" *ngIf="task.userLogin === authService.Login">
             <button class="my-btn" type="button" (click)="showTaskEditPaymentModal()">Оплатить заказ</button>
         </div>
         <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">

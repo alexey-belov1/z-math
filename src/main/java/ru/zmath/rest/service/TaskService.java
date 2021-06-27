@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.zmath.rest.Specification.QueryService;
 import ru.zmath.rest.model.*;
 import ru.zmath.rest.repository.TaskRepository;
+import ru.zmath.rest.service.dto.TaskDTO;
+import ru.zmath.rest.service.mapper.TaskMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,18 +21,20 @@ import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Paths.get;
 
 @Service
-public class TaskService extends QueryService<Task> {
+public class TaskService {
     @Value("${file-path}")
     private String filePath;
 
     private final TaskRepository taskRepository;
     private final UserService userService;
     private final AttachedFileService attachedFileService;
+    private final TaskMapper taskMapper;
 
-    public TaskService(final TaskRepository taskRepository, UserService userService, AttachedFileService attachedFileService) {
+    public TaskService(final TaskRepository taskRepository, UserService userService, AttachedFileService attachedFileService, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.userService = userService;
         this.attachedFileService = attachedFileService;
+        this.taskMapper = taskMapper;
     }
 
     public List<Task> findAll() {
@@ -39,12 +42,14 @@ public class TaskService extends QueryService<Task> {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Task> findById(int id) {
-        return this.taskRepository.findById(id);
+    public Optional<TaskDTO> findById(int id) {
+        return this.taskRepository.findById(id)
+            .map(this.taskMapper::toDto);
     }
 
     @Transactional
-    public Task save(Task task, List<MultipartFile> files) {
+    public TaskDTO save(TaskDTO taskDTO, List<MultipartFile> files) {
+        Task task = this.taskMapper.toEntity(taskDTO);
         task.setStatus(new Status(1));
         task.setCreated(GregorianCalendar.getInstance());
         task.setUser(userService.getCurrentUser().orElseThrow(
@@ -56,22 +61,18 @@ public class TaskService extends QueryService<Task> {
                 .map(file -> createAttachedFile(file, task, "task"))
                 .collect(Collectors.toList())
         );
-        return task;
+        return this.taskMapper.toDto(task);
     }
 
     @Transactional
-    public Task update(Task task, List<MultipartFile> files) {
-        //Временная заглушка
-        task.getAttachedFile()
-            .forEach(attachedFile -> attachedFile.setTask(task));
-
+    public TaskDTO update(TaskDTO taskDTO, List<MultipartFile> files) {
+        Task task = this.taskMapper.toEntity(taskDTO);
         files.forEach(file ->
             task.getAttachedFile().add(
                 createAttachedFile(file, task, "solve")
             )
         );
-
-        return this.taskRepository.save(task);
+        return this.taskMapper.toDto(this.taskRepository.save(task));
     }
 
     @Transactional

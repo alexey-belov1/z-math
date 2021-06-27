@@ -35,7 +35,7 @@ export class TaskService {
     save(task: any, files: File[]): Observable<EntityResponseType> {
         const formData: FormData = new FormData();
         formData.append(
-            'task',
+            'taskDTO',
             new Blob([JSON.stringify(task)], {
                 type: 'application/json'
             })
@@ -51,7 +51,7 @@ export class TaskService {
     update(task: any, files: File[]): Observable<EntityResponseType> {
         const formData: FormData = new FormData();
         formData.append(
-            'task',
+            'taskDTO',
             new Blob([JSON.stringify(task)], {
                 type: 'application/json'
             })

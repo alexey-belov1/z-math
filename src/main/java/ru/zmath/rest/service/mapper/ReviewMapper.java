@@ -1,8 +1,9 @@
 package ru.zmath.rest.service.mapper;
 
-import org.mapstruct.*;
-import ru.zmath.rest.model.Task;
-import ru.zmath.rest.service.dto.TaskDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import ru.zmath.rest.model.Review;
+import ru.zmath.rest.service.dto.ReviewDTO;
 
 @Mapper(componentModel = "spring", uses = {
     UserMapper.class,
@@ -11,21 +12,21 @@ import ru.zmath.rest.service.dto.TaskDTO;
     MethodMapper.class,
     AttachedFileMapper.class
 })
-public interface TaskMapper extends EntityMapper<TaskDTO, Task> {
+public interface ReviewMapper extends EntityMapper<ReviewDTO, Review> {
 
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "user.login", target = "userLogin")
-    TaskDTO toDto(Task task);
+    ReviewDTO toDto(Review review);
 
     @Mapping(source = "userId", target = "user")
-    Task toEntity(TaskDTO taskDTO);
+    Review toEntity(ReviewDTO reviewDTO);
 
-    default Task fromId(Integer id) {
+    default Review fromId(Integer id) {
         if (id == null) {
             return null;
         }
-        Task task = new Task();
-        task.setId(id);
-        return task;
+        Review review = new Review();
+        review.setId(id);
+        return review;
     }
 }

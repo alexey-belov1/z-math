@@ -80,6 +80,7 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
         this.onTaskEditSub = this.eventBusService.on("taskEdit", () => this.loadPage());
 
+        //TODO - 3 раза грузит
         this.loadPage();
     }
 

@@ -20,7 +20,7 @@ public class AttachedFileController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<Resource>  exportTranscriptions(@PathVariable int id, HttpServletResponse response) {
+    public ResponseEntity<Resource> exportTranscriptions(@PathVariable int id, HttpServletResponse response) {
         Resource file = this.attachedFileService.loadFile(id);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")

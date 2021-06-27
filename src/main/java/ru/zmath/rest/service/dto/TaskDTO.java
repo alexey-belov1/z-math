@@ -21,23 +21,19 @@ public class TaskDTO {
 
     private String userLogin;
 
-    private int subjectId;
-
-    private String subjectName;
+    private SubjectDTO subject;
 
     private String comment;
 
     private Calendar deadline;
 
-    private Status status;
+    private StatusDTO status;
 
     private double cost;
 
     private double paid;
 
-    private int methodId;
-
-    private String methodName;
+    private MethodDTO method;
 
     private Calendar created;
 
@@ -47,5 +43,5 @@ public class TaskDTO {
 
     private boolean archived;
 
-    private List<AttachedFile> attachedFile = new ArrayList<>();
+    private List<AttachedFileDTO> attachedFile = new ArrayList<>();
 }

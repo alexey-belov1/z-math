@@ -1,4 +1,3 @@
-import {IUser} from "./user.model";
 import {ISubject} from "./subject.model";
 import {IStatus} from "./status.model";
 import {IMethod} from "./method.model";
@@ -6,7 +5,8 @@ import {IAttachedFile} from "./attached-file.model";
 
 export interface ITask {
     id?: number;
-    user?: IUser,
+    userId?: number,
+    userLogin?: string,
     subject?: ISubject,
     files?: string;
     comment?: string;
@@ -25,7 +25,8 @@ export interface ITask {
 export class Task implements ITask {
     constructor(
         public id?: number,
-        public user?: IUser,
+        public userId?: number,
+        public userLogin?: string,
         public subject?: ISubject,
         public files?: string,
         public comment?: string,

@@ -4,7 +4,7 @@ export interface IAttachedFile {
     size?: string;
     extension?: string;
     path?: string;
-    taskId?: number;
     file?: File;
     type?: String;
+    taskId?: number;
 }

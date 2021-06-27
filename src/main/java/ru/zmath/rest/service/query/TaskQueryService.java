@@ -27,9 +27,10 @@ public class TaskQueryService extends QueryService<Task> {
     }
 
     @Transactional(readOnly = true)
-    public Page<Task> findByCriteria(TaskCriteria criteria, Pageable page) {
+    public Page<TaskDTO> findByCriteria(TaskCriteria criteria, Pageable page) {
         Specification<Task> specification = createSpecification(criteria);
-        return taskRepository.findAll(specification, page);
+        return taskRepository.findAll(specification, page)
+            .map(taskMapper::toDto);
     }
 
     // TODO - разобраться как работать с метамоделями (в pom)

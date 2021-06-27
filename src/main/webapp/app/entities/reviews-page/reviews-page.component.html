@@ -5,7 +5,7 @@
   <table>
     <tr *ngFor="let review of reviews">
       <td>
-        <span class="login">{{review.user.login}}</span>
+        <span class="login">{{review.userLogin}}</span>
         <span class="date">{{review.created | date: 'dd.MM.yyyy'}}</span>
         <br>
         <p class="text">{{review.text}}</p>
