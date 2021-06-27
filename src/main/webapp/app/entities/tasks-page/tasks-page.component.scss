@@ -1,5 +1,35 @@
-/* Список задач */
-table {
+.filter-table {
+    margin-right: 0;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+.filter-td {
+    padding: 0 8px 0 8px;
+}
+
+.filter-td-title {
+    font-style: italic;
+    color: #4a4a4a;
+}
+
+.filter-border {
+    padding-right: 15px;
+    border-right: 1px solid rgba(181,179,176,0.65);
+}
+
+.filter-button {
+    margin-left: 5px;
+    border: solid 1px #868686;
+    min-width: 90px;
+    min-height: 22px;
+    border-radius: 3px;
+    background-image: linear-gradient(to top, #585858, #888888);
+    color: white;
+    cursor: pointer;
+}
+
+.main-table {
   min-width:970px;
   text-align: center;
   border-collapse: collapse;
@@ -8,32 +38,24 @@ table {
   border: 2px solid white;
 }
 
-tr {
+.main-tr {
   cursor: pointer;
 }
 
-th {
+.main-th {
   background-color:#c7c7c7;
   font-weight:700;
-  height: 30px;
+  height: 30px;border: 1px solid rgba(181,179,176,0.65);
 }
 
-tr:nth-child(2n) {
+.main-tr:nth-child(2n) {
   background-color: rgba(200,198,195,0.35);
   height: 30px;
 }
 
-td {
+.main-td {
   padding: 2px 7px 2px 7px;
-}
-
-td, th {
-  border: 1px solid rgba(181,179,176,0.65); /* Параметры рамки */
-}
-
-
-td img{
-  vertical-align:baseline;
+    border: 1px solid rgba(181,179,176,0.65);
 }
 
 .tasks_comment {
@@ -123,6 +145,14 @@ td img{
 .visibility {
   display: table-row;
   height: 30px;
+}
+
+select {
+    min-width: 175px;
+    min-height: 20px;
+    border: solid 1px #656565;
+    padding-left: 3px;
+    background-color: rgba(234, 234, 234, 0.74);
 }
 
 // Стили для пагинации

@@ -11,8 +11,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.zmath.rest.controller.util.HeaderUtil;
 import ru.zmath.rest.controller.util.PaginationUtil;
 import ru.zmath.rest.model.Task;
+import ru.zmath.rest.service.query.TaskQueryService;
 import ru.zmath.rest.service.TaskService;
 import ru.zmath.rest.service.UserService;
+import ru.zmath.rest.service.criteria.TaskCriteria;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,10 +27,12 @@ public class TaskController {
     private final String entity = "task";
 
     private final TaskService taskService;
+    private final TaskQueryService taskQueryService;
     private final UserService userService;
 
-    public TaskController(final TaskService taskService, UserService userService) {
+    public TaskController(final TaskService taskService, TaskQueryService taskQueryService, UserService userService) {
         this.taskService = taskService;
+        this.taskQueryService = taskQueryService;
         this.userService = userService;
     }
 
@@ -78,10 +82,9 @@ public class TaskController {
         );
     }
 
-
     @GetMapping("/")
-    public ResponseEntity<List<Task>> findAll(Pageable pageable) {
-        Page<Task> page = this.taskService.findByCriteria(pageable);
+    public ResponseEntity<List<Task>> findAll(TaskCriteria criteria, Pageable pageable) {
+        Page<Task> page = this.taskQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

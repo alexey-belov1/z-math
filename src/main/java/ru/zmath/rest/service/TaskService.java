@@ -1,14 +1,11 @@
 package ru.zmath.rest.service;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import ru.zmath.rest.model.AttachedFile;
-import ru.zmath.rest.model.Status;
-import ru.zmath.rest.model.Task;
+import ru.zmath.rest.Specification.QueryService;
+import ru.zmath.rest.model.*;
 import ru.zmath.rest.repository.TaskRepository;
 
 import java.io.File;
@@ -16,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,7 +20,7 @@ import static java.nio.file.Files.createDirectories;
 import static java.nio.file.Paths.get;
 
 @Service
-public class TaskService {
+public class TaskService extends QueryService<Task> {
     @Value("${file-path}")
     private String filePath;
 
@@ -40,11 +36,6 @@ public class TaskService {
 
     public List<Task> findAll() {
         return this.taskRepository.findAll();
-    }
-
-    @Transactional(readOnly = true)
-    public Page<Task> findByCriteria(Pageable page) {
-        return taskRepository.findAll(page);
     }
 
     @Transactional(readOnly = true)
@@ -122,7 +113,6 @@ public class TaskService {
     private boolean deleteFile(AttachedFile attachedFile) {
         return new File(attachedFile.getPath()).delete();
     }
-
 
 
 /*        //Поиск файлов, которые нужно удалить и их удаление

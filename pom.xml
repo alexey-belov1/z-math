@@ -23,12 +23,6 @@
 
     <dependencies>
 
-        <!--        <dependency>
-                    <groupId>org.postgresql</groupId>
-                    <artifactId>postgresql</artifactId>
-                    <version>42.2.13</version>
-                </dependency>-->
-
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
@@ -84,9 +78,16 @@
             <version>3.12.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <!--<defaultGoal>spring-boot:run</defaultGoal>-->
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
@@ -102,10 +103,10 @@
                             <username>${db.username}</username>
                             <password>${db.password}</password>
                         </configuration>
-                        <phase>process-resources</phase>
+<!--                        <phase>process-resources</phase>
                         <goals>
                             <goal>update</goal>
-                        </goals>
+                        </goals>-->
                     </execution>
                 </executions>
             </plugin>

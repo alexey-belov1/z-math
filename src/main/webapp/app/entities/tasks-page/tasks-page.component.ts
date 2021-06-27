@@ -8,6 +8,10 @@ import {Subscription} from "rxjs";
 import {TaskService} from "../../shared/services/task.service";
 import {EventBusService} from "../../shared/services/event-bus.service";
 import {ITask} from "../../shared/model/task.model";
+import {ISubject} from "../../shared/model/subject.model";
+import {SubjectService} from "../../shared/services/subject.service";
+import {IStatus} from "../../shared/model/status.model";
+import {StatusService} from "../../shared/services/status.service";
 
 @Component({
     selector: 'app-tasks-page',
@@ -25,7 +29,16 @@ import {ITask} from "../../shared/model/task.model";
 export class TasksPageComponent implements OnInit, OnDestroy {
 
     tasks: ITask[] = [];
+
     toggle: boolean[] = [];
+
+    subjectIdFilter: number = null;
+
+    statusIdFilter: number = null;
+
+    subjects: ISubject[] = [];
+
+    statuses: IStatus[] = [];
 
     // Количество всех заявок
     totalItems: number;
@@ -51,7 +64,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
         private router: Router,
         protected activatedRoute: ActivatedRoute,
         protected modalService: NgbModal,
-        private eventBusService: EventBusService
+        private eventBusService: EventBusService,
+        protected subjectService: SubjectService,
+        protected statusService: StatusService
     ) {
     }
 
@@ -102,10 +117,19 @@ export class TasksPageComponent implements OnInit, OnDestroy {
         let sort = this.predicate + ',' + (this.ascending ? 'asc' : 'desc');
         options = options.append('sort', sort);
 
+        options = this.filter(options);
 
         this.taskService.query(options).subscribe(
             (res: HttpResponse<ITask[]>) => this.onSuccess(res.body, res.headers, pageToLoad)
             /*,() => this.onError()*/
+        );
+
+        this.subjectService.getAll().subscribe(
+            (subjects) => this.subjects = subjects
+        );
+
+        this.statusService.getAll().subscribe(
+            (statuses) => this.statuses = statuses
         );
     }
 
@@ -133,5 +157,25 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.onTaskEditSub.unsubscribe();
+    }
+
+    filter(options: HttpParams): HttpParams {
+        if (this.subjectIdFilter) {
+            options = options.set('subjectId.equals', this.subjectIdFilter.toString());
+        }
+        if (this.statusIdFilter) {
+            options = options.set('statusId.equals', this.statusIdFilter.toString());
+        }
+        return options;
+    }
+
+    applyFilter(): void {
+        this.loadPage();
+    }
+
+    clearFilter() {
+        this.subjectIdFilter = null;
+        this.statusIdFilter = null;
+        this.loadPage();
     }
 }

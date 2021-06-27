@@ -1,40 +1,45 @@
 <p class="content-title">Список задач</p>
 <hr>
 
-<p>В этом разделе находится список всех задач, решаемых в системе. Перед оформлением нового заказа, пожалуйста,
-    ознакомтесь с <a [routerLink]="['/rules']">правилами оформления заказов</a>.</p>
-
-<table>
-    <tr>
-        <th> № заказа</th>
-        <th> Заказчик</th>
-        <th> Статус</th>
-        <th> Цена, руб</th>
-        <th> Срок</th>
-        <th> Раздел</th>
+<table class="filter-table">
+    <tr class="filter-tr">
+        <td class="filter-td filter-td-title ">Статус:</td>
+        <td class="filter-td filter-border">
+            <select [(ngModel)]="statusIdFilter" (change)="applyFilter()">
+                <option [ngValue]="null" style="font-style: italic">Все</option>
+                <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
+            </select>
+        </td>
+        <td class="filter-td filter-td-title">Раздел:</td>
+        <td class="filter-td filter-border">
+            <select [(ngModel)]="subjectIdFilter" (change)="applyFilter()">
+                <option [ngValue]="null" style="font-style: italic">Все</option>
+                <option *ngFor="let subject of subjects" [ngValue]="subject.id">{{subject.name}}</option>
+            </select>
+        </td>
+        <td class="filter-td">
+            <button type="button" (click)="clearFilter()" class="filter-button">Сбросить фильтры</button>
+        </td>
     </tr>
-    <ng-container *ngFor="let task of tasks, index as i">
+</table>
 
-        <ng-container *ngIf="toggle[i] == true; then full else full">
-        </ng-container>
-
-        <ng-template #full>
-            <tr (click)="showModal(task)"> <!--(click)="changeToggle(i)"--> <!--[@long-enter] -->
-                <td>{{task.id}}</td>
-                <td>{{task.user.login}}</td>
-                <td>{{task.status.name}}</td>
-                <td>{{task.cost}}</td>
-                <td>{{task.deadline | date: 'medium'}}</td>
-                <td>{{task.subject.name}}</td>
-            </tr>
-        </ng-template>
-
-        <!--      <tr class="hidden-content" id="{{getItem(i)}}">
-                <td colspan="6">
-                  <app-info [task]="task"></app-info>
-                </td>
-              </tr>-->
-    </ng-container>
+<table class="main-table">
+    <tr class="main-tr">
+        <th class="main-th"> № заказа</th>
+        <th class="main-th"> Заказчик</th>
+        <th class="main-th"> Статус</th>
+        <th class="main-th"> Цена, руб</th>
+        <th class="main-th"> Срок</th>
+        <th class="main-th"> Раздел</th>
+    </tr>
+    <tr class="main-tr" *ngFor="let task of tasks, index as i" (click)="showModal(task)">
+        <td class="main-td">{{task.id}}</td>
+        <td class="main-td">{{task.user.login}}</td>
+        <td class="main-td">{{task.status.name}}</td>
+        <td class="main-td">{{task.cost}}</td>
+        <td class="main-td">{{task.deadline | date: 'medium'}}</td>
+        <td class="main-td">{{task.subject.name}}</td>
+    </tr>
 </table>
 <div *ngIf="tasks.length > 0">
     <ngb-pagination [collectionSize]="totalItems"
