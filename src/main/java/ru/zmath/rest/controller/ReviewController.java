@@ -10,10 +10,8 @@ import ru.zmath.rest.service.dto.ReviewDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/review")
+@RequestMapping("/api")
 public class ReviewController {
-
-    private final String entity = "review";
 
     private final ReviewService reviewService;
 
@@ -21,16 +19,16 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/review")
     public ResponseEntity<List<ReviewDTO>> findAll() {
         return ResponseEntity.ok().body(this.reviewService.findAll());
     }
 
-    @PostMapping("/")
+    @PostMapping("/review")
     public ResponseEntity<ReviewDTO> create(@RequestBody ReviewDTO reviewDTO) {
         return new ResponseEntity<>(
             this.reviewService.save(reviewDTO),
-            HeaderUtil.createSuccessAlert(entity),
+            HeaderUtil.createSuccessAlert("reviewCreate"),
             HttpStatus.CREATED
         );
     }

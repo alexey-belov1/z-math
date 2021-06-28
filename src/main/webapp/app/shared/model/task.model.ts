@@ -19,7 +19,7 @@ export interface ITask {
     contact?: string;
     cause?: string;
     archived?: boolean;
-    attachedFile?: IAttachedFile[];
+    attachedFiles?: IAttachedFile[];
 }
 
 export class Task implements ITask {
@@ -39,7 +39,7 @@ export class Task implements ITask {
         public contact?: string,
         public cause?: string,
         public archived?: boolean,
-        public attachedFile?: IAttachedFile[]
+        public attachedFiles?: IAttachedFile[]
     ) {
     }
 }

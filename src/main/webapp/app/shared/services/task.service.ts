@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ITask} from "../model/task.model";
+import {SERVER_API_URL} from "../constant/url.constant";
 
 type EntityResponseType = HttpResponse<ITask>;
 type EntityArrayResponseType = HttpResponse<ITask[]>;
@@ -9,14 +10,14 @@ type EntityArrayResponseType = HttpResponse<ITask[]>;
 @Injectable({providedIn: 'root'})
 export class TaskService {
 
-    private resourceUrl = 'http://localhost:8080/task/';
+    private resourceUrl = SERVER_API_URL + 'api/task';
 
     constructor(private http: HttpClient) {
     }
 
     find(id: number): Observable<EntityResponseType> {
         return this.http
-            .get<ITask>(`${this.resourceUrl}${id}`, { observe: 'response'});
+            .get<ITask>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
     query(req?: HttpParams): Observable<EntityArrayResponseType> {
@@ -56,7 +57,7 @@ export class TaskService {
     }
 
     delete(id: number): Observable<EntityResponseType> {
-        return this.http.delete(`${this.resourceUrl}${id}`, { observe: 'response' });
+        return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
 }

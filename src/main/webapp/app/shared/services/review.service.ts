@@ -2,20 +2,23 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IReview} from "../model/review.model";
+import {SERVER_API_URL} from "../constant/url.constant";
 
 type EntityArrayResponseType = HttpResponse<IReview[]>;
 
 @Injectable({providedIn: 'root'})
 export class ReviewService {
 
-  constructor(private http: HttpClient) {}
+    private resourceUrl = SERVER_API_URL + 'api/review';
 
-  findAll(): Observable<EntityArrayResponseType> {
-    return this.http
-        .get<IReview[]>('http://localhost:8080/review/', { observe: 'response'});
-  }
+    constructor(private http: HttpClient) { }
 
-  save(review: IReview): Observable<any> {
-    return this.http.post('http://localhost:8080/review/', review);
-  }
+    findAll(): Observable<EntityArrayResponseType> {
+        return this.http
+            .get<IReview[]>(this.resourceUrl, {observe: 'response'});
+    }
+
+    save(review: IReview): Observable<any> {
+        return this.http.post(this.resourceUrl, review);
+    }
 }

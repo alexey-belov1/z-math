@@ -8,16 +8,16 @@
         <div class="my-title-btn" *ngIf="task.userLogin === authService.Login">
             <button class="my-btn" type="button" (click)="showTaskEditPaymentModal()">Оплатить заказ</button>
         </div>
-        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_ADMIN']">
             <button class="my-btn" type="button" (click)="showTaskEditCostModal()">Оценить заказ</button>
         </div>
-        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_ADMIN']">
             <button class="my-btn" type="button" (click)="showTaskEditRefuseModal()">Отказать в решении</button>
         </div>
-        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_ADMIN']">
             <button class="my-btn" type="button" (click)="showTaskEditSolveModal()">Загрузить решение</button>
         </div>
-        <div class="my-title-btn" *hasAnyRole="['ROLE_Admin']">
+        <div class="my-title-btn" *hasAnyRole="['ROLE_ADMIN']">
             <button class="my-btn" type="button" (click)="deleteTask()">Удалить заказ</button>
         </div>
         <div class="my-close">
@@ -46,7 +46,7 @@
             <tr>
                 <th class="vertical-align">Условия задач:</th>
                 <td>
-                    <div *ngFor="let attachedFile of task.attachedFile" class="my-mb-7">
+                    <div *ngFor="let attachedFile of task.attachedFiles" class="my-mb-7">
                         <ng-container *ngIf="attachedFile.type === 'task'">
                             <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
                                 <span>{{attachedFile.name}}</span>
@@ -82,7 +82,7 @@
             <tr>
                 <th class="vertical-align">Решение:</th>
                 <td>
-                    <div *ngFor="let attachedFile of task.attachedFile" class="my-mb-7">
+                    <div *ngFor="let attachedFile of task.attachedFiles" class="my-mb-7">
                         <ng-container *ngIf="attachedFile.type === 'solve'">
                             <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
                                 <span>{{attachedFile.name}}</span>

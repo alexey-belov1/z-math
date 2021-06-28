@@ -53,5 +53,5 @@ public class Task {
     private boolean archived;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<AttachedFile> attachedFile = new ArrayList<>();
+    private List<AttachedFile> attachedFiles = new ArrayList<>();
 }

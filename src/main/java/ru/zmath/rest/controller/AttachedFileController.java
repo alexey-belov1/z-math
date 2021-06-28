@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.AttachedFileService;
 
 @RestController
-@RequestMapping("/attached-files")
+@RequestMapping("/api")
 public class AttachedFileController {
 
     private final AttachedFileService attachedFileService;
@@ -16,7 +16,7 @@ public class AttachedFileController {
         this.attachedFileService = attachedFileService;
     }
 
-    @GetMapping("/download/{id}")
+    @GetMapping("/attached-files/download/{id}")
     public ResponseEntity<Resource> download(@PathVariable int id) {
         Resource file = this.attachedFileService.loadFile(id);
         return ResponseEntity.ok()

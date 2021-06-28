@@ -129,9 +129,9 @@ create table attached_file
 
 -- changeset abelov:12--insert_into_role
 insert into role(name)
-values ('ROLE_User'),
-       ('ROLE_Employee'),
-       ('ROLE_Admin');
+values ('ROLE_USER'),
+       ('ROLE_EMPLOYEE'),
+       ('ROLE_ADMIN');
 
 -- changeset abelov:13--insert_into_users
 insert into users(id, login, email, password, role_id, created, balance)

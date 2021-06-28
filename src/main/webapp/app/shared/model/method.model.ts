@@ -1,12 +1,12 @@
 export interface IMethod {
-    id: number;
+    id?: number;
     name?: string;
     description?: string;
 }
 
 export class Method implements IMethod {
     constructor(
-        public id: number,
+        public id?: number,
         public name?: string,
         public description?: string
     ) { }

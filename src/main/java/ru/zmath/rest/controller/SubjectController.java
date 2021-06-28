@@ -8,7 +8,7 @@ import ru.zmath.rest.service.dto.SubjectDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/subject")
+@RequestMapping("/api")
 public class SubjectController {
 
     private final SubjectService subjectService;
@@ -17,7 +17,7 @@ public class SubjectController {
         this.subjectService = subjectService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/subject")
     public ResponseEntity<List<SubjectDTO>> findAll() {
         return ResponseEntity.ok().body(this.subjectService.findAll());
     }

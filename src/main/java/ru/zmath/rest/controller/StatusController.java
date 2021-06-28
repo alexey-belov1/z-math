@@ -8,7 +8,7 @@ import ru.zmath.rest.service.dto.StatusDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/status")
+@RequestMapping("/api")
 public class StatusController {
 
     private final StatusService statusService;
@@ -17,7 +17,7 @@ public class StatusController {
         this.statusService = statusService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/status")
     public ResponseEntity<List<StatusDTO>> findAll() {
         return ResponseEntity.ok().body(this.statusService.findAll());
     }

@@ -43,5 +43,5 @@ public class TaskDTO {
 
     private boolean archived;
 
-    private List<AttachedFileDTO> attachedFile = new ArrayList<>();
+    private List<AttachedFileDTO> attachedFiles = new ArrayList<>();
 }

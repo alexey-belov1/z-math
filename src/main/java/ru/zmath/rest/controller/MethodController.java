@@ -8,7 +8,7 @@ import ru.zmath.rest.service.dto.MethodDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/method")
+@RequestMapping("/api")
 public class MethodController {
 
     private final MethodService methodService;
@@ -17,7 +17,7 @@ public class MethodController {
         this.methodService = methodService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/method")
     public ResponseEntity<List<MethodDTO>> findAll() {
         return ResponseEntity.ok().body(methodService.findAll());
     }

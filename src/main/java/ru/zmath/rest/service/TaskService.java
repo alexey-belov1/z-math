@@ -56,7 +56,7 @@ public class TaskService {
             () -> new RuntimeException("User not found in context")
         ));
         this.taskRepository.save(task);
-        task.setAttachedFile(
+        task.setAttachedFiles(
             files.stream()
                 .map(file -> createAttachedFile(file, task, "task"))
                 .collect(Collectors.toList())
@@ -68,7 +68,7 @@ public class TaskService {
     public TaskDTO update(TaskDTO taskDTO, List<MultipartFile> files) {
         Task task = this.taskMapper.toEntity(taskDTO);
         files.forEach(file ->
-            task.getAttachedFile().add(
+            task.getAttachedFiles().add(
                 createAttachedFile(file, task, "solve")
             )
         );
@@ -80,7 +80,7 @@ public class TaskService {
         Optional<Task> optional = this.taskRepository.findById(id);
         if (optional.isPresent()) {
             Task task = optional.get();
-            task.getAttachedFile().forEach(this::deleteFile);
+            task.getAttachedFiles().forEach(this::deleteFile);
             this.taskRepository.delete(task);
             return true;
         }

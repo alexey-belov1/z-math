@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {IUser} from "../model/user.model";
 import {AuthResponse} from "../model/auth-response.model";
+import {SERVER_API_URL} from "../constant/url.constant";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -28,7 +29,7 @@ export class AuthService {
     }
 
     login(user: IUser): Observable<any> {
-        return this.http.post('http://localhost:8080/login', user)
+        return this.http.post(SERVER_API_URL + 'login', user)
             .pipe(
                 tap(this.setToken)
             );
