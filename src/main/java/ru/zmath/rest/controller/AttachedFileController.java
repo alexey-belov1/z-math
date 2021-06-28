@@ -6,9 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.AttachedFileService;
 
-import javax.servlet.http.HttpServletResponse;
-
-
 @RestController
 @RequestMapping("/attached-files")
 public class AttachedFileController {
@@ -20,7 +17,7 @@ public class AttachedFileController {
     }
 
     @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> exportTranscriptions(@PathVariable int id, HttpServletResponse response) {
+    public ResponseEntity<Resource> download(@PathVariable int id) {
         Resource file = this.attachedFileService.loadFile(id);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")

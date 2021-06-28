@@ -14,23 +14,15 @@ export class TaskService {
     constructor(private http: HttpClient) {
     }
 
-    getAll(): Observable<ITask[]> {
-        return this.http.get<ITask[]>('http://localhost:8080/task/');
-    }
-
     find(id: number): Observable<EntityResponseType> {
         return this.http
-            .get<ITask>(`${this.resourceUrl}${id}`, { observe: 'response' });
+            .get<ITask>(`${this.resourceUrl}${id}`, { observe: 'response'});
     }
 
     query(req?: HttpParams): Observable<EntityArrayResponseType> {
         return this.http
             .get<ITask[]>(this.resourceUrl, {params: req, observe: 'response'});
     }
-
-/*    save(task: any): Observable<any> {
-        return this.http.post('http://localhost:8080/task/', task);
-    }*/
 
     save(task: any, files: File[]): Observable<EntityResponseType> {
         const formData: FormData = new FormData();

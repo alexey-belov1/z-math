@@ -36,39 +36,8 @@ public class TaskController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/", consumes = {"multipart/form-data"})
-    public ResponseEntity<TaskDTO> create(@RequestPart("taskDTO") TaskDTO taskDTO,
-                                       @RequestPart(value = "files", required = false) List<MultipartFile> files
-    ) throws URISyntaxException {
-        return new ResponseEntity<>(
-            this.taskService.save(taskDTO, files),
-            HeaderUtil.createSuccessAlert(entity),
-            HttpStatus.CREATED
-        );
-    }
-
-    @PutMapping(value = "/", consumes = {"multipart/form-data"})
-    public ResponseEntity<TaskDTO> update(@RequestPart("taskDTO") TaskDTO taskDTO,
-                                       @RequestPart(value = "files", required = false) List<MultipartFile> files
-    ) throws URISyntaxException {
-        return new ResponseEntity<>(
-            this.taskService.update(taskDTO, files),
-            HeaderUtil.createSuccessAlert(entity),
-            HttpStatus.CREATED
-        );
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable int id) throws URISyntaxException {
-        return new ResponseEntity<>(
-            this.taskService.delete(id),
-            HeaderUtil.createSuccessAlert(entity),
-            HttpStatus.CREATED
-        );
-    }
-
     @GetMapping("/")
-    public ResponseEntity<List<TaskDTO>> findAll(TaskCriteria criteria, Pageable pageable) {
+    public ResponseEntity<List<TaskDTO>> findByCriteria(TaskCriteria criteria, Pageable pageable) {
         Page<TaskDTO> page = this.taskQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -80,6 +49,35 @@ public class TaskController {
         return new ResponseEntity<>(
             res.orElseGet(TaskDTO::new),
             res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
+        );
+    }
+
+    @PostMapping(value = "/", consumes = {"multipart/form-data"})
+    public ResponseEntity<TaskDTO> create(@RequestPart("taskDTO") TaskDTO taskDTO,
+                                          @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        return new ResponseEntity<>(
+            this.taskService.save(taskDTO, files),
+            HeaderUtil.createSuccessAlert(entity),
+            HttpStatus.CREATED
+        );
+    }
+
+    @PutMapping(value = "/", consumes = {"multipart/form-data"})
+    public ResponseEntity<TaskDTO> update(@RequestPart("taskDTO") TaskDTO taskDTO,
+                                          @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        return new ResponseEntity<>(
+            this.taskService.update(taskDTO, files),
+            HeaderUtil.createSuccessAlert(entity),
+            HttpStatus.CREATED
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable int id) {
+        return new ResponseEntity<>(
+            this.taskService.delete(id),
+            HeaderUtil.createSuccessAlert(entity),
+            HttpStatus.CREATED
         );
     }
 }

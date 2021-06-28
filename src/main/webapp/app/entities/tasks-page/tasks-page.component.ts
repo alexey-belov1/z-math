@@ -84,17 +84,6 @@ export class TasksPageComponent implements OnInit, OnDestroy {
         this.loadPage();
     }
 
-    getAll(): void {
-        this.taskService.getAll()
-            .subscribe(tasks => {
-                this.tasks = tasks;
-                for (const task of this.tasks) {
-                    this.toggle.push(true);
-                }
-                console.log(this.toggle);
-            });
-    }
-
     getItem(i: number): string {
         return 'item' + i;
     }
@@ -125,12 +114,12 @@ export class TasksPageComponent implements OnInit, OnDestroy {
             /*,() => this.onError()*/
         );
 
-        this.subjectService.getAll().subscribe(
-            (subjects) => this.subjects = subjects
+        this.subjectService.findAll().subscribe(
+            (res) => this.subjects = res.body
         );
 
-        this.statusService.getAll().subscribe(
-            (statuses) => this.statuses = statuses
+        this.statusService.findAll().subscribe(
+            (res) => this.statuses = res.body
         );
     }
 

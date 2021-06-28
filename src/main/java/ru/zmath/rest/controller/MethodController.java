@@ -1,5 +1,6 @@
 package ru.zmath.rest.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.MethodService;
 import ru.zmath.rest.service.dto.MethodDTO;
@@ -17,7 +18,7 @@ public class MethodController {
     }
 
     @GetMapping("/")
-    public List<MethodDTO> findAll() {
-        return this.methodService.findAll();
+    public ResponseEntity<List<MethodDTO>> findAll() {
+        return ResponseEntity.ok().body(methodService.findAll());
     }
 }

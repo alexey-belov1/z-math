@@ -41,10 +41,9 @@ export class TaskEditPaymentComponent implements OnInit {
     }
 
     getAll(): void {
-        this.methodService.getAll()
-            .subscribe(methods => {
-                this.methods = methods;
-                console.log(methods);
+        this.methodService.findAll()
+            .subscribe(res => {
+                this.methods = res.body;
             });
     }
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.controller.util.HeaderUtil;
 import ru.zmath.rest.model.User;
 import ru.zmath.rest.service.UserService;
+import ru.zmath.rest.service.dto.SubjectDTO;
 import ru.zmath.rest.service.dto.UserDTO;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<UserDTO> findAll() {
-        return this.userService.findAll();
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return ResponseEntity.ok().body(this.userService.findAll());
     }
 
     @GetMapping("/{id}")

@@ -22,8 +22,8 @@ public class ReviewController {
     }
 
     @GetMapping("/")
-    public List<ReviewDTO> findAll() {
-        return this.reviewService.findAll();
+    public ResponseEntity<List<ReviewDTO>> findAll() {
+        return ResponseEntity.ok().body(this.reviewService.findAll());
     }
 
     @PostMapping("/")

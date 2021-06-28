@@ -42,9 +42,9 @@ export class NewTaskPageComponent implements OnInit {
     }
 
     getAll(): void {
-        this.subjectService.getAll()
-            .subscribe(subjects => {
-                this.subjects = subjects;
+        this.subjectService.findAll()
+            .subscribe(res => {
+                this.subjects = res.body;
             });
     }
 
