@@ -8,7 +8,7 @@ import ru.zmath.rest.service.dto.TaskDTO;
     UserMapper.class,
     SubjectMapper.class,
     StatusMapper.class,
-    MethodMapper.class,
+    PaymentMapper.class,
     AttachedFileMapper.class
 })
 public interface TaskMapper extends EntityMapper<TaskDTO, Task> {

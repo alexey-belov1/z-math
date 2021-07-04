@@ -42,8 +42,8 @@ public class Task {
     private double paid;
 
     @ManyToOne
-    @JoinColumn(name = "method_id")
-    private Method method;
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
     private Calendar created;
 

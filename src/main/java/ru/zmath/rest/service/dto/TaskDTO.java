@@ -3,7 +3,6 @@ package ru.zmath.rest.service.dto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import ru.zmath.rest.model.*;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +32,7 @@ public class TaskDTO {
 
     private double paid;
 
-    private MethodDTO method;
+    private PaymentDTO payment;
 
     private Calendar created;
 

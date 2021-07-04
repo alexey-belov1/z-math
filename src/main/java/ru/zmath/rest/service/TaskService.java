@@ -17,15 +17,18 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final UserService userService;
     private final AttachedFileService attachedFileService;
+    private final PaymentService paymentService;
     private final TaskMapper taskMapper;
 
-    public TaskService(final TaskRepository taskRepository, UserService userService, AttachedFileService attachedFileService, TaskMapper taskMapper) {
+    public TaskService(final TaskRepository taskRepository, UserService userService, AttachedFileService attachedFileService, PaymentService paymentService, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;
         this.userService = userService;
         this.attachedFileService = attachedFileService;
+        this.paymentService = paymentService;
         this.taskMapper = taskMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<Task> findAll() {
         return this.taskRepository.findAll();
     }
@@ -75,6 +78,21 @@ public class TaskService {
             Task task = optional.get();
             task.getAttachedFiles().forEach(attachedFileService::delete);
             this.taskRepository.delete(task);
+            return true;
+        }
+        return false;
+    }
+
+    @Transactional
+    public boolean setPayment(TaskDTO taskDTO) {
+        Optional<Task> optional = this.taskRepository.findById(taskDTO.getId());
+        if (optional.isPresent()
+            && optional.get().getPayment() == null
+            && taskDTO.getPayment().getId() == null) {
+            taskDTO.setPayment(
+                this.paymentService.save(taskDTO.getPayment())
+            );
+            this.taskRepository.save(this.taskMapper.toEntity(taskDTO));
             return true;
         }
         return false;

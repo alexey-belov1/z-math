@@ -1,6 +1,7 @@
 package ru.zmath.rest.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.repository.SubjectRepository;
 import ru.zmath.rest.service.dto.SubjectDTO;
 import ru.zmath.rest.service.mapper.SubjectMapper;
@@ -21,6 +22,7 @@ public class SubjectService {
         this.subjectMapper = subjectMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<SubjectDTO> findAll() {
         return subjectRepository.findAll().stream()
             .map(subjectMapper::toDto)

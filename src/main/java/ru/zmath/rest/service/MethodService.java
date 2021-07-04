@@ -1,6 +1,7 @@
 package ru.zmath.rest.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.repository.MethodRepository;
 import ru.zmath.rest.service.dto.MethodDTO;
 import ru.zmath.rest.service.mapper.MethodMapper;
@@ -21,6 +22,7 @@ public class MethodService {
         this.methodMapper = methodMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<MethodDTO> findAll() {
         return methodRepository.findAll().stream()
             .map(methodMapper::toDto)

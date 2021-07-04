@@ -1,6 +1,7 @@
 package ru.zmath.rest.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.repository.StatusRepository;
 import ru.zmath.rest.service.dto.StatusDTO;
 import ru.zmath.rest.service.mapper.StatusMapper;
@@ -21,6 +22,7 @@ public class StatusService {
         this.statusMapper = statusMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<StatusDTO> findAll() {
         return statusRepository.findAll().stream()
             .map(statusMapper::toDto)

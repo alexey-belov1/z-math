@@ -35,6 +35,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         return userRepository.findAll().stream()
             .map(userMapper::toDto)

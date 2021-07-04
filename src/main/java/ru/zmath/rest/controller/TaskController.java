@@ -77,4 +77,12 @@ public class TaskController {
             : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
     }
+
+    @PutMapping("/task/payment")
+    public ResponseEntity<Void> setPayment(@RequestBody TaskDTO taskDTO) {
+        return this.taskService.setPayment(taskDTO)
+            ? ResponseEntity.ok()
+                .headers(HeaderUtil.createSuccessAlert("taskPayment", String.valueOf(taskDTO.getId()))).build()
+            : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 }

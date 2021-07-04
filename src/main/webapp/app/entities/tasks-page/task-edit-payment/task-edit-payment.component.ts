@@ -36,7 +36,7 @@ export class TaskEditPaymentComponent implements OnInit {
             methodId: new FormControl(null, [Validators.required]),
             paid: new FormControl(null, [Validators.required])
         });
-
+        console.warn('task edit', this.task);
         this.form.get(['paid']).patchValue(this.task.cost);
     }
 
@@ -56,10 +56,11 @@ export class TaskEditPaymentComponent implements OnInit {
             return;
         }
         this.task.status.id = 3;
-        this.task.method = new Method(this.form.get(['methodId']).value);
-        this.task.paid = this.form.get(['paid']).value;
-        console.warn('this task', this.task);
-        this.taskService.update(this.task, []).subscribe(() => {
+        this.task.payment = {
+            method: new Method(this.form.get(['methodId']).value),
+            amount: this.form.get(['paid']).value
+        };
+        this.taskService.setPayment(this.task).subscribe(() => {
             this.close();
             this.eventBusService.emit(new EventData("taskEdit", null));
         });

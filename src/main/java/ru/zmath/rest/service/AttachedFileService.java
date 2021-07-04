@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.zmath.rest.model.AttachedFile;
 import ru.zmath.rest.model.Task;
@@ -34,6 +35,7 @@ public class AttachedFileService {
         this.attachedFileRepository = attachedFileRepository;
     }
 
+    @Transactional(readOnly = true)
     public Optional<AttachedFile> findById(int id) {
         return this.attachedFileRepository.findById(id);
     }
@@ -66,6 +68,7 @@ public class AttachedFileService {
         return new File(attachedFile.getPath()).delete();
     }
 
+    @Transactional(readOnly = true)
     public Resource download(int id) {
         Optional<AttachedFile> optional = this.attachedFileRepository.findById(id);
         if (optional.isPresent()) {

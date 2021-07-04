@@ -1,7 +1,7 @@
 import {ISubject} from "./subject.model";
 import {IStatus} from "./status.model";
-import {IMethod} from "./method.model";
 import {IAttachedFile} from "./attached-file.model";
+import {IPayment} from "./payment.model";
 
 export interface ITask {
     id?: number;
@@ -14,7 +14,7 @@ export interface ITask {
     status?: IStatus,
     cost?: number;
     paid?: number;
-    method?: IMethod;
+    payment?: IPayment;
     created?: Date;
     contact?: string;
     cause?: string;
@@ -34,7 +34,7 @@ export class Task implements ITask {
         public status?: IStatus,
         public cost?: number,
         public paid?: number,
-        public method?: IMethod,
+        public payment?: IPayment,
         public created?: Date,
         public contact?: string,
         public cause?: string,

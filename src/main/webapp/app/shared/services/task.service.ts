@@ -60,4 +60,8 @@ export class TaskService {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
+    setPayment(task: any): Observable<EntityResponseType> {
+        return this.http
+            .put(`${this.resourceUrl}/payment`, task, {observe: 'response'});
+    }
 }

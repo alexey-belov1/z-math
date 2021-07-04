@@ -47,7 +47,18 @@ create table method
 );
 -- rollback drop table method;
 
--- changeset abelov:7--create_table_task
+-- changeset abelov:7--create_table_payment
+create table payment
+(
+    id        int primary key not null auto_increment,
+    created   timestamp       not null,
+    method_id int             not null,
+    amount    real            not null,
+    constraint fk_payment_method_id foreign key (method_id) references zmath.method (id)
+);
+-- rollback drop table payment;
+
+-- changeset abelov:8--create_table_task
 create table task
 (
     id         int primary key not null auto_increment,
@@ -58,7 +69,7 @@ create table task
     status_id  int             not null,
     cost       real            not null,
     paid       real default 0.0 not null,
-    method_id  int,
+    payment_id   int,
     created    timestamp       not null,
     contact    varchar(500),
     cause      varchar(500),
@@ -66,27 +77,9 @@ create table task
     constraint fk_task_user_id foreign key (user_id) references zmath.users (id),
     constraint fk_task_subject_id foreign key (subject_id) references zmath.subject (id),
     constraint fk_task_status_id foreign key (status_id) references zmath.status (id),
-    constraint fk_task_method_id foreign key (method_id) references zmath.method (id)
+    constraint fk_task_payment_id foreign key (payment_id) references zmath.payment (id)
 );
 -- rollback drop table task;
-
--- changeset abelov:8--create_table_payment
-create table payment
-(
-    id        int primary key not null auto_increment,
-    created   timestamp       not null,
-    realized  timestamp       not null,
-    user_id   int             not null,
-    task_id   int             not null,
-    method_id int             not null,
-    amount    real            not null,
-    comment   varchar(500),
-    status    boolean         not null,
-    constraint fk_payment_user_id foreign key (user_id) references zmath.users (id),
-    constraint fk_payment_task_id foreign key (task_id) references zmath.task (id),
-    constraint fk_payment_method_id foreign key (method_id) references zmath.method (id)
-);
--- rollback drop table payment;
 
 -- changeset abelov:9--create_table_review
 create table review

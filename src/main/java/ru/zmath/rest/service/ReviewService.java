@@ -1,6 +1,7 @@
 package ru.zmath.rest.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.zmath.rest.model.Review;
 import ru.zmath.rest.repository.ReviewRepository;
 import ru.zmath.rest.service.dto.ReviewDTO;
@@ -24,6 +25,7 @@ public class ReviewService {
         this.userService = userService;
     }
 
+    @Transactional(readOnly = true)
     public List<ReviewDTO> findAll() {
         return reviewRepository.findAll().stream()
             .map(reviewMapper::toDto)
@@ -36,7 +38,6 @@ public class ReviewService {
         review.setUser(userService.getCurrentUser().orElseThrow(
             () -> new RuntimeException("User not found in context")
         ));
-        review.setCreated(GregorianCalendar.getInstance());
         return this.reviewMapper.toDto(this.reviewRepository.save(review));
     }
 }
