@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ExceptionTranslator {       /*extends ResponseEntityExceptionHandler */
+public class ExceptionTranslator {
 
     @ExceptionHandler(InsufficientAuthenticationException.class)
     protected ResponseEntity<AwesomeException> handleThereIsNoSuchUserException(RuntimeException ex) {
@@ -21,6 +21,6 @@ public class ExceptionTranslator {       /*extends ResponseEntityExceptionHandle
 
     @ExceptionHandler(EmailAlreadyUsedException.class)
     protected ResponseEntity<AwesomeException> handleThereIsEmailAlreadyUsedException(RuntimeException ex) {
-        return new ResponseEntity<>(new AwesomeException("Данные email уже используется другим пользователем"), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(new AwesomeException("Данный email уже используется другим пользователем"), HttpStatus.FORBIDDEN);
     }
 }

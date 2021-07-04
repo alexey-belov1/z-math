@@ -70,20 +70,7 @@ create table task
 );
 -- rollback drop table task;
 
--- changeset abelov:8--create_table_solve
-create table solve
-(
-    id      int primary key not null auto_increment,
-    task_id int             not null,
-    user_id int             not null,
-    file    varchar(200)    not null,
-    comment varchar(500),
-    constraint fk_solve_task_id foreign key (task_id) references zmath.task (id),
-    constraint fk_solve_user_id foreign key (user_id) references zmath.users (id)
-);
--- rollback drop table solve;
-
--- changeset abelov:9--create_table_payment
+-- changeset abelov:8--create_table_payment
 create table payment
 (
     id        int primary key not null auto_increment,
@@ -101,7 +88,7 @@ create table payment
 );
 -- rollback drop table payment;
 
--- changeset abelov:10--create_table_review
+-- changeset abelov:9--create_table_review
 create table review
 (
     id      int primary key not null auto_increment,
@@ -112,7 +99,7 @@ create table review
 );
 -- rollback drop table review;
 
--- changeset abelov:11--create_table_attached_file
+-- changeset abelov:10--create_table_attached_file
 create table attached_file
 (
     id        int primary key not null auto_increment,
@@ -127,18 +114,18 @@ create table attached_file
 -- rollback drop table attached_file;
 
 
--- changeset abelov:12--insert_into_role
+-- changeset abelov:11--insert_into_role
 insert into role(name)
 values ('ROLE_USER'),
        ('ROLE_EMPLOYEE'),
        ('ROLE_ADMIN');
 
--- changeset abelov:13--insert_into_users
+-- changeset abelov:12--insert_into_users
 insert into users(id, login, email, password, role_id, created, balance)
 values (1, 'admin', 'admin@admin.ru', '$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 3,
         '2021-04-20 00:00:00', 0);
 
--- changeset abelov:14--insert_into_subject
+-- changeset abelov:13--insert_into_subject
 insert into subject(name)
 values ('Математический анализ'),
        ('Линейная алгебра'),
@@ -153,7 +140,7 @@ values ('Математический анализ'),
        ('Программирование на С#'),
        ('Остальное');
 
--- changeset abelov:15--insert_into_status
+-- changeset abelov:14--insert_into_status
 insert into status(name)
 values ('Новый'),
        ('Просмотрен'),
@@ -161,7 +148,7 @@ values ('Новый'),
        ('Выполнен'),
        ('Отказано');
 
--- changeset abelov:16--insert_into_method
+-- changeset abelov:15--insert_into_method
 insert into method(name, description)
 values ('Банковская карта', 'VISA, Mastercard, Мир и другие'),
        ('Мобильный платёж', 'МТС, Билайн, Мегафон, Теле2'),

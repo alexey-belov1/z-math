@@ -20,6 +20,7 @@ public class Payment {
     private int id;
 
     private Calendar created;
+
     private Calendar realized;
 
     @ManyToOne
@@ -35,6 +36,8 @@ public class Payment {
     private Method method;
 
     private double amount;
+
     private String comment;
+
     private boolean status;
 }

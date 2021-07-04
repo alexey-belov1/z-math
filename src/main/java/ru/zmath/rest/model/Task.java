@@ -30,6 +30,7 @@ public class Task {
     private Subject subject;
 
     private String comment;
+
     private Calendar deadline;
 
     @ManyToOne
