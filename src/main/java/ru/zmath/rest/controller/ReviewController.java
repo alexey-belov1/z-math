@@ -21,14 +21,18 @@ public class ReviewController {
 
     @GetMapping("/review")
     public ResponseEntity<List<ReviewDTO>> findAll() {
-        return ResponseEntity.ok().body(this.reviewService.findAll());
+        return new ResponseEntity<>(
+            this.reviewService.findAll(),
+            HttpStatus.OK
+        );
     }
 
     @PostMapping("/review")
     public ResponseEntity<ReviewDTO> create(@RequestBody ReviewDTO reviewDTO) {
+        ReviewDTO result = this.reviewService.save(reviewDTO);
         return new ResponseEntity<>(
-            this.reviewService.save(reviewDTO),
-            HeaderUtil.createSuccessAlert("reviewCreate"),
+            result,
+            HeaderUtil.createSuccessAlert("reviewCreate", String.valueOf(result.getId())),
             HttpStatus.CREATED
         );
     }

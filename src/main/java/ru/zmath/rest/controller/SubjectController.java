@@ -1,5 +1,6 @@
 package ru.zmath.rest.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.SubjectService;
@@ -19,6 +20,9 @@ public class SubjectController {
 
     @GetMapping("/subject")
     public ResponseEntity<List<SubjectDTO>> findAll() {
-        return ResponseEntity.ok().body(this.subjectService.findAll());
+        return new ResponseEntity<>(
+            this.subjectService.findAll(),
+            HttpStatus.OK
+        );
     }
 }

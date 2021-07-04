@@ -1,6 +1,5 @@
 package ru.zmath.rest.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,21 +8,11 @@ import ru.zmath.rest.repository.TaskRepository;
 import ru.zmath.rest.service.dto.TaskDTO;
 import ru.zmath.rest.service.mapper.TaskMapper;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.nio.file.Files.createDirectories;
-import static java.nio.file.Paths.get;
-
 @Service
 public class TaskService {
-    @Value("${file-path}")
-    private String filePath;
 
     private final TaskRepository taskRepository;
     private final UserService userService;
@@ -58,21 +47,25 @@ public class TaskService {
         this.taskRepository.save(task);
         task.setAttachedFiles(
             files.stream()
-                .map(file -> createAttachedFile(file, task, "task"))
+                .map(file -> attachedFileService.createAndSave(file, task.getId(), "task"))
                 .collect(Collectors.toList())
         );
         return this.taskMapper.toDto(task);
     }
 
     @Transactional
-    public TaskDTO update(TaskDTO taskDTO, List<MultipartFile> files) {
-        Task task = this.taskMapper.toEntity(taskDTO);
-        files.forEach(file ->
-            task.getAttachedFiles().add(
-                createAttachedFile(file, task, "solve")
-            )
-        );
-        return this.taskMapper.toDto(this.taskRepository.save(task));
+    public boolean update(TaskDTO taskDTO, List<MultipartFile> files) {
+        if (this.taskRepository.findById(taskDTO.getId()).isPresent()) {
+            Task task = this.taskMapper.toEntity(taskDTO);
+            files.forEach(file ->
+                task.getAttachedFiles().add(
+                    attachedFileService.createAndSave(file, task.getId(), "solve")
+                )
+            );
+            this.taskRepository.save(task);
+            return true;
+        }
+        return false;
     }
 
     @Transactional
@@ -80,48 +73,10 @@ public class TaskService {
         Optional<Task> optional = this.taskRepository.findById(id);
         if (optional.isPresent()) {
             Task task = optional.get();
-            task.getAttachedFiles().forEach(this::deleteFile);
+            task.getAttachedFiles().forEach(attachedFileService::delete);
             this.taskRepository.delete(task);
             return true;
         }
         return false;
     }
-
-    private AttachedFile createAttachedFile(MultipartFile file, Task task, String type) {
-        String dir = saveFile(file, task.getId(), type);
-
-        AttachedFile attachedFile = new AttachedFile();
-        attachedFile.setName(file.getOriginalFilename());
-        attachedFile.setSize(String.valueOf(file.getSize()));
-        attachedFile.setExtension(file.getContentType());
-        attachedFile.setPath(dir + File.separator + file.getOriginalFilename());
-        attachedFile.setType(type);
-        attachedFile.setTask(task);
-        return  attachedFile;
-    }
-
-    private String saveFile(MultipartFile file, int taskId, String type) {
-        try(InputStream is = file.getInputStream()) {
-            Path dir = createDirectories(get(filePath, String.valueOf(taskId), type));
-            String name = file.getOriginalFilename();
-            Files.copy(is, dir.resolve(Objects.requireNonNull(name)));
-            return dir.toString();
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    private boolean deleteFile(AttachedFile attachedFile) {
-        return new File(attachedFile.getPath()).delete();
-    }
-
-
-/*        //Поиск файлов, которые нужно удалить и их удаление
-        taskRepository.findById(task.getId()).ifPresent(taskOld -> {
-            List<AttachedFile> attachedFiles = taskOld.getAttachedFile();
-            task.getAttachedFile().forEach(attachedFile -> {
-                attachedFiles.remove(attachedFile);
-            });
-            attachedFiles.forEach(this::deleteFile);
-        });*/
 }

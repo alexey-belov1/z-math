@@ -2,6 +2,7 @@ package ru.zmath.rest.controller;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.AttachedFileService;
@@ -18,9 +19,11 @@ public class AttachedFileController {
 
     @GetMapping("/attached-files/download/{id}")
     public ResponseEntity<Resource> download(@PathVariable int id) {
-        Resource file = this.attachedFileService.loadFile(id);
-        return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-            .body(file);
+        Resource file = this.attachedFileService.download(id);
+        return file != null
+            ? ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file)
+            : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

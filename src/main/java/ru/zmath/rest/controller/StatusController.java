@@ -1,5 +1,6 @@
 package ru.zmath.rest.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.zmath.rest.service.StatusService;
@@ -19,6 +20,9 @@ public class StatusController {
 
     @GetMapping("/status")
     public ResponseEntity<List<StatusDTO>> findAll() {
-        return ResponseEntity.ok().body(this.statusService.findAll());
+        return new ResponseEntity<>(
+            this.statusService.findAll(),
+            HttpStatus.OK
+        );
     }
 }

@@ -85,8 +85,8 @@ public class UserService {
         return false;
     }
 
-    public boolean delete(UserDTO userDTO) {
-        return this.userRepository.deleteUserById(userDTO.getId()) != 0;
+    public boolean delete(int id) {
+        return this.userRepository.deleteUserById(id) != 0;
     }
 
     @Transactional(readOnly = true)

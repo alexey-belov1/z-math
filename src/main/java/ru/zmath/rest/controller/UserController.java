@@ -24,7 +24,10 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/user")
     public ResponseEntity<List<UserDTO>> findAll() {
-        return ResponseEntity.ok().body(this.userService.findAll());
+        return new ResponseEntity<>(
+            this.userService.findAll(),
+            HttpStatus.OK
+        );
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -32,8 +35,8 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@PathVariable int id) {
         Optional<UserDTO> res = this.userService.findById(id);
         return new ResponseEntity<>(
-                res.orElseGet(UserDTO::new),
-                res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
+            res.orElseGet(UserDTO::new),
+            res.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND
         );
     }
 
@@ -41,7 +44,7 @@ public class UserController {
     public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO) {
         return new ResponseEntity<>(
                 userService.save(userDTO),
-                HeaderUtil.createSuccessAlert("userCreate"),
+                HeaderUtil.createSuccessAlert("userCreate", userDTO.getLogin()),
                 HttpStatus.CREATED
         );
     }
@@ -50,15 +53,15 @@ public class UserController {
     @PutMapping("/user")
     public ResponseEntity<Void> update(@RequestBody UserDTO userDTO) {
         return this.userService.update(userDTO)
-                ? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(id);
-        return this.userService.delete(userDTO)
-                ? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return this.userService.delete(id)
+            ? ResponseEntity.ok().build()
+            : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

@@ -2,12 +2,12 @@ package ru.zmath.rest.controller.util;
 
 import org.springframework.http.HttpHeaders;
 
-
 public final class HeaderUtil {
 
-    public static HttpHeaders createSuccessAlert(String entity) {
+    public static HttpHeaders createSuccessAlert(String entity, String param) {
         HttpHeaders headers = createAlert("success");
         headers.set("x-app-entity", entity);
+        headers.set("X-app-param", param);
         return headers;
     }
 

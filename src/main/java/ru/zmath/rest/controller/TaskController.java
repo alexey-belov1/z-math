@@ -2,7 +2,6 @@ package ru.zmath.rest.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +33,11 @@ public class TaskController {
     @GetMapping("/task")
     public ResponseEntity<List<TaskDTO>> findByCriteria(TaskCriteria criteria, Pageable pageable) {
         Page<TaskDTO> page = this.taskQueryService.findByCriteria(criteria, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        return new ResponseEntity<>(
+            page.getContent(),
+            PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page),
+            HttpStatus.OK
+        );
     }
 
     @GetMapping("/task/{id}")
@@ -50,30 +52,29 @@ public class TaskController {
     @PostMapping(value = "/task", consumes = {"multipart/form-data"})
     public ResponseEntity<TaskDTO> create(@RequestPart("taskDTO") TaskDTO taskDTO,
                                           @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        TaskDTO result = this.taskService.save(taskDTO, files);
         return new ResponseEntity<>(
-            this.taskService.save(taskDTO, files),
-            HeaderUtil.createSuccessAlert("taskCreate"),
+            result,
+            HeaderUtil.createSuccessAlert("taskCreate", String.valueOf(result.getId())),
             HttpStatus.CREATED
         );
     }
 
     @PutMapping(value = "/task", consumes = {"multipart/form-data"})
-    public ResponseEntity<TaskDTO> update(@RequestPart("taskDTO") TaskDTO taskDTO,
+    public ResponseEntity<Void> update(@RequestPart("taskDTO") TaskDTO taskDTO,
                                           @RequestPart(value = "files", required = false) List<MultipartFile> files) {
-        return new ResponseEntity<>(
-            this.taskService.update(taskDTO, files),
-            HeaderUtil.createSuccessAlert("taskUpdate"),
-            HttpStatus.CREATED
-        );
+        return this.taskService.update(taskDTO, files)
+            ? ResponseEntity.ok()
+                .headers(HeaderUtil.createSuccessAlert("taskUpdate", String.valueOf(taskDTO.getId()))).build()
+            : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/task/{id}")
-    public ResponseEntity<Boolean> delete(@PathVariable int id) {
-        return new ResponseEntity<>(
-            this.taskService.delete(id),
-            HeaderUtil.createSuccessAlert("taskDelete"),
-            HttpStatus.CREATED
-        );
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        return this.taskService.delete(id)
+            ? ResponseEntity.ok().headers(HeaderUtil.createSuccessAlert("taskDelete", String.valueOf(id))).build()
+            : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
     }
 }

@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration()
             .applyPermitDefaultValues();    //Задает по умолчанию конфигурцию, иначе будет сильно ограничена
-        corsConfiguration.setExposedHeaders(Arrays.asList("x-app-alert", "x-app-entity", "x-total-count"));
+        corsConfiguration.setExposedHeaders(Arrays.asList("x-app-alert", "x-app-entity", "x-app-param", "x-total-count"));
         corsConfiguration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
