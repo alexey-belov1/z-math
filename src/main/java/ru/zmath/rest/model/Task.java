@@ -37,9 +37,9 @@ public class Task {
     @JoinColumn(name = "status_id")
     private Status status;
 
-    private double cost;
+    private Double cost;
 
-    private double paid;
+    private Double preparedCost;
 
     @ManyToOne
     @JoinColumn(name = "payment_id")

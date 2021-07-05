@@ -36,7 +36,7 @@
         <td class="main-td">{{task.id}}</td>
         <td class="main-td">{{task.userLogin}}</td>
         <td class="main-td">{{task.status.name}}</td>
-        <td class="main-td">{{task.cost}}</td>
+        <td class="main-td">{{task.cost ? task.cost : "-"}}</td>
         <td class="main-td">{{task.deadline | date: 'medium'}}</td>
         <td class="main-td">{{task.subject.name}}</td>
     </tr>

@@ -37,6 +37,10 @@
                 <td>{{task.cost}}</td>
             </tr>
 
+            <tr>
+                <th *hasAnyRole="['ROLE_ADMIN']">Предварительная стоимость заказа:</th>
+                <td>{{task.preparedCost}}</td>
+            </tr>
 
             <tr>
                 <th>Раздел:</th>

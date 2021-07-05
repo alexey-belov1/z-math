@@ -13,7 +13,7 @@ export interface ITask {
     deadline?: Date;
     status?: IStatus,
     cost?: number;
-    paid?: number;
+    preparedCost?: number;
     payment?: IPayment;
     created?: Date;
     contact?: string;
@@ -33,7 +33,7 @@ export class Task implements ITask {
         public deadline?: Date,
         public status?: IStatus,
         public cost?: number,
-        public paid?: number,
+        public preparedCost?: number,
         public payment?: IPayment,
         public created?: Date,
         public contact?: string,

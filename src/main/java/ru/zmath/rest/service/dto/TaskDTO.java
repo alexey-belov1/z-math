@@ -28,9 +28,9 @@ public class TaskDTO {
 
     private StatusDTO status;
 
-    private double cost;
+    private Double cost;
 
-    private double paid;
+    private Double preparedCost;
 
     private PaymentDTO payment;
 

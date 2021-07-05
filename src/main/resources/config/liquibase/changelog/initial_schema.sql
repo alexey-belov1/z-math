@@ -41,8 +41,8 @@ create table status
 -- changeset abelov:6--create_table_method
 create table method
 (
-    id   int primary key not null auto_increment,
-    name varchar(50)     not null,
+    id          int primary key not null auto_increment,
+    name        varchar(50)     not null,
     description varchar(300)
 );
 -- rollback drop table method;
@@ -61,19 +61,19 @@ create table payment
 -- changeset abelov:8--create_table_task
 create table task
 (
-    id         int primary key not null auto_increment,
-    user_id    int             not null,
-    subject_id int             not null,
-    comment    varchar(500),
-    deadline   timestamp       not null,
-    status_id  int             not null,
-    cost       real            not null,
-    paid       real default 0.0 not null,
-    payment_id   int,
-    created    timestamp       not null,
-    contact    varchar(500),
-    cause      varchar(500),
-    archived     boolean         not null,
+    id            int primary key not null auto_increment,
+    user_id       int             not null,
+    subject_id    int             not null,
+    comment       varchar(500),
+    deadline      timestamp       not null,
+    status_id     int             not null,
+    cost          real,
+    prepared_cost real,
+    payment_id    int,
+    created       timestamp       not null,
+    contact       varchar(500),
+    cause         varchar(500),
+    archived      boolean         not null,
     constraint fk_task_user_id foreign key (user_id) references zmath.users (id),
     constraint fk_task_subject_id foreign key (subject_id) references zmath.subject (id),
     constraint fk_task_status_id foreign key (status_id) references zmath.status (id),
@@ -97,7 +97,7 @@ create table attached_file
 (
     id        int primary key not null auto_increment,
     name      varchar(300)    not null,
-    size  varchar(300)    not null,
+    size      varchar(300)    not null,
     extension varchar(300)    not null,
     path      varchar(300)    not null,
     type      varchar(300)    not null,

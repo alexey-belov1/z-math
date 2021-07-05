@@ -34,7 +34,7 @@ export class NewTaskPageComponent implements OnInit {
         this.form = new FormGroup({
             subject: new FormControl(null, [Validators.required]),
             deadline: new FormControl(null, [Validators.required]),
-            cost: new FormControl(null, [Validators.required]),
+            preparedCost: new FormControl(null, [Validators.required]),
             comment: new FormControl(null),
             contact: new FormControl(null),
             files: new FormControl(null, [Validators.required])
@@ -60,7 +60,7 @@ export class NewTaskPageComponent implements OnInit {
             subject: this.form.value.subject,
             comment: this.form.value.comment,
             deadline: this.form.value.deadline,
-            cost: this.form.value.cost,
+            preparedCost: this.form.value.preparedCost,
             contact: this.form.value.contact,
             archived: false
         };

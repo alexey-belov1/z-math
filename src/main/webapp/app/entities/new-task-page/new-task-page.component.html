@@ -40,12 +40,12 @@
         <tr>
             <th>Стоимость*:</th>
             <td>
-                <input type="text" appTooltip="tooltipCost" formControlName="cost">
-                <span id="tooltipCost" class="comment">
+                <input type="text" appTooltip="tooltipPreparedCost" formControlName="preparedCost">
+                <span id="tooltipPreparedCost" class="comment">
                     Укажите примерную стоимость, на которую Вы рассчитываете.
                 </span>
-                <div *ngIf="form.get('cost').invalid && form.get('cost').touched">
-                    <span *ngIf="form.get('cost').errors.required" class="validation">
+                <div *ngIf="form.get('preparedCost').invalid && form.get('preparedCost').touched">
+                    <span *ngIf="form.get('preparedCost').errors.required" class="validation">
                         Поле обязательное для заполнения
                     </span>
                 </div>
