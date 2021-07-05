@@ -1,81 +1,69 @@
-/* Панель регистрации */
-
-
-table {
-  display: inline-block;
-  padding-right: 80px;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  vertical-align: middle;
-  border: 0;
-  border-collapse: collapse;
-  font-size:12px;
-  letter-spacing: 1px;
+.lp-table {
+    display: inline-block;
+    padding-right: 80px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    vertical-align: middle;
+    border: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
-tr {
-  color: #484848;
-  font-size: 13px;
-  font-family:sans-serif;
+.lp-tr {
+    color: #484848;
+    font-size: 13px;
+    font-family: sans-serif;
 }
 
-input {
-  width:  80px;
-  height: 8px;
-  padding: 5px 10px 5px 10px;
-  margin: 0 3px 0 3px;
-  border:1px solid #868686;
-  border-radius: 2px;
-  font-size:11px;
-  font-family: Tahoma;
-  background-color: #d9d9d9;
-  color:#747474;
-  vertical-align:top;
-}
+.lp-input {
+    width: 80px;
+    height: 8px;
+    padding: 5px 10px 5px 10px;
+    margin: 0 3px 0 3px;
+    border: 1px solid #868686;
+    border-radius: 2px;
+    font-size: 11px;
+    font-family: Tahoma;
+    background-color: #d9d9d9;
+    color: #747474;
+    vertical-align: top;
 
-input:focus {
-  color:#000000;
-}
-
-input {
     &.ng-invalid.ng-touched {
         border-radius: 2px;
         border: 1px solid #f81818;
     }
+
+    &:focus {
+        color: #000000;
+    }
 }
 
-
-button {
-  border-radius: 10px;
-  border:2px solid #7e7e7e;
-  height: 21px;
-  width: 21px;
-  background: url('~src/main/webapp/content/image/enter.png');
-  background-size: cover;
+.lp-btn {
+    border-radius: 10px;
+    border: 2px solid #7e7e7e;
+    height: 21px;
+    width: 21px;
+    background: url('~src/main/webapp/content/image/enter.png');
+    background-size: cover;
 }
 
-a {
-  font-weight: bold;
-  color: #272727;
+.lp-a {
+    font-weight: bold;
+    color: #272727;
+}
+
+.italic {
+    font-style: italic;
 }
 
 .border {
-  border-right-style: solid;
-  border-right-width: 1px;
-  margin-left: 6px;
-  margin-right: 6px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    margin-left: 6px;
+    margin-right: 6px;
 }
 
-.padding {
-  padding-left: 30px;
+.padding-left {
+    padding-left: 30px;
 }
-/*
-.registration_user_out {
-  color:#005b71;
-  text-decoration:none;
-}
-
-.registration_user_out:hover {
-  color:#b11d1d;
-  text-decoration:underline;
-}*/

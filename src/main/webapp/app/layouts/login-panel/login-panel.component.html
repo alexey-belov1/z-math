@@ -1,7 +1,7 @@
 <div *ngIf="!isAuthenticated(); else welcome">
     <form>
-        <table>
-            <tr>
+        <table class="lp-table">
+            <tr class="lp-tr">
                 <td>
                     Вы вошли на сайт как <b><i>Гость.</i></b>
                     &nbsp;Войти:
@@ -9,16 +9,27 @@
 
                 <td>
                     <form [formGroup]="form" (ngSubmit)="submit()">
-                        <input id="login" type="text" placeholder="Логин:" formControlName="login">
-                        <input id="password" type="password" placeholder="Пароль:" formControlName="password">
-                        <button type="submit" [disabled]="submitted" (clickOutside)="markAllAsUntouched()"></button>        <!--form.invalid || -->
+                        <input type="text"
+                               class="lp-input"
+                               id="login"
+                               placeholder="Логин:"
+                               formControlName="login">
+                        <input type="password"
+                               class="lp-input"
+                               id="password"
+                               placeholder="Пароль:"
+                               formControlName="password">
+                        <button type="submit"
+                                class="lp-btn"
+                                [disabled]="submitted"
+                                (clickOutside)="markAllAsUntouched()"></button>
                     </form>
                 </td>
 
-                <td class="padding">
-                    <a [routerLink]="['/registration']"><i>Регистрация</i></a>
+                <td class="padding-left">
+                    <a class="lp-a italic" [routerLink]="['/registration']">Регистрация</a>
                     <span class="border"></span>
-                    <a [routerLink]="['/password-recovery']"><i>Забыли пароль?</i></a>
+                    <a class="lp-a italic" [routerLink]="['/password-recovery']">Забыли пароль?</a>
                 </td>
 
             </tr>
@@ -27,14 +38,13 @@
 </div>
 
 <ng-template #welcome>
-    <table>
-        <tr>
+    <table class="lp-table">
+        <tr class="lp-tr">
             <td>
-                <a href="">{{authService.Login}}</a>
+                <a class="lp-a" href="">{{authService.Login}}</a>
                 <span class="border"></span>
-                <a [routerLink]="['/']" (click)="logout()">Выйти</a>
+                <a class="lp-a" [routerLink]="['/']" (click)="logout()">Выйти</a>
             </td>
-
         </tr>
     </table>
 </ng-template>

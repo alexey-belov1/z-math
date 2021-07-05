@@ -1,10 +1,11 @@
 <a
-  [routerLink]="item.router"
-  (mouseenter)="hover=true;"
-  (mouseleave)="hover=false;"
+    class="nb-a"
+    [routerLink]="item.router"
+    (mouseenter)="hover=true;"
+    (mouseleave)="hover=false;"
 >
-  <div [@hover]="hover" class="item">
-    <img [src]="item.src"><br>
-    <span class="item-title" [innerHTML]="item.text"></span>
-  </div>
+    <div [@hover]="hover" class="nb-item">
+        <img [src]="item.src"><br>
+        <span class="nb-item-text" [innerHTML]="item.text"></span>
+    </div>
 </a>
