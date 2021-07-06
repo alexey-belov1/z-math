@@ -9,7 +9,7 @@ import {EventData} from "../../../shared/model/event-data.model";
 @Component({
     selector: 'app-task-edit-cost',
     templateUrl: './task-edit-cost.component.html',
-    styleUrls: ['./task-edit-cost.component.scss', '../task-edit.style.scss']
+    styleUrls: ['../task-edit.style.scss']
 })
 export class TaskEditCostComponent {
 

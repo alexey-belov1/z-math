@@ -1,48 +1,49 @@
-.my-header {
+.tpm-modal {
+    padding: 1rem;
+    background: #fff;
+    margin-top: 10rem;
+    position: absolute;
+    left: 50%;
+}
+
+.transform-200 {
+    transform: translate(-50%, -200%);
+}
+
+.transform-150 {
+    transform: translate(-50%, -150%);
+}
+
+.transform-100 {
+    transform: translate(-50%, -150%);
+}
+
+
+.tpm-header {
     display: block;
     width: 100%;
 }
 
-.my-title {
+.tpm-title {
     margin-left: 50px;
+    margin-right: 50px;
     font-size: 18px;
     font-weight: bold;
     display: inline-block;
 }
 
-.my-close {
+.tpm-close {
     display: inline-block;
     position: relative;
     float: right;
 }
 
-th {
-    font-weight: normal;
-    font-style: italic;
-    font-size: 15px;
-    text-align: right;
+.tpm-header-block {
+    margin-left: 10px;
+    display: inline-block;
 }
 
-td {
-    font-size: 13px;
-    padding: 13px;
-}
-
-input[type="text"] {
-    min-width: 175px;
-    min-height: 20px;
-    border: solid 1px #656565;
-    padding-left: 3px;
-    background-color: rgba(234, 234, 234, 0.74);
-}
-
-textarea {
-    min-width: 350px;
-    height: 80px;
-    background-color: rgba(234, 234, 234, 0.74);
-}
-
-button[type="submit"] {
+.tpm-btn {
     border: solid 1px #868686;
     min-width: 90px;
     min-height: 22px;
@@ -51,20 +52,88 @@ button[type="submit"] {
     color: white;
 }
 
-.vertical-align {
-    padding-top: 13px;
-    vertical-align: top;
+/*Task detail*/
+.tpm-td-table {
+    text-align: left;
+    margin-left: 50px;
 }
 
-.attached-file-td {
+.tpm-td-th {
+    padding: 5px;
+}
+/*-------------*/
+
+/*Способ оплаты*/
+.tpm-method {
+    padding-left: 30px;
+    line-height: 2.0;
+}
+
+.tpm-method-radio {
+    padding-left: 30px;
+}
+/*-------------*/
+
+.tpm-input-text {
+    min-width: 175px;
+    min-height: 20px;
+    border: solid 1px #656565;
+    padding-left: 3px;
+    background-color: rgba(234, 234, 234, 0.74);
+}
+
+.tpm-input-textarea {
+    min-width: 350px;
+    height: 80px;
+    background-color: rgba(234, 234, 234, 0.74);
+}
+
+.tpm-attached-file-td {
     padding-top: 0;
     padding-left: 0;
     margin: 0;
 }
 
-.attached-file-btn {
+.tpm-attached-file-label {
     cursor: pointer;
     padding: 5px 8px;
     border: 1px solid #999;
     border-radius: 7px;
 }
+
+.tpm-th {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 15px;
+    text-align: right;
+}
+
+.tpm-td {
+    font-size: 13px;
+    padding: 13px;
+}
+
+.vertical-align-top {
+    vertical-align: top;
+}
+
+.margin-bottom-7 {
+    margin-bottom: 7px;
+}
+
+.padding-top-13 {
+    padding-top: 13px;
+}
+
+.width-1200 {
+    width: 1200px;
+}
+
+.width-800 {
+    width: 800px;
+}
+
+.width-500 {
+    width: 500px;
+}
+

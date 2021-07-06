@@ -15,7 +15,7 @@ import {EventData} from "../../../shared/model/event-data.model";
 @Component({
     selector: 'app-task-detail',
     templateUrl: './task-detail.component.html',
-    styleUrls: ['./task-detail.component.scss']
+    styleUrls: ['../task-edit.style.scss']
 })
 export class TaskDetailComponent implements OnInit, OnDestroy {
 

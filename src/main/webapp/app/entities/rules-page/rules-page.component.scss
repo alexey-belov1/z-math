@@ -1,30 +1,24 @@
-/*Правила оформления заказов*/
-
-ol {
+.rp-ol {
   color:#00094d;
   font-size:15px;
 }
 
-li {
+.rp-li {
     margin-bottom: 20px;
     text-indent: 0;
 }
 
-.big {
-  width: 1000px;
-}
-
-table {
+.rp-table {
     margin-left: 20px;
     margin-top: 10px;
 }
 
-th {
+.rp-th {
     font-style: italic;
     font-size: 15px;
     text-align: right;
 }
 
-td {
+.rp-td {
     padding: 10px;
 }

@@ -1,11 +1,11 @@
 <div class="backdrop"></div>
 
-<div class="modal">
+<div class="tpm-modal transform-200 width-500">
 
-    <div class="my-title">
+    <div class="tpm-title">
         <span>Загрузить решение</span>
     </div>
-    <div class="my-close">
+    <div class="tpm-close">
         <button type="button" (click)="close()">&times;</button>
     </div>
 
@@ -13,28 +13,28 @@
     <form [formGroup]="form" (ngSubmit)="update()">
         <table>
             <tr>
-                <th class="vertical-align">Решение:</th>
-                <td formGroupName="files">
+                <th class="tpm-th padding-top-13 vertical-align-top">Решение:</th>
+                <td class="tpm-td" formGroupName="files">
                     <table *ngIf="files.length > 0">
                         <tr *ngFor="let file  of files; let i = index;">
-                            <td class="attached-file-td">
+                            <td class="tpm-attached-file-td">
                                 <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
                             </td>
-                            <td class="attached-file-td">
+                            <td class="tpm-attached-file-td">
                                 <button type="button" (click)="cleanFile(file)">x</button>
                             </td>
                         </tr>
                     </table>
 
-                    <label for="files" class="attached-file-btn">+ Добавить файл</label>
+                    <label for="files" class="tpm-attached-file-label">+ Добавить файл</label>
                     <input type="file" id="files" style="display:none" (change)="setFile($event)"/>
                 </td>
             </tr>
 
             <tr>
-                <td></td>
-                <td>
-                    <button type="submit">Отправить</button>
+                <td class="tpm-td"></td>
+                <td class="tpm-td">
+                    <button class="tpm-btn" type="submit">Отправить</button>
                 </td>
             </tr>
         </table>

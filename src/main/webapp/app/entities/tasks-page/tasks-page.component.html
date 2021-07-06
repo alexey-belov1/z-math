@@ -1,44 +1,44 @@
 <p class="content-title">Список задач</p>
 <hr>
 
-<table class="filter-table">
-    <tr class="filter-tr">
-        <td class="filter-td filter-td-title ">Статус:</td>
-        <td class="filter-td filter-border">
-            <select [(ngModel)]="statusIdFilter" (change)="applyFilter()">
-                <option [ngValue]="null" style="font-style: italic">Все</option>
+<table class="tp-filter-table">
+    <tr>
+        <td class="tp-filter-td tp-filter-td-title ">Статус:</td>
+        <td class="tp-filter-td tp-filter-td-border">
+            <select class="tp-filter-select" [(ngModel)]="statusIdFilter" (change)="applyFilter()">
+                <option class="italic" [ngValue]="null">Все</option>
                 <option *ngFor="let status of statuses" [ngValue]="status.id">{{status.name}}</option>
             </select>
         </td>
-        <td class="filter-td filter-td-title">Раздел:</td>
-        <td class="filter-td filter-border">
-            <select [(ngModel)]="subjectIdFilter" (change)="applyFilter()">
-                <option [ngValue]="null" style="font-style: italic">Все</option>
+        <td class="tp-filter-td tp-filter-td-title">Раздел:</td>
+        <td class="tp-filter-td tp-filter-td-border">
+            <select class="tp-filter-select" [(ngModel)]="subjectIdFilter" (change)="applyFilter()">
+                <option class="italic" [ngValue]="null">Все</option>
                 <option *ngFor="let subject of subjects" [ngValue]="subject.id">{{subject.name}}</option>
             </select>
         </td>
-        <td class="filter-td">
-            <button type="button" (click)="clearFilter()" class="filter-button">Сбросить фильтры</button>
+        <td class="tp-filter-td">
+            <button type="button" class="tp-filter-btn" (click)="clearFilter()">Сбросить фильтры</button>
         </td>
     </tr>
 </table>
 
-<table class="main-table">
-    <tr class="main-tr">
-        <th class="main-th"> № заказа</th>
-        <th class="main-th"> Заказчик</th>
-        <th class="main-th"> Статус</th>
-        <th class="main-th"> Цена, руб</th>
-        <th class="main-th"> Срок</th>
-        <th class="main-th"> Раздел</th>
+<table class="tp-tasks-table">
+    <tr class="tp-tasks-tr">
+        <th class="tp-tasks-th"> № заказа</th>
+        <th class="tp-tasks-th"> Заказчик</th>
+        <th class="tp-tasks-th"> Статус</th>
+        <th class="tp-tasks-th"> Цена, руб</th>
+        <th class="tp-tasks-th"> Срок</th>
+        <th class="tp-tasks-th"> Раздел</th>
     </tr>
-    <tr class="main-tr" *ngFor="let task of tasks, index as i" (click)="showModal(task)">
-        <td class="main-td">{{task.id}}</td>
-        <td class="main-td">{{task.userLogin}}</td>
-        <td class="main-td">{{task.status.name}}</td>
-        <td class="main-td">{{task.cost ? task.cost : "-"}}</td>
-        <td class="main-td">{{task.deadline | date: 'medium'}}</td>
-        <td class="main-td">{{task.subject.name}}</td>
+    <tr class="tp-tasks-tr" *ngFor="let task of tasks, index as i" (click)="showModal(task)">
+        <td class="tp-tasks-td">{{task.id}}</td>
+        <td class="tp-tasks-td">{{task.userLogin}}</td>
+        <td class="tp-tasks-td">{{task.status.name}}</td>
+        <td class="tp-tasks-td">{{task.cost ? task.cost : "-"}}</td>
+        <td class="tp-tasks-td">{{task.deadline | date: 'medium'}}</td>
+        <td class="tp-tasks-td">{{task.subject.name}}</td>
     </tr>
 </table>
 <div *ngIf="tasks.length > 0">

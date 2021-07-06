@@ -1,19 +1,19 @@
 <div class="backdrop"></div>
 
-<div class="modal">
+<div class="tpm-modal transform-150 width-800">
 
-    <div class="my-title">
+    <div class="tpm-title">
         <span>Оплата заказа №{{task.id}}</span>
     </div>
-    <div class="my-close">
+    <div class="tpm-close">
         <button type="button" (click)="close()">&times;</button>
     </div>
 
     <hr>
     <form [formGroup]="form" (ngSubmit)="update()">
-        <div class="modal-text">
+        <div class="tpm-method">
             <span>Выберите способ оплаты:</span>
-            <div class="modal-payment">
+            <div class="tpm-method-radio">
                 <div *ngFor="let method of methods">
                     <label for="method_{{method.id}}">
                         <input id="method_{{method.id}}" [value]='method.id' type="radio" formControlName="methodId">
@@ -23,15 +23,15 @@
             </div>
             <table>
                 <tr>
-                    <th>Сумма к оплате:</th>
-                    <td>
-                        <input type="text" formControlName="paid" readonly>
+                    <th class="tpm-th">Сумма к оплате:</th>
+                    <td class="tpm-td">
+                        <input type="text" class="tpm-input-text" formControlName="paid" readonly>
                     </td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td>
-                        <button type="submit">Отправить</button>
+                    <td class="tpm-td"></td>
+                    <td class="tpm-td">
+                        <button class="tpm-btn" type="submit">Отправить</button>
                     </td>
                 </tr>
             </table>

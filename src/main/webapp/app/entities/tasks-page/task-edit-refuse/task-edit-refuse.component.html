@@ -1,11 +1,11 @@
 <div class="backdrop"></div>
 
-<div class="modal">
+<div class="tpm-modal transform-200 width-500">
 
-    <div class="my-title">
+    <div class="tpm-title">
         <span>Отказать в решении задач</span>
     </div>
-    <div class="my-close">
+    <div class="tpm-close">
         <button type="button" (click)="close()">&times;</button>
     </div>
 
@@ -14,16 +14,16 @@
     <form [formGroup]="form" (ngSubmit)="update()">
         <table>
             <tr>
-                <th>Причина отказа:</th>
-                <td>
-                    <textarea formControlName="cause"></textarea>
+                <th class="tpm-th">Причина отказа:</th>
+                <td class="tpm-td">
+                    <textarea class="tpm-input-textarea" formControlName="cause"></textarea>
                 </td>
             </tr>
 
             <tr>
-                <td></td>
+                <td class="tpm-td"></td>
                 <td>
-                    <button type="submit">Отправить</button>
+                    <button class="tpm-btn" type="submit">Отправить</button>
                 </td>
             </tr>
         </table>

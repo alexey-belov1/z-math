@@ -9,7 +9,7 @@ import {EventData} from "../../../shared/model/event-data.model";
 @Component({
   selector: 'app-task-edit-refuse',
   templateUrl: './task-edit-refuse.component.html',
-  styleUrls: ['./task-edit-refuse.component.scss', '../task-edit.style.scss']
+  styleUrls: ['../task-edit.style.scss']
 })
 export class TaskEditRefuseComponent implements OnInit{
 

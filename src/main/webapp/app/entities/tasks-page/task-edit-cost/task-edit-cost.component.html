@@ -1,11 +1,11 @@
 <div class="backdrop"></div>
 
-<div class="modal">
+<div class="tpm-modal transform-200 width-500">
 
-    <div class="my-title">
+    <div class="tpm-title">
         <span>Оценка стоимости заказа</span>
     </div>
-    <div class="my-close">
+    <div class="tpm-close">
         <button type="button" (click)="close()">&times;</button>
     </div>
 
@@ -13,16 +13,16 @@
     <form [formGroup]="form" (ngSubmit)="update()">
         <table>
             <tr>
-                <th>Стоимость:</th>
-                <td>
-                    <input type="text" formControlName="cost">
+                <th class="tpm-th">Стоимость:</th>
+                <td class="tpm-td">
+                    <input type="text" class="tpm-input-text" formControlName="cost">
                 </td>
             </tr>
 
             <tr>
-                <td></td>
-                <td>
-                    <button type="submit">Отправить</button>
+                <td class="tpm-td"></td>
+                <td class="tpm-td">
+                    <button class="tpm-btn" type="submit">Отправить</button>
                 </td>
             </tr>
         </table>
