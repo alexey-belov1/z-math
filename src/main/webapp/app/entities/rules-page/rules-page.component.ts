@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-rules-page',
-  templateUrl: './rules-page.component.html',
-  styleUrls: ['./rules-page.component.scss']
+    selector: 'app-rules-page',
+    templateUrl: './rules-page.component.html',
+    styleUrls: ['./rules-page.component.scss']
 })
 export class RulesPageComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
-
-  onChangeSize(el: any): void {
-    el.classList.toggle('big');
-  }
+    ngOnInit(): void {
+    }
 }

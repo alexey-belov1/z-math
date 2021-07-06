@@ -13,13 +13,12 @@ import {ISubject} from "../../shared/model/subject.model";
 })
 export class NewTaskPageComponent implements OnInit {
 
-    task: ITask = null;
-
     files: File[] = [];
 
-    times = Array.from(Array(24).keys());
     subjects: ISubject[] = [];
+
     form: FormGroup;
+
     submitted = false;
 
     constructor(
@@ -29,7 +28,9 @@ export class NewTaskPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAll();
+        this.subjectService.findAll().subscribe(res => {
+            this.subjects = res.body;
+        });
 
         this.form = new FormGroup({
             subject: new FormControl(null, [Validators.required]),
@@ -41,31 +42,19 @@ export class NewTaskPageComponent implements OnInit {
         });
     }
 
-    getAll(): void {
-        this.subjectService.findAll()
-            .subscribe(res => {
-                this.subjects = res.body;
-            });
-    }
-
     submit(): void {
-
-        console.warn("this files", this.files);
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
-
         const task: ITask = {
-            subject: this.form.value.subject,
-            comment: this.form.value.comment,
-            deadline: this.form.value.deadline,
-            preparedCost: this.form.value.preparedCost,
-            contact: this.form.value.contact,
+            subject: this.form.get('subject').value,
+            deadline: this.form.get('deadline').value,
+            preparedCost: this.form.get('preparedCost').value,
+            comment: this.form.get('comment').value,
+            contact: this.form.get('contact').value,
             archived: false
         };
-        console.warn("Task", task);
-
         this.submitted = true;
 
         this.taskService.save(task, this.files).subscribe(() => {

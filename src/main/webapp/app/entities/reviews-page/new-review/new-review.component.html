@@ -1,21 +1,21 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <table class="nr-table">
+    <table class="nr-table">
 
-    <tr>
-      <td class="nr-title">Оставить отзыв:</td>
-    </tr>
+        <tr>
+            <td class="nr-title">Оставить отзыв:</td>
+        </tr>
 
-    <tr>
-      <td>
-        <textarea class="nr-textarea" formControlName="text"></textarea>
-      </td>
-    </tr>
+        <tr>
+            <td>
+                <textarea class="nr-textarea" formControlName="text"></textarea>
+            </td>
+        </tr>
 
-    <tr>
-      <td>
-        <button class="nr-btn" type="submit">Отправить</button>
-      </td>
-    </tr>
+        <tr>
+            <td>
+                <button class="nr-btn" type="submit" [disabled]="submitted">Отправить</button>
+            </td>
+        </tr>
 
-  </table>
+    </table>
 </form>

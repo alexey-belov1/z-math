@@ -14,18 +14,17 @@ export class ReviewsPageComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private reviewService: ReviewService
-    ) { }
-
-    ngOnInit(): void {
-        this.getAll();
+        private reviewService: ReviewService) {
     }
 
-    getAll(): void {
-        this.reviewService.findAll()
-            .subscribe(res => {
-                this.reviews = res.body;
-            });
+    ngOnInit(): void {
+        this.loadReviews();
+    }
+
+    loadReviews(): void {
+        this.reviewService.findAll().subscribe(res => {
+            this.reviews = res.body;
+        });
     }
 
     isAuthenticated(): boolean {

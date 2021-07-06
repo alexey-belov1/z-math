@@ -13,6 +13,7 @@ import {IUser} from "../../shared/model/user.model";
 export class RegistrationPageComponent implements OnInit {
 
     form: FormGroup;
+
     submitted = false;
 
     constructor(
@@ -43,24 +44,19 @@ export class RegistrationPageComponent implements OnInit {
 
 
     submit(): void {
-
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
-
+        const user: IUser = {
+            login: this.form.get('login').value,
+            password: this.form.get('password').value,
+            email: this.form.get('email').value
+        };
         this.submitted = true;
 
-        const user: IUser = {
-            login: this.form.value.login,
-            password: this.form.value.password,
-            email: this.form.value.email
-        };
-
-        console.log(user);
-
         this.regService.signUp(user).subscribe(() => {
-            this.router.navigate(['/']);
+            this.router.navigate(['/']).then();
         }, () => {
             this.submitted = false;
         });
