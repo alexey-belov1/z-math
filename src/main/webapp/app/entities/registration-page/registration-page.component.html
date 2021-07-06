@@ -2,12 +2,12 @@
 <hr>
 
 <form [formGroup]="form" (ngSubmit)="submit()">
-    <table>
+    <table class="rp-table">
 
-        <tr class="">
-            <th>Логин:</th>
-            <td>
-                <input type="text" formControlName="login">
+        <tr>
+            <th class="rp-th padding">Логин:</th>
+            <td class="padding">
+                <input type="text" class="rp-input" formControlName="login">
                 <div *ngIf="form.get('login').invalid && form.get('login').touched">
                     <span *ngIf="form.get('login').errors.required" class="validation">
                         Поле обязательное для заполнения
@@ -20,9 +20,9 @@
         </tr>
 
         <tr>
-            <th>Пароль:</th>
-            <td>
-                <input type="password" formControlName="password">
+            <th class="rp-th padding">Пароль:</th>
+            <td class="padding">
+                <input type="password" class="rp-input" formControlName="password">
                 <div *ngIf="form.get('password').invalid && form.get('password').touched">
                     <span *ngIf="form.get('password').errors.required" class="validation">
                         Поле обязательное для заполнения
@@ -35,9 +35,9 @@
         </tr>
 
         <tr>
-            <th>Пароль еще раз:</th>
-            <td>
-                <input type="password" formControlName="confirmPassword">
+            <th class="rp-th padding">Пароль еще раз:</th>
+            <td class="padding">
+                <input type="password" class="rp-input" formControlName="confirmPassword">
                 <div *ngIf="form.get('confirmPassword').invalid && form.get('confirmPassword').touched">
                     <span *ngIf="form.get('confirmPassword').errors.required" class="validation">
                         Поле обязательное для заполнения
@@ -50,9 +50,9 @@
         </tr>
 
         <tr>
-            <th>E-mail:</th>
-            <td>
-                <input type="email" formControlName="email">
+            <th class="rp-th padding">E-mail:</th>
+            <td class="padding">
+                <input type="email" class="rp-input" formControlName="email">
                 <div *ngIf="form.get('email').invalid && form.get('email').touched">
                     <span *ngIf="form.get('email').errors.required" class="validation">
                         Поле обязательное для заполнения
@@ -65,9 +65,9 @@
         </tr>
 
         <tr>
-            <th></th>
-            <td>
-                <button type="submit" [disabled]="submitted">Отправить</button>
+            <th class="rp-th padding"></th>
+            <td class="padding">
+                <button type="submit" class="rp-btn" [disabled]="submitted">Отправить</button>
             </td>
         </tr>
     </table>

@@ -1,35 +1,34 @@
-/* Отзывы */
-table {
+.rp-table {
   border-spacing: 0 0;
   width: 100%;
   background: #eaeaea;
 }
 
-tr:nth-child(2n) {
+.rp-tr:nth-child(2n) {
   background: rgba(247,245,242,0.65);
   height: 30px;
 }
 
-td {
+.rp-td {
   border: 0;
   padding: 10px 15px 10px 15px;
 }
 
-.login {
+.rp-login {
   font-weight: 700;
   font-size: 17px;
   font-family:monospace;
   text-decoration: underline;
 }
 
-.date {
+.rp-date {
   font-size: 13px;
   font-family:monospace;
   color:#5a5a5a;
   padding-left: 7px;
 }
 
-.text {
+.rp-text {
   text-align: justify;
   font-style: italic;
   font-family:inherit;
@@ -38,7 +37,7 @@ td {
   margin-bottom: 0;
 }
 
-.no-access {
+.rp-no-access {
   margin-top: 20px;
   font-style:italic;
   font-size:14px;

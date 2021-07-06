@@ -5,13 +5,13 @@
 
     <table>
         <tr>
-            <th>Раздел*:</th>
-            <td>
-                <select appTooltip="tooltipSubject" formControlName="subject">
+            <th class="ntp-th">Раздел*:</th>
+            <td class="ntp-td">
+                <select class="ntp-input" appTooltip="tooltipSubject" formControlName="subject">
                     <option *ngIf="!form.value.subject" [ngValue]="null"></option>
                     <option *ngFor="let subject of subjects" [ngValue]="subject">{{subject.name}}</option>
                 </select>
-                <span id="tooltipSubject" class="comment">
+                <span id="tooltipSubject" class="ntp-comment">
                     Выберите раздел математики (или программирования), по которому необходимо решить задачи. Если Вы не нашли интересующий раздел выберите пункт "Остальное"
                 </span>
                 <div *ngIf="form.get('subject').invalid && form.get('subject').touched">
@@ -23,10 +23,10 @@
         </tr>
 
         <tr>
-            <th>Дата решения*:</th>
-            <td>
-                <input type="datetime-local" appTooltip="tooltipDate" formControlName="deadline">
-                <span id="tooltipDate" class="comment">
+            <th class="ntp-th">Дата решения*:</th>
+            <td class="ntp-td">
+                <input type="datetime-local" class="ntp-input" appTooltip="tooltipDate" formControlName="deadline">
+                <span id="tooltipDate" class="ntp-comment">
                     Укажите дату и время когда хотите получить решение задач
                 </span>
                 <div *ngIf="form.get('deadline').invalid && form.get('deadline').touched">
@@ -38,10 +38,10 @@
         </tr>
 
         <tr>
-            <th>Стоимость*:</th>
-            <td>
-                <input type="text" appTooltip="tooltipPreparedCost" formControlName="preparedCost">
-                <span id="tooltipPreparedCost" class="comment">
+            <th class="ntp-th">Стоимость*:</th>
+            <td class="ntp-td">
+                <input type="text" class="ntp-input" appTooltip="tooltipPreparedCost" formControlName="preparedCost">
+                <span id="tooltipPreparedCost" class="ntp-comment">
                     Укажите примерную стоимость, на которую Вы рассчитываете.
                 </span>
                 <div *ngIf="form.get('preparedCost').invalid && form.get('preparedCost').touched">
@@ -54,23 +54,23 @@
 
 
         <tr>
-            <th class="vertical-align">Условия задач*:</th>
-            <td formGroupName="files">
+            <th class="ntp-th vertical-align">Условия задач*:</th>
+            <td class="ntp-td" formGroupName="files">
                 <table *ngIf="files.length > 0">
                     <tr *ngFor="let file  of files; let i = index;">
-                        <td class="attached-file-td">
+                        <td class="ntp-td tpm-attached-file-td">
                             <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
                         </td>
-                        <td class="attached-file-td">
+                        <td class="ntp-td tpm-attached-file-td">
                             <button type="button" (click)="cleanFile(file)">x</button>
                         </td>
                     </tr>
                 </table>
 
-                <label for="files" class="attached-file-btn" appTooltip="tooltipFile">+ Добавить файл</label><!--    formControlName="file"-->
-                <input type="file" id="files" style="display:none" appTooltip="tooltipFile" (change)="setFile($event)" />
+                <label for="files" class="tpm-attached-file-label" appTooltip="tooltipFile">+ Добавить файл</label><!--    formControlName="file"-->
+                <input type="file" class="display-none" id="files" appTooltip="tooltipFile" (change)="setFile($event)" />
 
-                <span id="tooltipFile" class="comment">
+                <span id="tooltipFile" class="ntp-comment">
                     В прикрепленном файле должны содержаться условия задач. Файл не должен превышать 25 МБ и должен иметь одно из расширений - DOC, DOCX, TXT, PDF, JPG, GIF, PNG, RAR, ZIP, 7Z
                 </span>
                 <div *ngIf="form.get('files').invalid && form.get('files').touched">
@@ -83,36 +83,34 @@
         </tr>
 
         <tr>
-            <th class="vertical-align">Дополнительная <br> информация:</th>
-            <td>
-                <textarea appTooltip="tooltipComment" formControlName="comment"></textarea>
-                <span id="tooltipComment" class="comment">
+            <th class="ntp-th vertical-align">Дополнительная <br> информация:</th>
+            <td class="ntp-td">
+                <textarea class="ntp-textarea" appTooltip="tooltipComment" formControlName="comment"></textarea>
+                <span id="tooltipComment" class="ntp-comment">
                     Укажите дополнительную информацию по Вашему заказу (какой вариант необходимо решить, номера задач, требования к оформлению и т.д.)
                 </span>
             </td>
         </tr>
 
         <tr>
-            <th class="vertical-align">Контактная <br>информация:</th>
-            <td>
-                <textarea appTooltip="tooltipContact" formControlName="contact"></textarea>
-                <span id="tooltipContact" class="comment"> Укажите возможную контактную информацию для связи с Вами (skype, icq, vk и т.д.). Дананя информация может быть использована при необходимости уточнения условий по Вашему заказу. Контакты будут доступны только администрации сайта. Поле необязательное для заполнения</span>
+            <th class="ntp-th vertical-align">Контактная <br>информация:</th>
+            <td class="ntp-td">
+                <textarea class="ntp-textarea" appTooltip="tooltipContact" formControlName="contact"></textarea>
+                <span id="tooltipContact" class="ntp-comment"> Укажите возможную контактную информацию для связи с Вами (skype, icq, vk и т.д.). Дананя информация может быть использована при необходимости уточнения условий по Вашему заказу. Контакты будут доступны только администрации сайта. Поле необязательное для заполнения</span>
             </td>
         </tr>
 
         <tr>
-            <td></td>
-            <td>
-        <span class="font14">
-            <i>* - поля обязательные для заполнения</i>
-        </span>
+            <td class="ntp-td"></td>
+            <td class="ntp-td">
+                <span class="font14 italic">* - поля обязательные для заполнения</span>
             </td>
         </tr>
 
         <tr>
-            <td></td>
-            <td>
-                <button type="submit">Отправить</button>
+            <td class="ntp-td"></td>
+            <td class="ntp-td">
+                <button type="submit" class="ntp-btn">Отправить</button>
             </td>
         </tr>
 

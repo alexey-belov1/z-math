@@ -2,13 +2,13 @@
   <p class="content-title">Отзывы!</p>
   <hr>
 
-  <table>
-    <tr *ngFor="let review of reviews">
-      <td>
-        <span class="login">{{review.userLogin}}</span>
-        <span class="date">{{review.created | date: 'dd.MM.yyyy'}}</span>
+  <table class="rp-table">
+    <tr class="rp-tr" *ngFor="let review of reviews">
+      <td class="rp-td">
+        <span class="rp-login">{{review.userLogin}}</span>
+        <span class="rp-date">{{review.created | date: 'dd.MM.yyyy'}}</span>
         <br>
-        <p class="text">{{review.text}}</p>
+        <p class="rp-text">{{review.text}}</p>
       </td>
     </tr>
   </table>
@@ -20,7 +20,7 @@
   </div>
 
   <ng-template #noAccess>
-    <p class="no-access">
-      Оставлять отзывы могут только <a [routerLink]="['/registration']"><i>зарегистрированные</i></a> и авторизованные пользователи.
+    <p class="rp-no-access">
+      Оставлять отзывы могут только <a [routerLink]="['/registration']">зарегистрированные</a> пользователи.
     </p>
   </ng-template>

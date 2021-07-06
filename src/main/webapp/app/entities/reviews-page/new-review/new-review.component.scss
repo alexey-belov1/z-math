@@ -1,16 +1,14 @@
-
-table {
+.nr-table {
   margin-top: 20px;
 }
 
-.title {
+.nr-title {
   font-style: italic;
   font-family:inherit;
   font-size: 15px;
 }
 
-
-textarea {
+.nr-textarea {
   padding-left: 3px;
   min-width: 450px;
   min-height: 80px;
@@ -19,8 +17,7 @@ textarea {
   font-size: 13px;
 }
 
-
-button {
+.nr-btn {
   border: solid 1px #868686;
   min-width: 90px;
   min-height: 22px;
