@@ -35,11 +35,6 @@ export class NavbarComponent implements OnInit {
       src: 'main/webapp/content/image/icon/new-task.png',
       text: 'Оформить заказ'
     },
-/*    {
-      router: '/payment',
-      src: 'main/webapp/content/image/icon/payment.png',
-      text: 'Оплатить заказ'
-    },*/
     {
       router: '/reviews',
       src: 'main/webapp/content/image/icon/reviews.png',

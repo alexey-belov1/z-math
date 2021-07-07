@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {AuthService} from "../../shared/services/auth.service";
-import {AlertService} from "../../shared/services/alert.service";
 import {IUser} from "../../shared/model/user.model";
 
 @Component({
@@ -13,14 +12,12 @@ import {IUser} from "../../shared/model/user.model";
 export class LoginPanelComponent implements OnInit {
 
     form: FormGroup;
+
     submitted = false;
-    message: string;
 
     constructor(
         public authService: AuthService,
-        private router: Router,
-        private route: ActivatedRoute,
-        private alertService: AlertService
+        private router: Router
     ) {
     }
 
@@ -31,44 +28,21 @@ export class LoginPanelComponent implements OnInit {
         });
     }
 
-    logout(): void {
-        this.authService.logout();
-        this.router.navigate(['/']);
-    }
-
-    isAuthenticated(): boolean {
-        return this.authService.isAuthenticated();
-    }
-
     submit(): void {
-
         if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
-        if (this.form.invalid) {
-            if (this.form.get('login').invalid && this.form.get('login').errors.required) {
-                this.alertService.error('Необходимо заполнить поле "Логин"');
-                return;
-            }
-            if (this.form.get('password').invalid && this.form.get('password').errors.required) {
-                this.alertService.error('Необходимо заполнить поле "Пароль"');
-                return;
-            }
-        }
+        const user: IUser = {
+            login: this.form.get('login').value,
+            password: this.form.get('password').value
+        };
 
         this.submitted = true;
 
-        const user: IUser = {
-            login: this.form.value.login,
-            password: this.form.value.password
-        };
-
         this.authService.login(user).subscribe(() => {
-            this.form.reset();
-            this.router.navigate(['/']);
-            this.submitted = false;
+            this.router.navigate(['/']).then();
         }, () => {
             this.submitted = false;
         });
@@ -76,5 +50,14 @@ export class LoginPanelComponent implements OnInit {
 
     markAllAsUntouched(): void {
         this.form.markAsUntouched();
+    }
+
+    logout(): void {
+        this.authService.logout();
+        this.router.navigate(['/']).then();
+    }
+
+    isAuthenticated(): boolean {
+        return this.authService.isAuthenticated();
     }
 }

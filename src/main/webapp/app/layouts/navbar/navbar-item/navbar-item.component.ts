@@ -25,4 +25,12 @@ export class NavbarItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  setHoverTrue(): void {
+      this.hover = true;
+  }
+
+  setHoverFalse(): void {
+      this.hover = false;
+  }
 }
