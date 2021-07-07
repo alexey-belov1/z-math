@@ -9,7 +9,7 @@ export class ResolvePagingParams implements Resolve<any> {
         return {
             page: route.queryParams['page'] ? route.queryParams['page'] : '1',
             predicate: sort ? sort.split(',')[0] : 'id',
-            ascending: true,
+            ascending: false,
         };
     }
 }

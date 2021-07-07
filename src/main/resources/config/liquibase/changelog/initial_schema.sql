@@ -17,7 +17,6 @@ create table users
     password varchar(500)     not null,
     role_id  int,
     created  timestamp        not null,
-    balance  real default 0.0 not null,
     constraint fk_users_role_id foreign key (role_id) references zmath.role (id)
 );
 -- rollback drop table users;

@@ -5,6 +5,7 @@ import {IAlert} from "../model/alert.model";
 
 @Injectable({ providedIn: 'root' })
 export class AlertService {
+
     private subject = new Subject<IAlert>();
 
     onAlert(): Observable<IAlert> {

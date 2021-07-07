@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Calendar;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +32,4 @@ public class User {
     private Role role;
 
     private Calendar created;
-
-    private double balance;
 }

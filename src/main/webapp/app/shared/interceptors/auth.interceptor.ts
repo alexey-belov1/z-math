@@ -8,29 +8,28 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    if (this.authService.isAuthenticated()) {
-      req = req.clone({
-        headers: req.headers.append('Authorization', this.authService.token)
-      });
+    constructor(
+        private authService: AuthService,
+        private router: Router
+    ) {
     }
 
-    return next.handle(req)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          console.log('[Interceptor Error]: ', error);
-          if (error.status === 401) {
-            this.authService.logout();
-            this.router.navigate(['/']);
-          }
-          return throwError(error);
-        })
-      );
-  }
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (this.authService.isAuthenticated()) {
+            req = req.clone({
+                headers: req.headers.append('Authorization', this.authService.token)
+            });
+        }
+
+        return next.handle(req)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if (error.status === 401) {
+                        this.authService.logout();
+                        this.router.navigate(['/']).then();
+                    }
+                    return throwError(error);
+                })
+            );
+    }
 }

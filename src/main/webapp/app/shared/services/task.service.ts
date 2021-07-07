@@ -25,33 +25,14 @@ export class TaskService {
             .get<ITask[]>(this.resourceUrl, {params: req, observe: 'response'});
     }
 
-    save(task: any, files: File[]): Observable<EntityResponseType> {
-        const formData: FormData = new FormData();
-        formData.append(
-            'taskDTO',
-            new Blob([JSON.stringify(task)], {
-                type: 'application/json'
-            })
-        );
-        for (let i = 0; i < files.length; i++) {
-            formData.append('files', files[i]);
-        }
-
+    save(task: ITask, files: File[]): Observable<EntityResponseType> {
+        const formData = this.createFormData(task, files);
         return this.http
             .post<ITask>(this.resourceUrl, formData, { observe: 'response' });
     }
 
-    update(task: any, files: File[]): Observable<EntityResponseType> {
-        const formData: FormData = new FormData();
-        formData.append(
-            'taskDTO',
-            new Blob([JSON.stringify(task)], {
-                type: 'application/json'
-            })
-        );
-        for (let i = 0; i < files.length; i++) {
-            formData.append('files', files[i]);
-        }
+    update(task: ITask, files: File[]): Observable<EntityResponseType> {
+        const formData = this.createFormData(task, files);
         return this.http
             .put<ITask>(this.resourceUrl, formData, { observe: 'response' });
     }
@@ -63,5 +44,19 @@ export class TaskService {
     setPayment(task: any): Observable<EntityResponseType> {
         return this.http
             .put(`${this.resourceUrl}/payment`, task, {observe: 'response'});
+    }
+
+    private createFormData(task: ITask, files: File[]): FormData {
+        const formData: FormData = new FormData();
+        formData.append(
+            'taskDTO',
+            new Blob([JSON.stringify(task)], {
+                type: 'application/json'
+            })
+        );
+        files.forEach(file => {
+            formData.append('files', file);
+        })
+        return formData;
     }
 }

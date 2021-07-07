@@ -23,6 +23,4 @@ public class UserDTO {
     private RoleDTO role;
 
     private Calendar created;
-
-    private double balance;
 }

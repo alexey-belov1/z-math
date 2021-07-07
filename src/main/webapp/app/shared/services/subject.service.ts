@@ -14,7 +14,6 @@ export class SubjectService {
     constructor(private http: HttpClient) { }
 
     findAll(): Observable<EntityArrayResponseType> {
-        return this.http
-            .get<ISubject[]>(this.resourceUrl, {observe: 'response'});
+        return this.http.get<ISubject[]>(this.resourceUrl, {observe: 'response'});
     }
 }

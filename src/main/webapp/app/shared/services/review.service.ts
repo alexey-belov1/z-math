@@ -14,8 +14,7 @@ export class ReviewService {
     constructor(private http: HttpClient) { }
 
     findAll(): Observable<EntityArrayResponseType> {
-        return this.http
-            .get<IReview[]>(this.resourceUrl, {observe: 'response'});
+        return this.http.get<IReview[]>(this.resourceUrl, {observe: 'response'});
     }
 
     save(review: IReview): Observable<any> {
