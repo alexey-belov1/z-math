@@ -1,7 +1,7 @@
 import {Component, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {TaskDetailComponent} from "./task-detail/task-detail.component";
-import {HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Subscription} from "rxjs";
@@ -30,8 +30,6 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
     tasks: ITask[] = [];
 
-    toggle: boolean[] = [];
-
     subjectIdFilter: number = null;
 
     statusIdFilter: number = null;
@@ -48,6 +46,9 @@ export class TasksPageComponent implements OnInit, OnDestroy {
 
     // Номер страницы
     page: number;
+
+    // Предыдущее значеие номера страницы. Используется чтоб не было повторной загрузки данных в начале
+    previousPage: number;
 
     // Условия по которому сортировать
     predicate: string;
@@ -75,78 +76,58 @@ export class TasksPageComponent implements OnInit, OnDestroy {
             this.page = data.pagingParams.page;
             this.ascending = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
-            this.loadPage();
+            this.previousPage = this.page;
         });
 
-        this.onTaskEditSub = this.eventBusService.on("taskEdit", () => this.loadPage());
+        this.subjectService.findAll().subscribe(res => {
+            this.subjects = res.body;
+        });
 
-        //TODO - 3 раза грузит
-        this.loadPage();
+        this.statusService.findAll().subscribe(res => {
+            this.statuses = res.body
+        });
+
+        this.loadTasks();
+
+        this.onTaskEditSub = this.eventBusService.on("taskEdit", () => this.loadTasks());
     }
 
-    getItem(i: number): string {
-        return 'item' + i;
+    // Метод защищает от повторной загрузки данных при первом заходе на страницу
+    loadPage(page: number): void {
+        if (page != this.previousPage) {
+            this.previousPage = page;
+            this.loadTasks();
+        }
     }
 
-    changeToggle(i: number): void {
-        this.toggle[i] = !this.toggle[i];
-    }
-
-    showModal(task: ITask) {
-        const modalRef = this.modalService.open(TaskDetailComponent, { size: 'lg', backdrop: 'static' });
-        modalRef.componentInstance.task = task;
-    }
-
-    loadPage(page?: number): void {
+    loadTasks(): void {
         let options: HttpParams = new HttpParams();
-
-        let pageToLoad = page ? page : this.page;
-        options = options.set('page', (pageToLoad - 1).toString());
+        options = options.set('page', (this.page - 1).toString());
         options = options.set('size', this.itemsPerPage.toString());
-
         let sort = this.predicate + ',' + (this.ascending ? 'asc' : 'desc');
         options = options.append('sort', sort);
-
         options = this.filter(options);
 
-        this.taskService.query(options).subscribe(
-            (res: HttpResponse<ITask[]>) => this.onSuccess(res.body, res.headers, pageToLoad)
-            /*,() => this.onError()*/
-        );
-
-        this.subjectService.findAll().subscribe(
-            (res) => this.subjects = res.body
-        );
-
-        this.statusService.findAll().subscribe(
-            (res) => this.statuses = res.body
-        );
+        this.taskService.query(options).subscribe(res => {
+            this.onSuccess(res.body, res.headers);
+        });
     }
 
-    protected onSuccess(data: ITask[] | null, headers: HttpHeaders, page: number): void {
-        console.warn("headers", headers);
+    private onSuccess(tasks: ITask[] | null, headers: HttpHeaders): void {
         this.totalItems = Number(headers.get('X-Total-Count'));
-        this.page = page;
         this.router.navigate(['/tasks'], {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc')
             }
-        });
-        this.tasks = data ? data : [];
+        }).then();
+        this.tasks = tasks ? tasks : [];
     }
 
-    /*  toggle(el: string): void {
-        document.getElementById(el).classList.toggle('visibility');
-      }*/
-
-    /*  contains(el: string): boolean {
-        return document.getElementById(el).classList.contains('toggle');
-      }*/
-
-    ngOnDestroy(): void {
-        this.onTaskEditSub.unsubscribe();
+    showTaskDetailModal(task: ITask) {
+        const modalRef = this.modalService.open(TaskDetailComponent, {size: 'lg', backdrop: 'static'});
+        modalRef.componentInstance.task = task;
     }
 
     filter(options: HttpParams): HttpParams {
@@ -160,12 +141,18 @@ export class TasksPageComponent implements OnInit, OnDestroy {
     }
 
     applyFilter(): void {
-        this.loadPage();
+        this.page = 1;
+        this.loadTasks();
     }
 
     clearFilter() {
         this.subjectIdFilter = null;
         this.statusIdFilter = null;
-        this.loadPage();
+        this.page = 1;
+        this.loadTasks();
+    }
+
+    ngOnDestroy(): void {
+        this.onTaskEditSub.unsubscribe();
     }
 }

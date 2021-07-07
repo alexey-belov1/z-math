@@ -52,7 +52,7 @@
                 <td>
                     <div *ngFor="let attachedFile of task.attachedFiles" class="margin-bottom-7">
                         <ng-container *ngIf="attachedFile.type === 'task'">
-                            <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
+                            <a (click)="download(attachedFile)" href="javascript:void(0);">
                                 <span>{{attachedFile.name}}</span>
                             </a>
                             <span>
@@ -88,7 +88,7 @@
                 <td>
                     <div class="margin-bottom-7" *ngFor="let attachedFile of task.attachedFiles" >
                         <ng-container *ngIf="attachedFile.type === 'solve'">
-                            <a (click)="download(attachedFile.id, attachedFile.name)" href="javascript:void(0);">
+                            <a (click)="download(attachedFile)" href="javascript:void(0);">
                                 <span>{{attachedFile.name}}</span>
                             </a>
                             <span>

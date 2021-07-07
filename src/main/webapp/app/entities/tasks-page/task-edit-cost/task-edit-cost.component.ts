@@ -17,6 +17,8 @@ export class TaskEditCostComponent {
 
     form: FormGroup;
 
+    submitted = false;
+
     constructor(
         public activeModal: NgbActiveModal,
         private taskService: TaskService,
@@ -29,19 +31,25 @@ export class TaskEditCostComponent {
         });
     }
 
-    close(): void {
-        this.activeModal.dismiss();
-    }
-
-    update(): void {
+    submit(): void {
         if (this.form.invalid) {
             return;
         }
+
         this.task.status.id = 2;
         this.task.cost = this.form.get(['cost']).value;
+
+        this.submitted = true;
+
         this.taskService.update(this.task, []).subscribe(() => {
             this.close();
             this.eventBusService.emit(new EventData("taskEdit", null));
+        }, () => {
+            this.submitted = false;
         });
+    }
+
+    close(): void {
+        this.activeModal.dismiss();
     }
 }

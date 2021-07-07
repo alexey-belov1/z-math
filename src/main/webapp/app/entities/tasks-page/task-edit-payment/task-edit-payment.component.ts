@@ -17,9 +17,11 @@ export class TaskEditPaymentComponent implements OnInit {
 
     @Input() task: ITask;
 
+    methods: IMethod[] = [];
+
     form: FormGroup;
 
-    methods: IMethod[] = [];
+    submitted = false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -30,39 +32,38 @@ export class TaskEditPaymentComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.getAll();
+        this.methodService.findAll().subscribe(res => {
+            this.methods = res.body;
+        });
 
         this.form = new FormGroup({
             methodId: new FormControl(null, [Validators.required]),
-            paid: new FormControl(null, [Validators.required])
+            amount: new FormControl(this.task.cost, [Validators.required])
         });
-        console.warn('task edit', this.task);
-        this.form.get(['paid']).patchValue(this.task.cost);
     }
 
-    getAll(): void {
-        this.methodService.findAll()
-            .subscribe(res => {
-                this.methods = res.body;
-            });
+    submit(): void {
+        if (this.form.invalid) {
+            return;
+        }
+
+        this.task.status.id = 3;
+        this.task.payment = {
+            method: new Method(this.form.get(['methodId']).value),
+            amount: this.form.get(['amount']).value
+        };
+
+        this.submitted = true;
+
+        this.taskService.setPayment(this.task).subscribe(() => {
+            this.close();
+            this.eventBusService.emit(new EventData("taskEdit", null));
+        }, () => {
+            this.submitted = false;
+        });
     }
 
     close(): void {
         this.activeModal.dismiss();
-    }
-
-    update(): void {
-        if (this.form.invalid) {
-            return;
-        }
-        this.task.status.id = 3;
-        this.task.payment = {
-            method: new Method(this.form.get(['methodId']).value),
-            amount: this.form.get(['paid']).value
-        };
-        this.taskService.setPayment(this.task).subscribe(() => {
-            this.close();
-            this.eventBusService.emit(new EventData("taskEdit", null));
-        });
     }
 }

@@ -1,11 +1,6 @@
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot, Routes} from "@angular/router";
 import {TasksPageComponent} from "./tasks-page.component";
 import {Injectable} from "@angular/core";
-import {TaskService} from "../../shared/services/task.service";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {HttpResponse} from "@angular/common/http";
-import {ITask} from "../../shared/model/task.model";
 
 @Injectable({providedIn: 'root'})
 export class ResolvePagingParams implements Resolve<any> {
@@ -19,25 +14,11 @@ export class ResolvePagingParams implements Resolve<any> {
     }
 }
 
-@Injectable({providedIn: 'root'})
-export class DataResolver {
-    constructor(private taskService: TaskService) {
-    }
-
-    resolve(): Observable<any[]> {
-        return this.taskService.query().pipe(
-            map((res: HttpResponse<ITask[]>) => {
-                return res.body ? res.body : [];
-            })
-        );
-    }
-}
-
 export const tasksPageRoute: Routes = [
     {path: '',
         component: TasksPageComponent,
         resolve: {
-            pagingParams: ResolvePagingParams,
-            data: DataResolver
-        }}
+            pagingParams: ResolvePagingParams
+        }
+    }
 ];

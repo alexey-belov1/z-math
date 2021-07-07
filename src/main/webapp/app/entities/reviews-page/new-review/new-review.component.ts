@@ -10,7 +10,7 @@ import {IReview} from "../../../shared/model/review.model";
 })
 export class NewReviewComponent implements OnInit {
 
-    @Output() onAdd = new EventEmitter();
+    @Output() onSaveReview = new EventEmitter();
 
     form: FormGroup;
 
@@ -36,7 +36,7 @@ export class NewReviewComponent implements OnInit {
 
         this.reviewService.save(review).subscribe(() => {
             this.form.reset();
-            this.onAdd.emit();
+            this.onSaveReview.emit();
             this.submitted = false;
         }, () => {
             this.submitted = false;

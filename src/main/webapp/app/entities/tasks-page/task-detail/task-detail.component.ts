@@ -11,6 +11,7 @@ import {EventBusService} from "../../../shared/services/event-bus.service";
 import {AuthService} from "../../../shared/services/auth.service";
 import {ITask} from "../../../shared/model/task.model";
 import {EventData} from "../../../shared/model/event-data.model";
+import {IAttachedFile} from "../../../shared/model/attached-file.model";
 
 @Component({
     selector: 'app-task-detail',
@@ -21,7 +22,6 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
     @Input() task: ITask;
 
-    // Подписка на прием сообщений от сервера по веб сокету
     onTaskEditSub: Subscription;
 
     constructor(
@@ -36,33 +36,24 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.onTaskEditSub = this.eventBusService.on("taskEdit", () => {
-            this.taskService.find(this.task.id).subscribe((res) => {
+            this.taskService.find(this.task.id).subscribe(res => {
                 this.task = res.body;
             })
         });
     }
 
-    close(): void {
-        this.activeModal.dismiss();
-    }
-
-    download(attachedFileId: number, attachedFileName: string): void {
-        this.attachedFileService.download(attachedFileId).subscribe(res => {
+    download(attachedFile: IAttachedFile): void {
+        this.attachedFileService.download(attachedFile.id).subscribe(res => {
             const url = window.URL.createObjectURL(res.body);
             const a = document.createElement('a');
             document.body.appendChild(a);
             a.setAttribute('style', 'display: none');
             a.href = url;
-            a.download = attachedFileName;
+            a.download = attachedFile.name;
             a.click();
             window.URL.revokeObjectURL(url);
             a.remove();
         });
-    }
-
-    private showModal(component: any): void {
-        const modalRef = this.modalService.open(component, { backdrop: 'static' });
-        modalRef.componentInstance.task = this.task;
     }
 
     showTaskEditCostModal(): void {
@@ -81,14 +72,28 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
         this.showModal(TaskEditPaymentComponent);
     }
 
+    private showModal(component: any): void {
+        const modalRef = this.modalService.open(component, { backdrop: 'static' });
+        modalRef.componentInstance.task = this.task;
+    }
+
     deleteTask(): void {
-        this.taskService.delete(this.task.id).subscribe(() => {
-            this.close();
-            this.eventBusService.emit(new EventData("taskEdit", null));
-        });
+        if (confirm(`Вы действительно хотите удалить заказ №${this.task.id}?`)) {
+            this.taskService.delete(this.task.id).subscribe(() => {
+                this.onTaskEditSub.unsubscribe();
+                this.eventBusService.emit(new EventData("taskEdit", null));
+                this.close();
+            });
+        }
+    }
+
+    close(): void {
+        this.activeModal.dismiss();
     }
 
     ngOnDestroy(): void {
-        this.onTaskEditSub.unsubscribe();
+        if (!this.onTaskEditSub.closed) {
+            this.onTaskEditSub.unsubscribe();
+        }
     }
 }

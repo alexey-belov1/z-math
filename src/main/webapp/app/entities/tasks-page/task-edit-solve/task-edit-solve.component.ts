@@ -19,6 +19,8 @@ export class TaskEditSolveComponent implements OnInit {
 
     form: FormGroup;
 
+    submitted = false;
+
     constructor(
         public activeModal: NgbActiveModal,
         private taskService: TaskService,
@@ -30,10 +32,6 @@ export class TaskEditSolveComponent implements OnInit {
         this.form = new FormGroup({
             files: new FormControl(null, [Validators.required])
         });
-    }
-
-    close(): void {
-        this.activeModal.dismiss();
     }
 
     setFile(event: Event) {
@@ -56,17 +54,25 @@ export class TaskEditSolveComponent implements OnInit {
         formControl.updateValueAndValidity();
     }
 
-    update(): void {
-
-        console.warn("this files", this.files);
+    submit(): void {
         if (this.form.invalid) {
             return;
         }
 
         this.task.status.id = 4;
+
+        this.submitted = false;
+
         this.taskService.update(this.task, this.files).subscribe(() => {
             this.close();
             this.eventBusService.emit(new EventData("taskEdit", null));
+        }, () => {
+            this.submitted = true;
         });
+    }
+
+
+    close(): void {
+        this.activeModal.dismiss();
     }
 }

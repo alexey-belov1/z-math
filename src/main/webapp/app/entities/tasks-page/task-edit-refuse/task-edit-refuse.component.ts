@@ -13,9 +13,11 @@ import {EventData} from "../../../shared/model/event-data.model";
 })
 export class TaskEditRefuseComponent implements OnInit{
 
+    @Input() task: ITask;
+
     form: FormGroup;
 
-    @Input() task: ITask;
+    submitted = false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -29,15 +31,20 @@ export class TaskEditRefuseComponent implements OnInit{
         });
     }
 
-    update(): void {
+    submit(): void {
         if (this.form.invalid) {
             return;
         }
         this.task.status.id = 5;
         this.task.cause = this.form.get(['cause']).value;
+
+        this.submitted = true;
+
         this.taskService.update(this.task, []).subscribe(() => {
             this.close();
             this.eventBusService.emit(new EventData("taskEdit", null));
+        }, () => {
+            this.submitted = false;
         });
     }
 

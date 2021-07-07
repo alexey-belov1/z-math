@@ -14,7 +14,7 @@
 
 <div *ngIf="isAuthenticated(); else noAccess">
     <app-new-review
-        (onAdd)="loadReviews()"
+        (onSaveReview)="loadReviews()"
     ></app-new-review>
 </div>
 

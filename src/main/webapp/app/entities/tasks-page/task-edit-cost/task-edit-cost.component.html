@@ -10,7 +10,7 @@
     </div>
 
     <hr>
-    <form [formGroup]="form" (ngSubmit)="update()">
+    <form [formGroup]="form" (ngSubmit)="submit()">
         <table>
             <tr>
                 <th class="tpm-th">Стоимость:</th>
@@ -22,7 +22,7 @@
             <tr>
                 <td class="tpm-td"></td>
                 <td class="tpm-td">
-                    <button class="tpm-btn" type="submit">Отправить</button>
+                    <button class="tpm-btn" type="submit" [disabled]="submitted">Отправить</button>
                 </td>
             </tr>
         </table>

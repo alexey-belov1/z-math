@@ -32,7 +32,7 @@
         <th class="tp-tasks-th"> Срок</th>
         <th class="tp-tasks-th"> Раздел</th>
     </tr>
-    <tr class="tp-tasks-tr" *ngFor="let task of tasks, index as i" (click)="showModal(task)">
+    <tr class="tp-tasks-tr" *ngFor="let task of tasks, index as i" (click)="showTaskDetailModal(task)">
         <td class="tp-tasks-td">{{task.id}}</td>
         <td class="tp-tasks-td">{{task.userLogin}}</td>
         <td class="tp-tasks-td">{{task.status.name}}</td>
@@ -48,6 +48,6 @@
                     [maxSize]="5"
                     [rotate]="true"
                     [boundaryLinks]="true"
-                    (pageChange)="loadPage(page)"
+                    (pageChange)="loadPage($event)"
     ></ngb-pagination>
 </div>
