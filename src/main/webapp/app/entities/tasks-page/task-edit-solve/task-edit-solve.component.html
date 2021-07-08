@@ -1,6 +1,6 @@
 <div class="backdrop"></div>
 
-<div class="tpm-modal transform-200 width-500">
+<div class="tpm-modal width-500">
 
     <div class="tpm-title">
         <span>Загрузить решение</span>
@@ -17,17 +17,17 @@
                 <td class="tpm-td" formGroupName="files">
                     <table *ngIf="files.length > 0">
                         <tr *ngFor="let file  of files; let i = index;">
-                            <td class="tpm-td tpm-attached-file-td">
+                            <td class="tpm-attached-file-td">
                                 <span *ngIf="file">файл {{i + 1}}: {{file.name}} ({{file.size}}кб)</span>
                             </td>
-                            <td class="tpm-td tpm-attached-file-td">
+                            <td class="tpm-attached-file-td">
                                 <button type="button" (click)="cleanFile(file)">x</button>
                             </td>
                         </tr>
                     </table>
 
                     <label for="files" class="tpm-attached-file-label">+ Добавить файл</label>
-                    <input type="file" id="files" style="display:none" (change)="setFile($event)"/>
+                    <input type="file" class="display-none" id="files" (change)="setFile($event)"/>
                 </td>
             </tr>
 

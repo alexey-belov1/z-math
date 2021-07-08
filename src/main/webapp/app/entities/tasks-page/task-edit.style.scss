@@ -1,23 +1,11 @@
 .tpm-modal {
     padding: 1rem;
     background: #fff;
-    margin-top: 10rem;
     position: absolute;
     left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
-
-.transform-200 {
-    transform: translate(-50%, -200%);
-}
-
-.transform-150 {
-    transform: translate(-50%, -150%);
-}
-
-.transform-100 {
-    transform: translate(-50%, -150%);
-}
-
 
 .tpm-header {
     display: block;
@@ -90,6 +78,7 @@
 
 .tpm-attached-file-td {
     padding-top: 0;
+    padding-bottom: 13px;
     padding-left: 0;
     margin: 0;
 }
