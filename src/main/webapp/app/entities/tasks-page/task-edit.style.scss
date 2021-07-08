@@ -48,6 +48,11 @@
 
 .tpm-td-th {
     padding: 5px;
+    text-align: right;
+}
+
+.tpm-td-td {
+    padding-left: 10px;
 }
 /*-------------*/
 
@@ -114,8 +119,8 @@
     padding-top: 13px;
 }
 
-.width-1200 {
-    width: 1200px;
+.width-1000 {
+    width: 1000px;
 }
 
 .width-800 {

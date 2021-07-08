@@ -25,7 +25,10 @@
         <tr>
             <th class="ntp-th">Дата решения*:</th>
             <td class="ntp-td">
-                <input type="datetime-local" class="ntp-input" appTooltip="tooltipDate" formControlName="deadline">
+                <input type="datetime-local" class="ntp-input" id="party2"
+                       min="{{minDate}}"
+                       appTooltip="tooltipDate"
+                       formControlName="deadline">
                 <span id="tooltipDate" class="ntp-comment">
                     Укажите дату и время когда хотите получить решение задач
                 </span>
@@ -47,6 +50,9 @@
                 <div *ngIf="form.get('preparedCost').invalid && form.get('preparedCost').touched">
                     <span *ngIf="form.get('preparedCost').errors.required" class="validation">
                         Поле обязательное для заполнения
+                    </span>
+                    <span *ngIf="form.get('preparedCost').errors.pattern" class="validation">
+                        Поле может содержать только целые числа
                     </span>
                 </div>
             </td>
@@ -117,3 +123,4 @@
     </table>
 
 </form>
+

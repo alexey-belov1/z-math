@@ -5,17 +5,21 @@ import {SubjectService} from "../../shared/services/subject.service";
 import {TaskService} from "../../shared/services/task.service";
 import {ITask} from "../../shared/model/task.model";
 import {ISubject} from "../../shared/model/subject.model";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-new-task-page',
     templateUrl: './new-task-page.component.html',
-    styleUrls: ['./new-task-page.component.scss']
+    styleUrls: ['./new-task-page.component.scss'],
+    providers: [DatePipe]
 })
 export class NewTaskPageComponent implements OnInit {
 
     files: File[] = [];
 
     subjects: ISubject[] = [];
+
+    minDate: string;
 
     form: FormGroup;
 
@@ -24,7 +28,8 @@ export class NewTaskPageComponent implements OnInit {
     constructor(
         private subjectService: SubjectService,
         private taskService: TaskService,
-        private router: Router) {
+        private router: Router,
+        private datePipe: DatePipe) {
     }
 
     ngOnInit(): void {
@@ -35,11 +40,13 @@ export class NewTaskPageComponent implements OnInit {
         this.form = new FormGroup({
             subject: new FormControl(null, [Validators.required]),
             deadline: new FormControl(null, [Validators.required]),
-            preparedCost: new FormControl(null, [Validators.required]),
+            preparedCost: new FormControl(null, [Validators.required, Validators.pattern("^[0-9]*$")]),
             comment: new FormControl(null),
             contact: new FormControl(null),
             files: new FormControl(null, [Validators.required])
         });
+
+        this.minDate = this.minDateToString();
     }
 
     submit(): void {
@@ -58,7 +65,7 @@ export class NewTaskPageComponent implements OnInit {
         this.submitted = true;
 
         this.taskService.save(task, this.files).subscribe(() => {
-            this.router.navigate(['/tasks']);
+            this.router.navigate(['/tasks']).then();
         }, () => {
             this.submitted = false;
         });
@@ -82,5 +89,12 @@ export class NewTaskPageComponent implements OnInit {
             formControl.clearValidators();
         }
         formControl.updateValueAndValidity();
+    }
+
+    private minDateToString(): string {
+        const today = new Date()
+        const tomorrow = new Date(today)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        return this.datePipe.transform(tomorrow, "yyyy-MM-ddThh:mm");
     }
 }

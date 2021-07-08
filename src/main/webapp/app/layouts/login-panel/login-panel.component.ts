@@ -43,6 +43,7 @@ export class LoginPanelComponent implements OnInit {
 
         this.authService.login(user).subscribe(() => {
             this.router.navigate(['/']).then();
+            this.submitted = false;
         }, () => {
             this.submitted = false;
         });

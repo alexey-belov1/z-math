@@ -87,6 +87,15 @@ export class TaskDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+    isCurrentUser(): boolean {
+        return this.task.userLogin === this.authService.Login;
+    }
+
+    hasAnyRoleOrCurrentUser(roles: string[]): boolean {
+        return this.task.userLogin === this.authService.Login
+            || this.authService.hasAnyRole(roles);
+    }
+
     close(): void {
         this.activeModal.dismiss();
     }

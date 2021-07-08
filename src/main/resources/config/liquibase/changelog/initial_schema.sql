@@ -113,9 +113,13 @@ values ('ROLE_USER'),
        ('ROLE_ADMIN');
 
 -- changeset abelov:12--insert_into_users
-insert into users(id, login, email, password, role_id, created, balance)
+insert into users(id, login, email, password, role_id, created)
 values (1, 'admin', 'admin@admin.ru', '$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 3,
-        '2021-04-20 00:00:00', 0);
+        '2021-04-20 00:00:00'),
+       (2, 'user', 'user@user.ru', '$2a$10$rMFTxSBhjif2x/EsX7XmbeXyd.eDIvyNI4B9mByftYRlSUtjUkIeK', 1,
+        '2021-04-20 00:00:00'),
+       (3, 'employee', 'employee@employee.ru', '$2a$10$bBwXA8paW.9R0XQf5uVBV.eGGxZemnb6/5xXJqqauOYT2hqup3ppK', 2,
+        '2021-04-20 00:00:00');
 
 -- changeset abelov:13--insert_into_subject
 insert into subject(name)
