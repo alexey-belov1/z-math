@@ -1,14 +1,14 @@
 package ru.zmath.rest.service.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Calendar;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewDTO {
 
     @EqualsAndHashCode.Include

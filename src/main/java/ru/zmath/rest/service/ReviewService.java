@@ -10,6 +10,7 @@ import ru.zmath.rest.service.mapper.ReviewMapper;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,7 @@ public class ReviewService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Transactional
     public ReviewDTO save(ReviewDTO reviewDTO) {
         Review review = this.reviewMapper.toEntity(reviewDTO);
         review.setCreated(GregorianCalendar.getInstance());
@@ -39,5 +41,16 @@ public class ReviewService {
             () -> new RuntimeException("User not found in context")
         ));
         return this.reviewMapper.toDto(this.reviewRepository.save(review));
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<ReviewDTO> findById(int id) {
+        return this.reviewRepository.findById(id)
+            .map(this.reviewMapper::toDto);
+    }
+
+    @Transactional
+    public boolean delete(int id) {
+        return this.reviewRepository.deleteReviewById(id) != 0;
     }
 }

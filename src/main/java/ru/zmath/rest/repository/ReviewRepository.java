@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReviewRepository extends CrudRepository<Review, Integer> {
 
     List<Review> findAll();
+
+    Integer deleteReviewById(Integer id);
 }

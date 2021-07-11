@@ -17,7 +17,7 @@ create table users
     password varchar(500)     not null,
     role_id  int,
     created  timestamp        not null,
-    constraint fk_users_role_id foreign key (role_id) references zmath.role (id)
+    constraint fk_users_role_id foreign key (role_id) references role (id)
 );
 -- rollback drop table users;
 
@@ -53,7 +53,7 @@ create table payment
     created   timestamp       not null,
     method_id int             not null,
     amount    real            not null,
-    constraint fk_payment_method_id foreign key (method_id) references zmath.method (id)
+    constraint fk_payment_method_id foreign key (method_id) references method (id)
 );
 -- rollback drop table payment;
 
@@ -73,10 +73,10 @@ create table task
     contact       varchar(500),
     cause         varchar(500),
     archived      boolean         not null,
-    constraint fk_task_user_id foreign key (user_id) references zmath.users (id),
-    constraint fk_task_subject_id foreign key (subject_id) references zmath.subject (id),
-    constraint fk_task_status_id foreign key (status_id) references zmath.status (id),
-    constraint fk_task_payment_id foreign key (payment_id) references zmath.payment (id)
+    constraint fk_task_user_id foreign key (user_id) references users (id),
+    constraint fk_task_subject_id foreign key (subject_id) references subject (id),
+    constraint fk_task_status_id foreign key (status_id) references status (id),
+    constraint fk_task_payment_id foreign key (payment_id) references payment (id)
 );
 -- rollback drop table task;
 
@@ -87,7 +87,7 @@ create table review
     user_id int             not null,
     created timestamp       not null,
     text    varchar(1000),
-    constraint fk_review_user_id foreign key (user_id) references zmath.users (id)
+    constraint fk_review_user_id foreign key (user_id) references users (id)
 );
 -- rollback drop table review;
 
@@ -101,52 +101,6 @@ create table attached_file
     path      varchar(300)    not null,
     type      varchar(300)    not null,
     task_id   int             not null,
-    constraint fk_attached_file_task_id foreign key (task_id) references zmath.task (id)
+    constraint fk_attached_file_task_id foreign key (task_id) references task (id)
 );
 -- rollback drop table attached_file;
-
-
--- changeset abelov:11--insert_into_role
-insert into role(name)
-values ('ROLE_USER'),
-       ('ROLE_EMPLOYEE'),
-       ('ROLE_ADMIN');
-
--- changeset abelov:12--insert_into_users
-insert into users(id, login, email, password, role_id, created)
-values (1, 'admin', 'admin@admin.ru', '$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC', 3,
-        '2021-04-20 00:00:00'),
-       (2, 'user', 'user@user.ru', '$2a$10$rMFTxSBhjif2x/EsX7XmbeXyd.eDIvyNI4B9mByftYRlSUtjUkIeK', 1,
-        '2021-04-20 00:00:00'),
-       (3, 'employee', 'employee@employee.ru', '$2a$10$bBwXA8paW.9R0XQf5uVBV.eGGxZemnb6/5xXJqqauOYT2hqup3ppK', 2,
-        '2021-04-20 00:00:00');
-
--- changeset abelov:13--insert_into_subject
-insert into subject(name)
-values ('Математический анализ'),
-       ('Линейная алгебра'),
-       ('Аналитическая геометрия'),
-       ('Дифференциальные уравнения'),
-       ('Теория вероятностей'),
-       ('Численные методы'),
-       ('Теоретическая механика'),
-       ('Математическая физика'),
-       ('Теория функций комплексного переменного'),
-       ('Теория устойчивости'),
-       ('Программирование на С#'),
-       ('Остальное');
-
--- changeset abelov:14--insert_into_status
-insert into status(name)
-values ('Новый'),
-       ('Просмотрен'),
-       ('Оплачен'),
-       ('Выполнен'),
-       ('Отказано');
-
--- changeset abelov:15--insert_into_method
-insert into method(name, description)
-values ('Банковская карта', 'VISA, Mastercard, Мир и другие'),
-       ('Мобильный платёж', 'МТС, Билайн, Мегафон, Теле2'),
-       ('Кошелёк WebMoney', null),
-       ('Кошелёк QIWI', null);

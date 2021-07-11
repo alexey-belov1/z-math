@@ -71,7 +71,6 @@ public class UserService {
         user.setRole(role);
         user.setCreated(GregorianCalendar.getInstance());
         user.setPassword(encoder.encode(user.getPassword()));
-        this.userRepository.save(user);
 
         return this.userMapper.toDto(this.userRepository.save(user));
     }
@@ -86,6 +85,7 @@ public class UserService {
         return false;
     }
 
+    @Transactional
     public boolean delete(int id) {
         return this.userRepository.deleteUserById(id) != 0;
     }

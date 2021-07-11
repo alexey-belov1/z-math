@@ -29,8 +29,10 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public List<Task> findAll() {
-        return this.taskRepository.findAll();
+    public List<TaskDTO> findAll() {
+        return taskRepository.findAll().stream()
+            .map(taskMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Transactional(readOnly = true)

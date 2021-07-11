@@ -1,19 +1,15 @@
 package ru.zmath.rest.service.dto;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import ru.zmath.rest.model.AttachedFile;
-import ru.zmath.rest.model.Status;
+import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class SubjectDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class SubjectDTO implements Serializable {
 
     @EqualsAndHashCode.Include
     private int id;

@@ -37,6 +37,7 @@ public class Task {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    //TODO поменять на int
     private Double cost;
 
     private Double preparedCost;
