@@ -1,49 +1,74 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.log
 
-# compiled output
-/dist
-/tmp
-/out-tsc
-# Only exists if Bazel was run
-/bazel-out
+# rails specific
+*.sqlite3
+config/database.yml
+log/*
+tmp/*
 
-# dependencies
-/node_modules
+# java specific
+*.class
 
-# profiling files
-chrome-profiler-events*.json
-speed-measure-plugin*.json
+# python specific
+*.pyc
 
-# IDEs and editors
-/.idea
-.project
+# xcode/iphone specific
+build/*
+*.pbxuser
+*.mode2v3
+*.mode1v3
+*.perspective
+*.perspectivev3
+*~.nib
+
+# akka specific
+logs/*
+
+# sbt specific
+target/
+project/boot
+lib_managed/*
+project/build/target
+project/build/lib_managed
+project/build/src_managed
+project/plugins/lib_managed
+project/plugins/target
+project/plugins/src_managed
+project/plugins/project
+
+core/lib_managed
+core/target
+pubsub/lib_managed
+pubsub/target
+
+# eclipse specific
+.metadata
+jrebel.lic
+.settings
 .classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+.project
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+.ensime*
+*.sublime-*
+.cache
 
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+# intellij
+*.eml
+*.iml
+*.ipr
+*.iws
+.*.sw?
+.idea
 
-# System Files
-.DS_Store
-Thumbs.db
+# paulp script
+/.lib/
 
-#Maven
-/target/
+build
+.gradle
+*.pid
